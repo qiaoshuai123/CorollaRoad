@@ -160,9 +160,9 @@ class Header extends React.Component {
       <div className={styles.headerWrapper}>
         <div className={styles.header_left}>
           <span />
-          双向互通管控系统
+          花冠路AI管控系统
         </div>
-        <div className={styles.header_center}>
+        {/* <div className={styles.header_center}>
           {
             this.navItems.map(item =>
               (
@@ -176,7 +176,7 @@ class Header extends React.Component {
                 </div>
               ))
           }
-        </div>
+        </div> */}
         <div className={styles.header_right}>
           <span />
           <Dropdown overlay={menu}>

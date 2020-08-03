@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { renderRoutes } from 'react-router-config'
 import Header from '../../../components/Header/Header'
 import CustomTree from '../../../components/CustomTree/CustomTree'
-import InterworkingList from './InterworkingList/InterworkingList'
+
 import { Input } from 'antd'
 import styles from './InterworkingHome.scss'
 
@@ -9,26 +10,16 @@ class InterworkingHome extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isInterworkingList: false,
+
     }
   }
   componentDidMount = () => {
 
   }
-  showInterworkingList = (isShow) => {
-    if (isShow) {
-      this.setState({
-        isInterworkingList: true,
-      })
-    } else {
-      this.setState({
-        isInterworkingList: false,
-      })
-    }
-  }
+
   render() {
     const { Search } = Input
-    const { isInterworkingList } = this.state
+    console.log(this.props.route.routes, '123456')
     return (
       <div className={styles.InterworkingHomeBox}>
         <Header {...this.props} />
@@ -40,22 +31,11 @@ class InterworkingHome extends Component {
               style={{ width: 200 }}
             />
           </div>
-          <div className={styles.InterworkLeft_Title}>
-            <span />DCU点位列表
-          </div>
           <CustomTree />
         </div>
-        <div className={styles.promptBox}>
-          <div><span className={styles.spanTop} />在线设备9处</div>
-          <div><span className={styles.spanBom} />在线设备3处</div>
+        <div className={styles.Interwork_right}>
+          {renderRoutes(this.props.route.routes)}
         </div>
-        <div onClick={() => this.showInterworkingList(true)} className={styles.switch} />
-        {
-          isInterworkingList &&
-          <div className={styles.InterworkingList}>
-            <InterworkingList showInterworkingList={this.showInterworkingList} />
-          </div>
-        }
       </div>
     )
   }

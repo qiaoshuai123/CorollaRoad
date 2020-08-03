@@ -29,53 +29,17 @@ $bor_color: #27343b;
         width: 28px;
         height: 18px;
         margin-right: 5px;
-        background: url("./img/03.png") no-repeat;
+        // background: url("./img/03.png") no-repeat;
         background-size: 100% 100%;
       }
     }
   }
-  .switch {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    right: 40px;
-    top: 70px;
-    cursor: pointer;
-    background:url(../../../images/icon_turn.png) no-repeat;
-    background-size: contain;
-  }
-  .promptBox {
-    width: 190px;
-    border: 1px solid $bor_color;
-    position: absolute;
-    right: 80px;
-    top: 70px;
-    div {
-      height: 45px;
-      display: flex;
-      align-items: center;
-      padding-left: 15px;
-      span {
-        width: 30px;
-        height: 30px;
-        margin-right: 8px;
-      }
-      .spanTop {
-        background: url("./img/04.png") no-repeat;
-        background-size: contain;
-      }
-      .spanBom {
-        background: url("./img/05.png") no-repeat;
-        background-size: contain;
-      }
-    }
-  }
-  .InterworkingList {
-    width: 100%;
-    height: calc(100% - 60px);
+  .Interwork_right {
     position: absolute;
     top: 60px;
-    z-index: 8;
+    left: 235px;
+    height: calc(100% - 60px);
+    width: calc(100% - 235px);
   }
 }
 .Interwork_left {

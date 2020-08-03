@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Input } from 'antd'
 import Header from '../../../components/Header/Header'
 import CustomTree from '../../../components/CustomTree/CustomTree'
-import InterworkingList from './InterworkingList/InterworkingList'
 import styles from './SignalStatus.scss'
 
 class SignalStatus extends Component {
@@ -31,20 +30,6 @@ class SignalStatus extends Component {
     const { isInterworkingList } = this.state
     return (
       <div className={styles.SignalStatus}>
-        <Header {...this.props} />
-        <div className={styles.Interwork_left}>
-          <div className={styles.InterworkLeft_search}>
-            <Search
-              placeholder="关键词搜索"
-              onSearch={value => console.log(value)}
-              style={{ width: 200 }}
-            />
-          </div>
-          <div className={styles.InterworkLeft_Title}>
-            <span />信号机实时状态
-          </div>
-          <CustomTree />
-        </div>
         <div className={styles.promptBox}>
           <div><span className={styles.spanTop} />本地多时段控制0处</div>
           <div><span className={styles.spanBom} />手动控制0处</div>
@@ -53,12 +38,6 @@ class SignalStatus extends Component {
           <div><span className={styles.spanBom} />设备离线2处</div>
         </div>
         <div onClick={() => this.showInterworkingList(true)} className={styles.switch} />
-        {
-          isInterworkingList &&
-          <div className={styles.InterworkingList}>
-            <InterworkingList showInterworkingList={this.showInterworkingList} />
-          </div>
-        }
       </div>
     )
   }

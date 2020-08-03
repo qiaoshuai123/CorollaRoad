@@ -1,41 +1,72 @@
 import React from 'react'
 import { Icon } from 'antd'
+import { NavLink } from 'react-router-dom'
 import styles from './CustomTree.scss'
 
 class CustomTree extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // expendsKey: [1, 11, 2, 22, 12],
-      expendsKey: [],
+      expendsKey: [1],
     }
     this.loopDate = [
       {
-        name: '海淀五西路',
+        name: '人工智能+信号决策',
         id: 1,
         children: [
           {
-            name: '海淀五西路世纪大道',
+            name: '路口优化',
             id: 11,
+            path: '/interworkingHome/signalStatus',
           },
           {
-            name: '海淀五西路世纪大道',
-            id: 1111,
+            name: '区域优化',
+            id: 12,
+            path: '/interworkingHome/Regional',
           },
         ],
       },
       {
-        name: '海淀五西路1',
+        name: '交通信号评价模型',
         id: 2,
         children: [
           {
-            name: '海淀五西路世纪大道1',
+            name: '路口运行状态监测模型',
+            path: '/interworkingHome/Surveillance',
+            id: 21,
+          },
+          {
+            name: '交通流分析',
+            path: '/interworkingHome/Trafficanalysis',
             id: 22,
           },
           {
-            name: '海淀五西路世纪大道1',
-            id: 12,
+            name: '异常路口预警',
+            path: '/interworkingHome/Abnormalwarning',
+            id: 23,
           },
+        ],
+      },
+      {
+        name: '交通管控优化效果评估模型',
+        id: 3,
+        children: [
+          {
+            name: '路口评价',
+            path: '/interworkingHome/Evaluation',
+            id: 31,
+          },
+          {
+            name: '区域评价',
+            path: '/interworkingHome/Regtion',
+            id: 32,
+          },
+        ],
+      },
+      {
+        name: '仿真评价数据分析',
+        id: 4,
+        children: [
         ],
       },
     ]
@@ -76,7 +107,7 @@ class CustomTree extends React.Component {
         return (
           <li className={styles.childLi} key={item.id} id={item.id} onClick={this.handleTreeSelect}>
             <span className={styles.childIcon}><Icon type={isOpen ? 'environment' : 'environment'} theme="filled" /></span>
-            <span className={styles.childNode}>{item.name}</span>
+            <NavLink to={item.path} className={styles.childNode}>{item.name}</NavLink>
           </li>
         )
       })
