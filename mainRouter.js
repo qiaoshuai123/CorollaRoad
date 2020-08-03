@@ -6,6 +6,7 @@ import Evaluation from './containers/InterworkingHome/Evaluation/Evaluation'
 import Regtion from './containers/InterworkingHome/Regtion/Regtion'
 import Surveillance from './containers/InterworkingHome/Surveillance/Surveillance'
 import Trafficanalysis from './containers/InterworkingHome/Trafficanalysis/Trafficanalysis'
+import Monitoring from './containers/InterworkingHome/Monitoring/Monitoring'
 
 const routes =
   [
@@ -27,7 +28,7 @@ const routes =
         { path: '/interworkingHome/Regtion', component: Regtion },
         { path: '/interworkingHome/Surveillance', component: Surveillance },
         { path: '/interworkingHome/Trafficanalysis', component: Trafficanalysis },
-
+        { path: '/interworkingHome/Monitoring', component: Monitoring },
       ],
     },
   ]

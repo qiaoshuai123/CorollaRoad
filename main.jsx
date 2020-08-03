@@ -1,6 +1,6 @@
 import React from 'react'
 import reactDom from 'react-dom'
-import { HashRouter, BrowserHistory } from 'react-router-dom'
+import { HashRouter, BrowserHistory, Redirect } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
@@ -14,6 +14,7 @@ reactDom.render(
     <ConfigProvider locale={zhCN}>
       <HashRouter basename="" history={BrowserHistory}>
         {renderRoutes(mainRouter)}
+        <Redirect from="/" to="/interworkingHome/Monitoring" />
       </HashRouter>
     </ConfigProvider>
   </AppContainer>

@@ -1,0 +1,60 @@
+.Monitoring {
+    position: absolute;
+    width: 410px;
+    height: calc(100% - 2px);
+    border: 1px solid #00555c;
+    padding: 0 2px;
+    display: flex;
+    top: 2px;
+    right: 0;
+    // top: 2px;
+    flex-direction: column;
+    .Monitoring_top {
+        height: 40px;
+        padding-left: 15px;
+        line-height: 40px;
+    }
+    .ckeckRanking_top {
+        height: 30px;
+        border-bottom: 1px solid #154d66;
+        span {
+            float: left;
+            width: 90px;
+            text-align: center;
+            cursor: pointer;
+            line-height: 30px;
+        }
+    }
+    .Monitoring_box {
+        flex: 1;
+        min-height: 240px;
+        overflow-y: auto;
+        li {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px 0 30px;
+        }
+    }
+    .Monitoring_scheme {
+        height: 240px;
+        border-top: 1px solid #154d66;
+        border-bottom: 1px solid #154d66;
+        li {
+            height: 30px;
+            line-height: 30px;
+        }
+    }
+    .Monitoring_evaluate {
+        height: 240px;
+        border-top: 1px solid #154d66;
+        border-bottom: 1px solid #154d66;
+        li {
+            height: 30px;
+            line-height: 30px;
+        }
+    }
+    .actives {
+        color: #03fefe;
+        border-bottom: 1px solid #03fefe;
+    }
+}

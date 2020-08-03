@@ -18,19 +18,15 @@ $bor_color: #27343b;
       justify-content: center;
     }
     .InterworkLeft_Title {
-      height: 110px;
-      border-bottom: 1px solid $bor_color;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: #03fefe;
+      height: 45px;
+      line-height: 45px;
       font-size: 16px;
-      font-weight: bold;
-      span {
-        width: 28px;
-        height: 18px;
-        margin-right: 5px;
-        // background: url("./img/03.png") no-repeat;
-        background-size: 100% 100%;
+      padding-left: 10px;
+      border-left: 2px solid #03fefe;
+      background-color: #14364F;
+      span{
+        cursor: pointer;
       }
     }
   }

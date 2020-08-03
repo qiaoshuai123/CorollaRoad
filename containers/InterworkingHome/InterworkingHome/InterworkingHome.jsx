@@ -17,6 +17,9 @@ class InterworkingHome extends Component {
   componentDidMount = () => {
 
   }
+  goMonitoring = () => {
+    this.props.history.push('/interworkingHome/Monitoring')
+  }
 
   render() {
     const { Search } = Input
@@ -31,6 +34,9 @@ class InterworkingHome extends Component {
               onSearch={value => console.log(value)}
               style={{ width: 200 }}
             />
+          </div>
+          <div className={styles.InterworkLeft_Title}>
+            <span onClick={this.goMonitoring}>全局监视</span>
           </div>
           <CustomTree />
         </div>
