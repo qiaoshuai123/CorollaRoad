@@ -3,6 +3,7 @@
     width: 410px;
     height: calc(100% - 2px);
     border: 1px solid #00555c;
+    background-color: rgba(28, 33, 39, 0.7);
     padding: 0 2px;
     display: flex;
     top: 2px;
@@ -37,20 +38,24 @@
     }
     .Monitoring_scheme {
         height: 240px;
+        overflow: hidden;
         border-top: 1px solid #154d66;
         border-bottom: 1px solid #154d66;
         li {
             height: 30px;
             line-height: 30px;
+            padding-left: 15px;
         }
     }
     .Monitoring_evaluate {
         height: 240px;
+        overflow: hidden;
         border-top: 1px solid #154d66;
         border-bottom: 1px solid #154d66;
         li {
             height: 30px;
             line-height: 30px;
+            padding-left: 15px;
         }
     }
     .actives {

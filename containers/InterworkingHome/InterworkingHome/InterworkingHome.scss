@@ -4,7 +4,7 @@ $bor_color: #27343b;
   height: 100%;
   background-color: #021035;
   .Interwork_left {
-    width: 235px;
+    width: 250px;
     height: calc(100% - 60px);
     border-right: 1px solid $bor_color;
     border-top: 1px solid $bor_color;
@@ -33,9 +33,9 @@ $bor_color: #27343b;
   .Interwork_right {
     position: absolute;
     top: 60px;
-    left: 235px;
+    left: 250px;
     height: calc(100% - 60px);
-    width: calc(100% - 235px);
+    width: calc(100% - 250px);
   }
 }
 .Interwork_left {

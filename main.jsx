@@ -14,7 +14,7 @@ reactDom.render(
     <ConfigProvider locale={zhCN}>
       <HashRouter basename="" history={BrowserHistory}>
         {renderRoutes(mainRouter)}
-        <Redirect from="/" to="/interworkingHome/Monitoring" />
+        <Redirect exact from="/" to="/interworkingHome/Monitoring" />
       </HashRouter>
     </ConfigProvider>
   </AppContainer>

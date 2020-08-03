@@ -13,58 +13,30 @@ class HollowPie extends React.Component {
   }
   renderCharts = (chartsBox, serise, totle) => {
     const options = {
-      color: ['#00cf4d', '#d3692f', '#0f85ff', '#00E8FF'],
-      title: {
-        show: false,
-        text: '信号机实时状态统计',
-        padding: [5, 0, 0, 20],
-        textStyle: {
-          fontWeight: 'normal',
-          color: '#FFFFFF',
-        },
-      },
-      graphic: {
-        type: 'text',
-        left: 'center',
-        bottom: '33%',
-        style: {
-          text: ` ${totle}处  \n  ${'信号机总数'}  \n\n`,
-          textAlign: 'center',
-          fontSize: 14,
-          // font: 'italic bolder 30px cursive',
-          fill: '#fff',
-          width: 30,
-          height: 30,
-        },
-      },
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
       },
-      // legend: {
-      //   orient: 'vertical',
-      //   left: 10,
-      //   data: ['离线设备', '在线设备', '异常设备'],
-      // },
+      legend: {
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        data: ['直接访问', '邮件营销'],
+        textStyle: { // 图例文字的样式
+          color: '#fff',
+          fontSize: 12,
+        },
+      },
       series: [
         {
           name: '访问来源',
           type: 'pie',
-          radius: ['50%', '70%'],
-          avoidLabelOverlap: false,
-          label: {
-            normal: {
-              show: false,
-              position: 'center',
-            },
-            emphasis: {
-              show: false,
-              textStyle: {
-                fontSize: '30',
-                fontWeight: 'bold',
-              },
-            },
-          },
+          radius: '55%',
+          center: ['50%', '60%'],
+          data: [
+            { value: 335, name: '直接访问' },
+            { value: 310, name: '邮件营销' },
+          ],
           itemStyle: {
             normal: {
               color(params) {
@@ -74,17 +46,13 @@ class HollowPie extends React.Component {
               },
             },
           },
-          labelLine: {
-            normal: {
-              show: false,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
             },
           },
-          data: serise,
-          // data: [
-          //   { value: 332, name: '离线设备' },
-          //   { value: 55, name: '异常设备' },
-          //   { value: 88, name: '在线设备' },
-          // ],
         },
       ],
     }

@@ -3,8 +3,7 @@
 import React, { Component } from 'react'
 import styles from './Surveillance.scss'
 
-class Surveillance
-  extends Component {
+class Surveillance extends Component {
   constructor(props) {
     super(props)
     this.state = {

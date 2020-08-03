@@ -3,8 +3,7 @@
 import React, { Component } from 'react'
 import styles from './Regtion.scss'
 
-class Regtion
-  extends Component {
+class Regtion extends Component {
   constructor(props) {
     super(props)
     this.state = {
