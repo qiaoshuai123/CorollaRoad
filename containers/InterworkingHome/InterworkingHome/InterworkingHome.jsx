@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { renderRoutes } from 'react-router-config'
 import Header from '../../../components/Header/Header'
 import CustomTree from '../../../components/CustomTree/CustomTree'
+import MineData from '../../../components/MineData/MineData'
 
 import { Input } from 'antd'
 import styles from './InterworkingHome.scss'
@@ -34,6 +35,7 @@ class InterworkingHome extends Component {
           <CustomTree />
         </div>
         <div className={styles.Interwork_right}>
+          <MineData />
           {renderRoutes(this.props.route.routes)}
         </div>
       </div>
