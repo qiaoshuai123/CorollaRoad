@@ -1,0 +1,57 @@
+.PopupBox {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: transparent;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .Popup {
+    width: 470px;
+    background: #204c69;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 10px 30px;
+    border-radius: 4px;
+    .headre {
+      width: 100%;
+      height: 35px;
+      line-height: 35px;
+      border-bottom: 2px solid #226381;
+      text-indent: 10px;
+      .close {
+        float: right;
+        height: 35px;
+        line-height: 35px;
+        cursor: pointer;
+        svg:hover {
+          transition: all 0.5s;
+          transform: rotate(180deg);
+          color: #07fff0;
+        }
+      }
+    }
+    .content {
+      padding: 15px 0;
+    }
+    .footer {
+      width: 100%;
+      height: 50px;
+      border-top: 2px solid #226381;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .Button {
+        width: 70px;
+        height: 25px;
+        color: #3f99b4;
+        border: 1px solid #32bdc2;
+        background: transparent;
+        margin: 0 10px;
+      }
+    }
+  }
+}

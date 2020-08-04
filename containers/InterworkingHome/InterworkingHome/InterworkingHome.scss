@@ -4,7 +4,7 @@ $bor_color: #214D6A;
   height: 100%;
   .Interwork_left {
     width: 250px;
-    height: calc(100% - 60px);
+    height: calc(100% - 62px);
     border-right: 1px solid $bor_color;
     border-top: 1px solid $bor_color;
     background-color: #214D6A;
@@ -32,9 +32,9 @@ $bor_color: #214D6A;
   }
   .Interwork_right {
     position: absolute;
-    top: 60px;
+    bottom: 0;
     left: 250px;
-    height: calc(100% - 60px);
+    height: calc(100% - 62px);
     width: calc(100% - 250px);
   }
 }
