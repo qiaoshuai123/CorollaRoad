@@ -9,6 +9,7 @@ class Abnormalwarning extends Component {
     super(props)
     this.state = {
       addUsersPop: null,
+      deleteUserPop: null,
     }
   }
   componentDidMount = () => {
@@ -16,7 +17,7 @@ class Abnormalwarning extends Component {
   }
 
   render() {
-    const { addUsersPop } = this.state
+    const { addUsersPop, deleteUserPop } = this.state
     return (
       <div className={styles.Abnormalwarning}>
         <div className={styles.userHeade}>
@@ -38,7 +39,7 @@ class Abnormalwarning extends Component {
                 <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
                 <div className={styles.listTd} >
                   <span className={styles.Item} >修改密码</span>
-                  <span className={styles.Item} >删除用户</span>
+                  <span className={styles.Item} onClick={() => { this.setState({ deleteUserPop: true }) }}>删除用户</span>
                 </div>
               </div>)
           })}
@@ -57,6 +58,16 @@ class Abnormalwarning extends Component {
               Confirm={() => { this.setState({ addUsersPop: null }) }}
             >
               asdasdasdsd
+            </Popup> :
+            null}
+        {
+          deleteUserPop ?
+            <Popup
+              Title="删除用户"
+              Close={() => { this.setState({ deleteUserPop: null }) }}
+              Confirm={() => { this.setState({ deleteUserPop: null }) }}
+            >
+              <div className={ styles.PopupContent }>确认删除该用户吗?</div>
             </Popup> :
             null}
       </div>

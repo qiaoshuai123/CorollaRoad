@@ -18,6 +18,10 @@ class Popup extends Component {
       message.warning(`请绑定${name}事件！`)
     }
   }
+  handleStopP = (e) => {
+    console.log(e);
+    e.stopPropagation()
+  }
   render() {
     return (
       <div className={styles.PopupBox}>
@@ -26,7 +30,7 @@ class Popup extends Component {
             {this.props.Title}
             <Icon type="close" className={styles.close} onClick={() => { this.handleClck('Close') }} />
           </div>
-          <div className={styles.content}>
+          <div className={styles.content} onMouseDown={this.handleStopP}>
             {this.props.children}
           </div>
           <div className={styles.footer}>
