@@ -32,7 +32,7 @@ class InterworkingHome extends Component {
             <Search
               placeholder="关键词搜索"
               onSearch={value => console.log(value)}
-              style={{ width: 200 }}
+              style={{ width: 230 }}
             />
           </div>
           <div className={styles.InterworkLeft_Title}>
