@@ -20,6 +20,8 @@ class ExportCharts extends React.Component {
             color: '#44f0ff',
           },
         },
+        symbol: 'circle',
+        symbolSize: 10,
       },
       {
         name: '东进口直行',
@@ -30,6 +32,8 @@ class ExportCharts extends React.Component {
             color: '#ff9d00',
           },
         },
+        symbol: 'circle',
+        symbolSize: 10,
       },
     ]
   }
@@ -47,8 +51,10 @@ class ExportCharts extends React.Component {
     // 绘制图表
     const options = {
       title: {
+        text: '',
         // subtext: '单位：次/车',
         textStyle: {
+          top: -20,
           fontSize: 16,
           color: '#fff',
         },
@@ -76,19 +82,19 @@ class ExportCharts extends React.Component {
           type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
         },
       },
-      toolbox: {
-        show: true,
-        top: 20,
-        right: 10,
-        feature: {
-          magicType: { show: true, type: ['line', 'bar'] },
-        },
-        iconStyle: {
-          normal: {
-            color: 'white', // 设置颜色
-          },
-        },
-      },
+      // toolbox: {
+      //   show: true,
+      //   top: 20,
+      //   right: 10,
+      //   feature: {
+      //     magicType: { show: true, type: ['line', 'bar'] },
+      //   },
+      //   iconStyle: {
+      //     normal: {
+      //       color: 'white', // 设置颜色
+      //     },
+      //   },
+      // },
       grid: {
         left: '5px',
         right: '5px',
@@ -100,6 +106,7 @@ class ExportCharts extends React.Component {
         // data: ['东进口左转', '东进口直行', '东南进口左转', '东南进口直行', '西南进口左转', '西南进口直行', '西北进口左转', '西北进口直行', '西北进口左转1', '西北进口直行1'],
         data: legend,
         top: 5,
+        right: 10,
         textStyle: {
           color: '#fff',
         },
@@ -113,12 +120,12 @@ class ExportCharts extends React.Component {
           axisLabel: { // X轴文字
             textStyle: {
               fontSize: 12,
-              color: '#fff',
+              color: '#f1f1fb',
             },
           },
           axisLine: {
             lineStyle: {
-              color: '#f1f1fb',
+              color: '#11485D',
             },
           },
         },
@@ -131,6 +138,14 @@ class ExportCharts extends React.Component {
             textStyle: {
               fontSize: 12,
               color: '#fff',
+            },
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: ['#11485D'],
+              width: 1,
+              type: 'solid',
             },
           },
         },

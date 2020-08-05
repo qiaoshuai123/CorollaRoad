@@ -63,12 +63,6 @@ class CustomTree extends React.Component {
           },
         ],
       },
-      {
-        name: '仿真评价数据分析',
-        id: 4,
-        children: [
-        ],
-      },
     ]
   }
   componentDidMount = () => { }
@@ -116,10 +110,11 @@ class CustomTree extends React.Component {
       <div className={styles.treeWrapper}>
         <ul className={styles.treeList}>
           {
-            this.loopDate.map((item) => {
+            this.loopDate.map((item, index) => {
               const isOpen = expendsKey.indexOf(item.id) >= 0
               return (
                 <li className={styles.treeLi} key={item.id} id={item.id} onClick={this.handleTreeSelect}>
+                  <span className={index === 0 ? styles.active0 : index === 1 ? styles.active1 : index === 2 ? styles.active2 : ''} />
                   <span className={styles.treeNode}>{item.name}</span>
                   <span className={styles.treeIcon}>
                     <Icon type={isOpen ? 'up' : 'down'} theme="outlined" />
