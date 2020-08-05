@@ -110,12 +110,15 @@ class SignalStatus extends Component {
             <div className={styles.title}>方案预评估</div>
             <div className={styles.optPlanBox}>
               <div className={styles.optCharts}>
+                <div className={styles.chartsName}>路口排队长度</div>
                 <OptLineCharts />
               </div>
               <div className={styles.optCharts}>
+                <div className={styles.chartsName}>路口流量</div>
                 <OptLineCharts />
               </div>
               <div className={styles.optCharts}>
+                <div className={styles.chartsName}>路口延误时间</div>
                 <OptLineCharts />
               </div>
             </div>
