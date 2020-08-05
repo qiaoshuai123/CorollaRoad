@@ -7,7 +7,11 @@ class AntdSelect extends Component {
   static defaultProps = {
     onChange: null, // 输入事件
     style: {}, // 修改样式
-    Selectstyle: {},
+    selectstyle: {},
+    defaultValue: undefined,
+    value: '',
+    name: '',
+    options: [],
   }
   onChange = (e) => {
     if (this.props.onChange) {
@@ -18,21 +22,25 @@ class AntdSelect extends Component {
   }
   render() {
     return (
-      <div style={this.props.Selectstyle} className={styles.AntdSelectBox}>
+      <div style={this.props.selectstyle} className={styles.AntdSelectBox}>
         <Select
           showSearch
-          style={this.props.Selectstyle}
+          style={this.props.selectstyle}
           className={styles.AntdSelect}
           placeholder="请选择"
           optionFilterProp="children"
           onChange={this.onChange}
+          defaultValue={this.props.defaultValue}
           filterOption={(input, option) =>
             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
         >
-          <Option value="jack">Jack</Option>
-          <Option value="lucy">Lucy</Option>
-          <Option value="tom">Tom</Option>
+          {
+            this.props.options.map((item) => {
+              return <Option key={item[this.props.value]} value={item[this.props.value]}>{item[this.props.name]}</Option>
+            })
+          }
+
         </Select>
       </div>
 

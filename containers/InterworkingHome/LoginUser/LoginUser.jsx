@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import styles from './LoginUser.scss'
 import { Pagination, Icon } from 'antd'
 import Popup from '../../../components/Popup/Popup'
-import Select from '../../../components/Antd/Select/Select'
 import Input from '../../../components/Antd/Input/Input'
 
 class LoginUser extends Component {
