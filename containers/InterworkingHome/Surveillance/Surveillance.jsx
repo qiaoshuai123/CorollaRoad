@@ -7,7 +7,7 @@ class Surveillance extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      lsitLists:[]
     }
   }
   componentDidMount = () => {
@@ -17,7 +17,14 @@ class Surveillance extends Component {
   render() {
     return (
       <div className={styles.Surveillance}>
-        路口监测
+        {/* <div className={styles.Surveillance_messageLeft}>1</div> */}
+        <div className={styles.Surveillance_messageLeft}>
+          <div className={styles.listhead}>优化方案统计及</div>
+          <li>111</li>
+          <li>111</li>
+          <li>111</li>
+          <li>111</li>
+        </div>
       </div>
     )
   }

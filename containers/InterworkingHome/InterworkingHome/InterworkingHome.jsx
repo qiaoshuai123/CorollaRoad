@@ -6,7 +6,6 @@ import MineData from '../../../components/MineData/MineData'
 
 import { Input } from 'antd'
 import styles from './InterworkingHome.scss'
-import { Redirect } from 'react-router-dom'
 
 class InterworkingHome extends Component {
   constructor(props) {
@@ -28,6 +27,12 @@ class InterworkingHome extends Component {
       this.props.history.push('interworkingHome/Monitoring')
     }
   }
+  // 清除isname
+  clearActive = () => {
+    this.setState({
+      isname: '',
+    })
+  }
   goMonitoring = () => {
     this.setState({
       isname: 'goMonitoring',
@@ -38,17 +43,16 @@ class InterworkingHome extends Component {
     this.setState({
       isname: 'evaluate',
     })
-    this.props.history.push('/interworkingHome/Monitoring')
+    this.props.history.push('/interworkingHome/Simulation')
   }
   goUser = () => {
     this.setState({
       isname: 'goUser',
     })
-    this.props.history.push('/interworkingHome/Monitoring')
+    this.props.history.push('/interworkingHome/LoginUser')
   }
   render() {
     const { Search } = Input
-    console.log(this.props.route.routes, '123456')
     const { isname } = this.state
     return (
       <div className={styles.InterworkingHomeBox}>
@@ -64,7 +68,7 @@ class InterworkingHome extends Component {
           <div onClick={this.goMonitoring} className={`${isname === 'goMonitoring' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
             <span /><span>全局监视</span>
           </div>
-          <CustomTree />
+          <CustomTree clearActive={this.clearActive} />
           <div onClick={this.evaluate} className={`${isname === 'evaluate' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
             <span /> <span>仿真评价数据分析</span>
           </div>
