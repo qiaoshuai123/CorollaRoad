@@ -10,7 +10,7 @@ class AntdInput extends Component {
   }
   onChange = (e) => {
     if (this.props.onChange) {
-      this.props.onChange(e)
+      this.props.onChange(e.target.value)
     } else {
       message.warning(`请绑定onChange事件！`)
     }
