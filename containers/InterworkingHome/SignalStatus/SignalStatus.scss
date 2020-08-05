@@ -15,16 +15,19 @@
     display: flex;
     &:last-child {
       border: 1px solid rgba(7, 165, 186, 0.7);
+      border-top: none;
     }
     .innerMap {
       flex: 1;
       margin-right: 5px;
       border: 1px solid rgba(7, 165, 186, 0.7);
+      border-top: none;
     }
     .interDetails {
       width: 415px;
       height: 100%;
       border: 1px solid rgba(7, 165, 186, 0.7);
+      border-top: none;
     }
     .title {
       position: relative;
@@ -34,7 +37,7 @@
       align-items: center;
       padding-left: 10px;
       background-color: #214D6A;
-      border-left: 2px solid #00FFFF;
+      border-left: 3px solid #00FFFF;
       :global(.ant-select-selection) {
         background-color: transparent;
         border: none;
