@@ -8,8 +8,10 @@ $bor_color: #214d6a;
     width: 250px;
     height: calc(100% - 62px);
     border-right: 1px solid $bor_color;
-    border-top: 1px solid $bor_color;
+    // border-top: 1px solid $bor_color;
     background-color: #214d6a;
+    position: absolute;
+    bottom: 0;
     .InterworkLeft_search {
       height: 50px;
       display: flex;
