@@ -1,3 +1,18 @@
-.Surveillance{
+.Surveillance {
     position: absolute;
+    .Surveillance_messageLeft {
+        width: 200px;
+        height: 480px;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        .listhead {
+            height: 40px;
+            padding-left: 15px;
+            background-color: #214d6a;
+            line-height: 40px;
+            border-left: 2px solid #00ffff;
+        }
+    }
 }

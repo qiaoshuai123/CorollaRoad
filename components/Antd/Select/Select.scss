@@ -1,0 +1,17 @@
+.AntdSelectBox {
+    width: 190px;
+    height: 30px;
+    .AntdSelect {
+        width: 100%;
+        height: 100%;
+        :global(.ant-select-selection) {
+            background-color: #19415a;
+            color: #ccc;
+            border: none;
+            border-radius: 0;
+        }
+        :global(.ant-select-arrow) {
+            color: #ccc;
+        }
+    }
+}

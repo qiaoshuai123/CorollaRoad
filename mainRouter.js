@@ -7,6 +7,8 @@ import Regtion from './containers/InterworkingHome/Regtion/Regtion'
 import Surveillance from './containers/InterworkingHome/Surveillance/Surveillance'
 import Trafficanalysis from './containers/InterworkingHome/Trafficanalysis/Trafficanalysis'
 import Monitoring from './containers/InterworkingHome/Monitoring/Monitoring'
+import Simulation from './containers/InterworkingHome/Simulation/Simulation'
+import LoginUser from './containers/InterworkingHome/LoginUser/LoginUser'
 
 const routes =
   [
@@ -29,6 +31,8 @@ const routes =
         { path: '/interworkingHome/Surveillance', component: Surveillance },
         { path: '/interworkingHome/Trafficanalysis', component: Trafficanalysis },
         { path: '/interworkingHome/Monitoring', component: Monitoring },
+        { path: '/interworkingHome/Simulation', component: Simulation },
+        { path: '/interworkingHome/LoginUser', component: LoginUser },
       ],
     },
 

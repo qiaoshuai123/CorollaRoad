@@ -75,10 +75,11 @@ class CustomTree extends React.Component {
     } else {
       this.state.expendsKey.push(id)
     }
-    console.log(this.state.expendsKey)
     this.setState({ expendsKey: this.state.expendsKey })
   }
-
+  clearActive = () => {
+    this.props.clearActive()
+  }
   render() {
     const { expendsKey } = this.state
     const loop = data => (
@@ -101,7 +102,7 @@ class CustomTree extends React.Component {
         return (
           <li className={styles.childLi} key={item.id} id={item.id} onClick={this.handleTreeSelect}>
             <span className={styles.childIcon}><Icon type={isOpen ? 'environment' : 'environment'} theme="filled" /></span>
-            <NavLink to={item.path} className={styles.childNode}>{item.name}</NavLink>
+            <NavLink onClick={this.clearActive} to={item.path} className={styles.childNode}>{item.name}</NavLink>
           </li>
         )
       })
