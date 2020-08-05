@@ -145,12 +145,20 @@
         display: flex;
         justify-content: space-between;
         .optCharts {
-          // flex: 1;
+          position: relative;
           width: 33%;
           display: flex;
           justify-content: center;
           align-items: center;
           background-color: #133146;
+          .chartsName {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            padding-left: 10px;
+            font-size: 15px;
+            color: #25B8D4;
+          }
         }
       }
     }
