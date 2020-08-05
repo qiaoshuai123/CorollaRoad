@@ -11,4 +11,7 @@
         border: none;
         border-radius: 0;
     }
+    :global(.ant-input-password-icon) {
+        color: #ccc;
+    }
 }

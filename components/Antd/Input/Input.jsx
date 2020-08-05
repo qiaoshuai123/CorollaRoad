@@ -7,6 +7,10 @@ class AntdInput extends Component {
     onChange: null, // 输入事件
     style: {}, // 修改样式
     Inputstyle: {},
+    Password: false, // 密码
+  }
+  componentDidMount() {
+    console.log(this.props.Password);
   }
   onChange = (e) => {
     if (this.props.onChange) {
@@ -18,7 +22,9 @@ class AntdInput extends Component {
   render() {
     return (
       <div style={this.props.Inputstyle} className={styles.AntdInputBox}>
-        <Input onChange={this.onChange} className={styles.AntdInput} />
+        {this.props.Password ?
+          <Input.Password onChange={this.onChange} className={styles.AntdInput} /> :
+          <Input onChange={this.onChange} className={styles.AntdInput} />}
       </div>
 
     )
