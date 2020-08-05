@@ -4,7 +4,6 @@
     height: calc(100% - 2px);
     border: 1px solid #00555c;
     background-color: rgba(28, 33, 39, 0.7);
-    padding: 0 2px;
     display: flex;
     top: 2px;
     right: 0;
@@ -13,6 +12,7 @@
     .Monitoring_top {
         height: 40px;
         padding-left: 15px;
+        background-color: #214D6A;
         line-height: 40px;
     }
     .ckeckRanking_top {
@@ -42,9 +42,10 @@
         border-top: 1px solid #154d66;
         border-bottom: 1px solid #154d66;
         li {
-            height: 30px;
-            line-height: 30px;
+            height: 40px;
             padding-left: 15px;
+            background-color: #214D6A;
+            line-height: 40px;
         }
     }
     .Monitoring_evaluate {
@@ -53,9 +54,10 @@
         border-top: 1px solid #154d66;
         border-bottom: 1px solid #154d66;
         li {
-            height: 30px;
-            line-height: 30px;
+            height: 40px;
             padding-left: 15px;
+            background-color: #214D6A;
+            line-height: 40px;
         }
     }
     .actives {
