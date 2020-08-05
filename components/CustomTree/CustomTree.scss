@@ -15,9 +15,33 @@
             &:last-child::before {
                 height: 0;
             }
+            .active0 {
+                display: inline-block;
+                width: 12px;
+                height: 16px;
+                margin-right: 10px;
+                background: url('../../containers/images/02.png') no-repeat;
+                background-size: contain;
+            }
+            .active1 {
+                display: inline-block;
+                width: 12px;
+                height: 16px;
+                margin-right: 10px;
+                background: url('../../containers/images/03.png') no-repeat;
+                background-size: contain;
+            }
+            .active2 {
+                display: inline-block;
+                width: 12px;
+                height: 16px;
+                margin-right: 10px;
+                background: url('../../containers/images/04.png') no-repeat;
+                background-size: contain;
+            }
             .treeNode {
                 display: inline-block;
-                width: 203px;
+                width: 200px;
                 height: 100%;
                 padding-right: 40px;
                 overflow: hidden;
@@ -96,7 +120,7 @@
         background-color: transparent;
         color: #15aee5;
     }
-    :global(.active){
-        color: #15AEE5!important;
+    :global(.active) {
+        color: #15aee5 !important;
     }
 }

@@ -18,15 +18,23 @@ class Popup extends Component {
       message.warning(`请绑定${name}事件！`)
     }
   }
+  handleStopP = (e) => {
+    e = e || window.event;
+    if (e.stopPropagation) { //W3C阻止冒泡方法 
+      e.stopPropagation();
+    } else {
+      e.cancelBubble = true; //IE阻止冒泡方法 
+    }
+  }
   render() {
     return (
       <div className={styles.PopupBox}>
-        <div className={styles.Popup} style={this.props.NewStyle} ref={(el) => { el ? el.onmousedown = Drags : null }}>
+        <div className={styles.Popup} style={this.props.NewStyle} onMouseDown={Drags} >
           <div className={styles.headre}>
             {this.props.Title}
             <Icon type="close" className={styles.close} onClick={() => { this.handleClck('Close') }} />
           </div>
-          <div className={styles.content}>
+          <div className={styles.content} onMouseDown={this.handleStopP}>
             {this.props.children}
           </div>
           <div className={styles.footer}>

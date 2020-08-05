@@ -31,5 +31,6 @@ const routes =
         { path: '/interworkingHome/Monitoring', component: Monitoring },
       ],
     },
+
   ]
 export default routes

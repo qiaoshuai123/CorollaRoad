@@ -1,33 +1,60 @@
-$bor_color: #214D6A;
+$bor_color: #214d6a;
 .InterworkingHomeBox {
   width: 100%;
   height: 100%;
+  // background: url(../../images/coroBg.png) center center;
+  background-size: cover;
   .Interwork_left {
     width: 250px;
     height: calc(100% - 62px);
     border-right: 1px solid $bor_color;
     border-top: 1px solid $bor_color;
-    background-color: #214D6A;
+    background-color: #214d6a;
     .InterworkLeft_search {
       height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
       :global(.ant-input-affix-wrapper) {
-        background-color: rgba(22,59,83, .7);
+        background-color: rgba(22, 59, 83, 0.7);
+      }
+    }
+    .InterworkLeft_Title:nth-child(2) {
+      span:nth-child(1) {
+        background: url("../../images/01.png") no-repeat;
+        background-size: contain;
+      }
+    }
+    .InterworkLeft_Title:nth-child(4) {
+      span:nth-child(1) {
+        background: url("../../images/05.png") no-repeat;
+        background-size: contain;
+      }
+    }
+    .InterworkLeft_Title:nth-child(5) {
+      span:nth-child(1) {
+        background: url("../../images/06.png") no-repeat;
+        background-size: contain;
       }
     }
     .InterworkLeft_Title {
-      color: #03fefe;
       height: 40px;
       line-height: 40px;
       font-size: 16px;
       padding-left: 10px;
-      border-left: 2px solid #03fefe;
-      background-color: #163B53;
-      span{
-        cursor: pointer;
+      cursor: pointer;
+      padding-left: 25px;
+      span:nth-child(1) {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 10px;
       }
+    }
+    .active {
+      color: #03fefe;
+      border-left: 2px solid #03fefe;
+      background-color: #163b53;
     }
   }
   .Interwork_right {
@@ -36,13 +63,14 @@ $bor_color: #214D6A;
     left: 250px;
     height: calc(100% - 62px);
     width: calc(100% - 250px);
+    background: #012b3b;
   }
 }
 .Interwork_left {
   :global(.ant-input) {
     height: 30px;
     color: #fff;
-    background-color: #163B53;
+    background-color: #163b53;
     border: none;
     outline: none;
     box-shadow: none;
