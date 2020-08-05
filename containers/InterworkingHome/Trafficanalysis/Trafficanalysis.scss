@@ -29,10 +29,11 @@
         flex-wrap: wrap;
         .GpsMapEcharts {
             overflow: hidden;
-            margin: 5px 0 0 15px;
-            width: 48%;
+            margin: 5px 0 0 10px;
+            width: calc(50% - 10px);
             height: 49%;
             background-color: #133146;
+            border: 1px solid rgba(7, 165, 186, 0.7);
         }
     }
     .listhead {
