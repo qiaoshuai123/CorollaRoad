@@ -2,7 +2,6 @@
     position: absolute;
     width: 410px;
     height: calc(100% - 2px);
-    border: 1px solid #00555c;
     background-color: rgba(28, 33, 39, 0.7);
     display: flex;
     top: 2px;
@@ -12,12 +11,14 @@
     .Monitoring_top {
         height: 40px;
         padding-left: 15px;
-        background-color: #214D6A;
+        background-color: #214d6a;
         line-height: 40px;
+        border-left: 2px solid #00FFFF;
     }
     .ckeckRanking_top {
         height: 30px;
-        border-bottom: 1px solid #154d66;
+        border: 1px solid #154d66;
+        border-top: none;
         span {
             float: left;
             width: 90px;
@@ -30,34 +31,60 @@
         flex: 1;
         min-height: 240px;
         overflow-y: auto;
+        border:1px solid rgba(7, 165, 186, 0.7);
+        border-top: none;
         li {
             height: 50px;
-            line-height: 50px;
-            padding: 0 20px 0 30px;
+            // padding: 0 20px 0 30px;
+            padding-right: 30px;
+            display: flex;
+            align-items: center;
+            .circulars {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: red;
+                margin: 0 20px;
+            }
+            .ItemList{
+                display: inline-block;
+                width:280px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-right: 30px;
+            }
+            .arrows {
+                width: 20px;
+                height: 20px;
+                background-color: red;
+            }
         }
     }
     .Monitoring_scheme {
         height: 240px;
         overflow: hidden;
-        border-top: 1px solid #154d66;
-        border-bottom: 1px solid #154d66;
+        border:1px solid rgba(7, 165, 186, 0.7);
+        margin: 5px 0;
         li {
             height: 40px;
             padding-left: 15px;
-            background-color: #214D6A;
+            background-color: #214d6a;
             line-height: 40px;
+            border-left: 2px solid #00FFFF;
         }
     }
     .Monitoring_evaluate {
         height: 240px;
         overflow: hidden;
-        border-top: 1px solid #154d66;
-        border-bottom: 1px solid #154d66;
+        border:1px solid rgba(7, 165, 186, 0.7);
         li {
             height: 40px;
             padding-left: 15px;
-            background-color: #214D6A;
+            background-color: #214d6a;
             line-height: 40px;
+            border-left: 2px solid #00FFFF;
         }
     }
     .actives {
