@@ -28,25 +28,33 @@ class Simulation extends Component {
           <div className={styles.echartBox}>
             <div className={styles.Title}> 路口流量</div>
             <div className={styles.content}>
-              <OptLineCharts />
+              <div className={styles.center}>
+                <OptLineCharts />
+              </div>
             </div>
           </div>
           <div className={styles.echartBox}>
             <div className={styles.Title}>路口延误时间</div>
             <div className={styles.content}>
-              <OptLineCharts />
+              <div className={styles.center}>
+                <OptLineCharts />
+              </div>
             </div>
           </div>
           <div className={styles.echartBox}>
             <div className={styles.Title}>路口排队长度</div>
             <div className={styles.content}>
-              <OptLineCharts />
+              <div className={styles.center}>
+                <OptLineCharts />
+              </div>
             </div>
           </div>
           <div className={styles.echartBox}>
             <div className={styles.Title}>路口流量</div>
             <div className={styles.content}>
-              <OptLineCharts />
+              <div className={styles.center}>
+                <OptLineCharts />
+              </div>
             </div>
           </div>
         </div>

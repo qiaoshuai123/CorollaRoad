@@ -43,6 +43,13 @@
       .content {
         width: 100%;
         height: calc(100% - 40px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .center {
+          width: 90%;
+          height: 90%;
+        }
       }
     }
   }
