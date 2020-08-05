@@ -1,3 +1,48 @@
-.Trafficanalysis{
+.Trafficanalysis {
+    width: 100%;
+    height: 100%;
     position: absolute;
+    display: flex;
+    .TrafficanalysisLeft {
+        width: 200px;
+        height: 100%;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        background-color: #133146;
+        .listBox {
+            flex: 1;
+            min-height: 720px;
+            overflow-y: auto;
+            li {
+                height: 45px;
+                line-height: 45px;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+        }
+    }
+    .TrafficanalysisRight {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        .GpsMapEcharts {
+            overflow: hidden;
+            margin: 5px 0 0 10px;
+            width: calc(50% - 10px);
+            height: 49%;
+            background-color: #133146;
+            border: 1px solid rgba(7, 165, 186, 0.7);
+        }
+    }
+    .listhead {
+        color: #37e2ea;
+        height: 40px;
+        padding-left: 15px;
+        background-color: #214d6a;
+        line-height: 40px;
+        cursor: pointer;
+        border-left: 2px solid #00ffff;
+    }
 }
