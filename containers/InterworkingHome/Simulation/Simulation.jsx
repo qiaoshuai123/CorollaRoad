@@ -1,7 +1,7 @@
 // 仿真评价数据分析
 import React, { Component } from 'react'
 import styles from './Simulation.scss'
-import OptLineCharts from '../SignalStatus/OptLineCharts'
+import OptLineCharts from './OptLineCharts'
 import Select from '../../../components/Antd/Select/Select'
 
 class Simulation extends Component {
