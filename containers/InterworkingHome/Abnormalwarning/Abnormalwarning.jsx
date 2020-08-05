@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import styles from './Abnormalwarning.scss'
 import { Pagination, Icon } from 'antd'
 import Popup from '../../../components/Popup/Popup'
+import Select from '../../../components/Antd/Select/Select'
+import Input from '../../../components/Antd/Input/Input'
 
 class Abnormalwarning extends Component {
   constructor(props) {
@@ -57,7 +59,12 @@ class Abnormalwarning extends Component {
               Close={() => { this.setState({ addUsersPop: null }) }}
               Confirm={() => { this.setState({ addUsersPop: null }) }}
             >
-              asdasdasdsd
+              <div className={styles.FromContent}>
+                账&nbsp;号&nbsp;名&nbsp;称&nbsp;:&nbsp;<Select onChange={(value) => { console.log(value) }} />
+              </div>
+              <div className={styles.FromContent}>
+                账&nbsp;号&nbsp;密&nbsp;码&nbsp;:&nbsp;<Input onChange={(value) => { console.log(value) }} />
+              </div>
             </Popup> :
             null}
         {
@@ -67,7 +74,7 @@ class Abnormalwarning extends Component {
               Close={() => { this.setState({ deleteUserPop: null }) }}
               Confirm={() => { this.setState({ deleteUserPop: null }) }}
             >
-              <div className={ styles.PopupContent }>确认删除该用户吗?</div>
+              <div className={styles.PopupContent}>确认删除该用户吗?</div>
             </Popup> :
             null}
       </div>

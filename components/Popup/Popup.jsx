@@ -3,7 +3,7 @@ import styles from './Popup.scss'
 import Drags from '../../utils/drags'
 import { Icon, Button, message } from 'antd'
 
-class Popup extends Component {
+class Popup extends Component {   // 公用弹窗
   static defaultProps = {
     NewStyle: {}, // 修改的样式
     children: null, // 显示的内容
