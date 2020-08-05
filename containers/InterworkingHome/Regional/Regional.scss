@@ -1,3 +1,101 @@
 .Regional{
     position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(3, 52, 71, 0.9);
+    .interListBox {
+        position: absolute;
+        top: 2px;
+        left: 3px;
+        width: 400px;
+        height: calc(100% - 5px);
+        overflow-y: auto;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        border-top: none;
+        .title {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            background-color: #214D6A;
+            border-left: 3px solid #00FFFF;
+            font-size: 15px;
+            .areaConfig {
+                position: absolute;
+                right: 5px;
+                top: 7px;
+                height: 26px;
+                line-height: 24px;
+                padding: 0 8px;
+                border: 1px solid #40E7FF;
+                border-radius: 4px;
+                font-size: 13px;
+                color: #40E7FF;
+                cursor: pointer;
+            }
+        }
+        .interMsg {
+            height: calc(100% - 40px);
+            margin: 0;
+            padding: 0 10px;
+            font-size: 14px;
+            background-color: rgba(14, 46, 65, 0.5);
+            .interItem {
+                padding: 10px 0;
+                border-bottom: 1px solid #07A5BA;
+                color: #C6D2DC;
+                .interName {
+                    height: 24px;
+                    line-height: 24px;
+                    color: #00FFFF;
+                }
+                .interDetails {
+                    display: flex;
+                    height: 26px;
+                    .detailsItems {
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 13px;
+                    }
+                }
+            }
+            .interItem:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+    .areaChartsBox {
+        position: absolute;
+        right: 0;
+        top: 3px;
+        width: 500px;
+        height: calc(100% - 6px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        .chartsItem {
+            height: 49.8%;
+            border: 1px solid rgba(7, 165, 186, 0.7);
+            border-top: none;
+            .title {
+                position: relative;
+                width: 100%;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                background-color: #214D6A;
+                border-left: 3px solid #00FFFF;
+                font-size: 15px;
+            }
+            .chartsWrap {
+                height: calc(100% - 40px);
+            }
+        }
+    }
 }
