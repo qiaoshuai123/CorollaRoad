@@ -1,6 +1,6 @@
 import React from 'react'
 import reactDom from 'react-dom'
-import { HashRouter, BrowserHistory, Redirect } from 'react-router-dom'
+import { HashRouter, BrowserHistory } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'

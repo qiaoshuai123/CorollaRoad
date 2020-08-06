@@ -1,0 +1,102 @@
+.GpsMap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    padding: 5px;
+    background: #052943;
+    .listhead {
+        color: #37e2ea;
+        height: 40px;
+        padding-left: 15px;
+        background-color: #214d6a;
+        line-height: 40px;
+        cursor: pointer;
+        border-left: 2px solid #00ffff;
+    }
+    .GpsMapLeft {
+        width: 200px;
+        height: 100%;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        background-color: #133146;
+        .listBox {
+            flex: 1;
+            min-height: 720px;
+            overflow-y: auto;
+            li {
+                height: 45px;
+                line-height: 45px;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+        }
+    }
+    .GpsMapCenter {
+        flex: 1;
+        margin: 0 5px;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        display: flex;
+        flex-direction: column;
+        .GpsMapCenterMap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            .GpsMapCenterMapBox {
+                flex: 1;
+            }
+        }
+        .GpsMapCenterTime {
+            height: 235px;
+            .listBox {
+                padding-left: 20px;
+                height: 195px;
+                .equipmentStatus,
+                .programme,
+                .controlStatus {
+                    height: 25px;
+                    line-height: 25px;
+                    span {
+                        color: #08b532;
+                    }
+                }
+                .timeInterval {
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    span {
+                        width: 35px;
+                        height: 35px;
+                        margin: 0 5px;
+                    }
+                }
+                .programmeTime {
+                    width: 100%;
+                    height: 60px;
+                    padding-right: 20px;
+                    .programmeTimeBox {
+                        height: 100%;
+                        background-color: yellow;
+                    }
+                }
+            }
+        }
+    }
+    .GpsMapRight {
+        width: 410px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .GpsMapEcharts {
+            flex: 1;
+            background-color: #133146;
+            border: 1px solid rgba(7, 165, 186, 0.7);
+            margin-bottom: 5px;
+        }
+    }
+    .actives {
+        color: #16f9e8;
+    }
+}

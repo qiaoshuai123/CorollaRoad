@@ -11,7 +11,8 @@ class InterworkingHome extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isname: 'goMonitoring',
+      isname: this.props.location.pathname === '/interworkingHome/Simulation' ? 'evaluate' :
+        this.props.location.pathname === '/interworkingHome/LoginUser' ? 'goUser' : 'goMonitoring',
     }
 
     this.RedirectsRouter()
@@ -23,6 +24,7 @@ class InterworkingHome extends Component {
 
   }
   RedirectsRouter = () => {
+    console.log(this.props.location.pathname, 'sv')
     if (this.props.location.pathname === '/') {
       this.props.history.push('interworkingHome/Monitoring')
     }

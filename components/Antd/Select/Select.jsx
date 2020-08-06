@@ -7,7 +7,6 @@ class AntdSelect extends Component {
   static defaultProps = {
     onChange: null, // 输入事件
     style: {}, // 修改样式
-    selectstyle: {},
     defaultValue: undefined,
     value: '',
     name: '',
@@ -22,10 +21,9 @@ class AntdSelect extends Component {
   }
   render() {
     return (
-      <div style={this.props.selectstyle} className={styles.AntdSelectBox}>
+      <div style={this.props.style} className={styles.AntdSelectBox}>
         <Select
           showSearch
-          style={this.props.selectstyle}
           className={styles.AntdSelect}
           placeholder="请选择"
           optionFilterProp="children"

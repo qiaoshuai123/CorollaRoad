@@ -1,0 +1,29 @@
+.DatePicker {
+    display: inline-block;
+    .PickerItem {
+        width: 165px;
+        display: inline-block;
+        /*  &:nth-child(1) {
+            padding-right: 10px;
+        } */
+    }
+
+    // 时间框
+    :global(.ant-input) {
+        background-color: #19415a;
+        color: #ccc;
+        border: none;
+        border-radius: 0;
+    }
+    :global(.ant-calendar-picker-clear) {
+        background-color: #19415a;
+        color: #ccc;
+    }
+    :global(.ant-calendar-picker-icon) {
+        color: #ccc;
+    }
+    :global(.ant-calendar-picker) {
+        width: 165px !important;
+        min-width: 165px !important;
+    }
+}

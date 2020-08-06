@@ -1,0 +1,163 @@
+.Abnormalwarning {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    background: #052943;
+    padding: 5px;
+    .listhead {
+        color: #37e2ea;
+        height: 40px;
+        padding-left: 15px;
+        background-color: #214d6a;
+        line-height: 40px;
+        cursor: pointer;
+        border-left: 2px solid #00ffff;
+        .days {
+            float: right;
+            display: flex;
+            height: 40px;
+            width: 260px;
+            div {
+                flex: 1;
+                text-align: center;
+                span {
+                    border-bottom: 1px solid #ccc;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .listheads {
+        padding-left: 0;
+        text-align: center;
+    }
+    .GpsMapLeft {
+        width: 200px;
+        height: 100%;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        background-color: #133146;
+        .listBox {
+            flex: 1;
+            min-height: 720px;
+            overflow-y: auto;
+            li {
+                height: 45px;
+                line-height: 45px;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+        }
+    }
+    .GpsMapCenter {
+        flex: 1;
+        margin: 0 5px;
+        border: 1px solid rgba(7, 165, 186, 0.7);
+        display: flex;
+        flex-direction: column;
+        background-color: #133146;
+        .GpsMapCenterMap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            .GpsMapCenterMapBox {
+                flex: 1;
+                padding: 0 20px;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+                .listItem {
+                    height: 65px;
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 2px solid #0c71a3;
+                    .hierarchy {
+                        width: 40px;
+                        height: 20px;
+                        line-height: 20px;
+                        margin: 15px;
+                        text-align: center;
+                        background-color: yellow;
+                    }
+                    .listBox {
+                        flex: 1;
+                        height: 45px;
+                        min-width: 655px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        .listBoxContain {
+                            margin-bottom: 5px;
+                        }
+                    }
+                    .management {
+                        margin: 0 15px;
+                        width: 75px;
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: center;
+                        background-color: #0772a6;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .GpsMapCenterTime {
+            height: 60px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .page {
+                margin-right: 15px;
+            }
+        }
+    }
+    .GpsMapRight {
+        width: 410px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .GpsMapEcharts {
+            flex: 1;
+            background-color: #133146;
+            border: 1px solid rgba(7, 165, 186, 0.7);
+            margin-bottom: 5px;
+        }
+    }
+    .actives {
+        color: #16f9e8;
+    }
+}
+.GpsMapCenterTime {
+    :global(.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link) {
+        background: transparent;
+    }
+    :global(.ant-pagination-item-active a) {
+        color: white !important;
+    }
+    :global(.ant-pagination-item-active) {
+        background-color: #133146 !important;
+    }
+    :global(.ant-pagination-item) {
+        background-color: #133146;
+    }
+    :global(.ant-pagination-item a ){
+        color: white !important;
+    }
+    :global(.ant-pagination-item-link){
+        color: white !important;
+        background-color: #133146 !important;
+    }
+    :global(.ant-pagination-options-quick-jumper){
+        color: white !important;
+    }
+    :global(.ant-pagination-options-quick-jumper input){
+        color: white !important;
+        background-color: #133146 !important;
+    }
+}

@@ -6,7 +6,6 @@ class AntdInput extends Component {
   static defaultProps = {
     onChange: null, // 输入事件
     style: {}, // 修改样式
-    Inputstyle: {},
     Password: false, // 密码
   }
   componentDidMount() {
@@ -21,7 +20,7 @@ class AntdInput extends Component {
   }
   render() {
     return (
-      <div style={this.props.Inputstyle} className={styles.AntdInputBox}>
+      <div style={this.props.style} className={styles.AntdInputBox}>
         {this.props.Password ?
           <Input.Password onChange={this.onChange} className={styles.AntdInput} /> :
           <Input onChange={this.onChange} className={styles.AntdInput} />}
