@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Header.scss'
-import { Menu, Dropdown, Icon } from 'antd'
+import { Menu, Dropdown, Icon, Avatar, Badge, } from 'antd'
 
 const menu = (
   <Menu>
@@ -178,9 +178,13 @@ class Header extends React.Component {
           }
         </div> */}
         <div className={styles.header_right}>
-          <span />
-          <span />
-          <span />
+          <span><Icon type="setting" /></span>
+          <span>
+            <Badge count={13}>
+              <Icon type="bell" />
+            </Badge>
+          </span>
+          <span><Icon type="user" /></span>
           <Dropdown overlay={menu}>
             <b onClick={e => e.preventDefault()}>
               hello,admin <Icon type="down" />

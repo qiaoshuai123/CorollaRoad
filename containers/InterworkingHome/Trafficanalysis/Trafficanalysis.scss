@@ -3,11 +3,12 @@
     height: 100%;
     position: absolute;
     display: flex;
+    background: #052943;
     .TrafficanalysisLeft {
         width: 200px;
-        height: 100%;
         border: 1px solid rgba(7, 165, 186, 0.7);
         background-color: #133146;
+        margin: 5px 0 0 5px;
         .listBox {
             flex: 1;
             min-height: 720px;
@@ -29,9 +30,9 @@
         flex-wrap: wrap;
         .GpsMapEcharts {
             overflow: hidden;
-            margin: 5px 0 0 10px;
-            width: calc(50% - 10px);
-            height: 49%;
+            margin: 5px 0 0 5px;
+            width: calc(50% - 5px);
+            height: calc(50% - 5px);
             background-color: #133146;
             border: 1px solid rgba(7, 165, 186, 0.7);
         }

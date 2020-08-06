@@ -110,7 +110,7 @@ class Evaluation extends Component {
             Confirm={() => { this.setState({ dataImportPop: null }) }}
           >
             <div className={styles.FromContent}>
-              <span className={styles.Title}>请输入原始密码&nbsp;:</span>
+              <span className={styles.Title}>数据起始时间&nbsp;:</span>
               <DatePicker
                 disabledDate={this.disabledStartDate}
                 showTime={{
@@ -125,7 +125,7 @@ class Evaluation extends Component {
               />
             </div>
             <div className={styles.FromContent}>
-              <span className={styles.Title}>请输入原始密码&nbsp;:</span>
+              <span className={styles.Title}>数据结束时间&nbsp;:</span>
               <DatePicker
                 disabledDate={this.disabledEndDate}
                 showTime={{
