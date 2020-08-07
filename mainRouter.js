@@ -9,15 +9,16 @@ import Trafficanalysis from './containers/InterworkingHome/Trafficanalysis/Traff
 import Monitoring from './containers/InterworkingHome/Monitoring/Monitoring'
 import Simulation from './containers/InterworkingHome/Simulation/Simulation'
 import LoginUser from './containers/InterworkingHome/LoginUser/LoginUser'
+import Login from './containers/Login/Login'
 
 const routes =
   [
     // { path: '/404', component: Errors },
-    // {
+    // {  
     {
       path: '/',
       exact: true,
-      component: InterworkingHome,
+      component: Login,
     },
     {
       path: '/interworkingHome',
@@ -35,6 +36,5 @@ const routes =
         { path: '/interworkingHome/LoginUser', component: LoginUser },
       ],
     },
-
   ]
 export default routes

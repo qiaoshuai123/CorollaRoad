@@ -15,7 +15,7 @@ class InterworkingHome extends Component {
         this.props.location.pathname === '/interworkingHome/LoginUser' ? 'goUser' : 'goMonitoring',
     }
 
-    this.RedirectsRouter()
+    // this.RedirectsRouter()
   }
   componentDidMount = () => {
 
@@ -23,12 +23,12 @@ class InterworkingHome extends Component {
   componentDidUpdate = () => {
 
   }
-  RedirectsRouter = () => {
-    console.log(this.props.location.pathname, 'sv')
-    if (this.props.location.pathname === '/') {
-      this.props.history.push('interworkingHome/Monitoring')
-    }
-  }
+  // RedirectsRouter = () => {
+  //   console.log(this.props.location.pathname, 'sv')
+  //   if (this.props.location.pathname === '/') {
+  //     this.props.history.push('interworkingHome/Monitoring')
+  //   }
+  // }
   // 清除isname
   clearActive = () => {
     this.setState({
@@ -60,22 +60,24 @@ class InterworkingHome extends Component {
       <div className={styles.InterworkingHomeBox}>
         <Header {...this.props} />
         <div className={styles.Interwork_left}>
-          <div className={styles.InterworkLeft_search}>
-            <Search
-              placeholder="关键词搜索"
-              onSearch={value => console.log(value)}
-              style={{ width: 230 }}
-            />
-          </div>
-          <div onClick={this.goMonitoring} className={`${isname === 'goMonitoring' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
-            <span /><span>全局监视</span>
-          </div>
-          <CustomTree clearActive={this.clearActive} />
-          <div onClick={this.evaluate} className={`${isname === 'evaluate' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
-            <span /> <span>仿真评价数据分析</span>
-          </div>
-          <div onClick={this.goUser} className={`${isname === 'goUser' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
-            <span /><span>用户管理</span>
+          <div className={styles.Interwork_leftBox}>
+            <div className={styles.InterworkLeft_search}>
+              <Search
+                placeholder="关键词搜索"
+                onSearch={value => console.log(value)}
+                style={{ width: 250 }}
+              />
+            </div>
+            <div onClick={this.goMonitoring} className={`${isname === 'goMonitoring' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
+              <span /><span>全局监视</span>
+            </div>
+            <CustomTree clearActive={this.clearActive} />
+            <div onClick={this.evaluate} className={`${isname === 'evaluate' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
+              <span /> <span>仿真评价数据分析</span>
+            </div>
+            <div onClick={this.goUser} className={`${isname === 'goUser' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
+              <span /><span>用户管理</span>
+            </div>
           </div>
         </div>
         <div className={styles.Interwork_right}>
