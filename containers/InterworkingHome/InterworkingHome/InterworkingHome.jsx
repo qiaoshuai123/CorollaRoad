@@ -11,8 +11,10 @@ class InterworkingHome extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isname: this.props.location.pathname === '/interworkingHome/Simulation' ? 'evaluate' :
-        this.props.location.pathname === '/interworkingHome/LoginUser' ? 'goUser' : 'goMonitoring',
+      isname:
+        this.props.location.pathname === '/interworkingHome/Monitoring' ? 'goMonitoring' :
+          this.props.location.pathname === '/interworkingHome/Simulation' ? 'evaluate' :
+            this.props.location.pathname === '/interworkingHome/LoginUser' ? 'goUser' : '',
     }
 
     // this.RedirectsRouter()

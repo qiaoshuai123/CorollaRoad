@@ -9,9 +9,11 @@
         border: 1px solid rgba(7, 165, 186, 0.7);
         background-color: #133146;
         margin: 5px 0 0 5px;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 40px;
         .listBox {
             flex: 1;
-            min-height: 720px;
             overflow-y: auto;
             li {
                 height: 45px;
