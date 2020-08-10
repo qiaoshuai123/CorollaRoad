@@ -136,7 +136,7 @@ class evaluateEcharts extends React.Component {
         {
           name: '',
           type: 'bar',
-          barWidth: '30%',
+          barWidth: '10%',
           data: seriesData, // [60, 80, 120, 160, 120, 100, 60, 40],
           itemStyle: {// 柱状图圆角
             // emphasis: {

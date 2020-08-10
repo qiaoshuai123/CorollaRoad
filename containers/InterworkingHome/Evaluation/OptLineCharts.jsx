@@ -51,19 +51,28 @@ class ExportCharts extends React.Component {
         bottom: '15%',
         // containLabel: true
       },
+      legend: {
+        icon: 'rect',
+        data: ['初始条件', '对比时间'],
+        top: 25,
+        right: 35,
+        textStyle: {
+          color: '#fff',
+        },
+      },
       xAxis: [{
         type: 'category',
         axisLine: {
           show: false,
-          color: '#A582EA'
+          color: '#105D6C',
         },
 
         axisLabel: {
-          color: '#A582EA',
-          width: 100
+          color: '#03F4F3',
+          width: 100,
         },
         splitLine: {
-          show: false
+          show: false,
         },
         boundaryGap: false,
         data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
@@ -79,7 +88,7 @@ class ExportCharts extends React.Component {
           show: true,
           lineStyle: {
             color: '#00BFF3',
-            opacity: 0.23
+            opacity: 0.23,
           }
         },
         axisLine: {
@@ -89,7 +98,7 @@ class ExportCharts extends React.Component {
           show: true,
           margin: 20,
           textStyle: {
-            color: '#fff',
+            color: '#03F4F3',
 
           },
         },
@@ -99,86 +108,34 @@ class ExportCharts extends React.Component {
       }],
       series: [
         {
-          name: '液压异常报警',
+          name: '初始条件',
           type: 'line',
           smooth: 0.3,
           showAllSymbol: true,
           symbol: 'circle',
           symbolSize: 10,
-          lineStyle: {
+          data: [4, 7, 5, 4, 3, 5, 8], // data.values
+          itemStyle: {
             normal: {
-              color: "#A582EA",
+              color: '#E59E14',
             },
           },
-          label: {
-            // show: true,
-            position: 'top',
-            textStyle: {
-              color: '#A582EA',
-            }
-          },
-          itemStyle: {
-            color: "#fff",
-            borderColor: "#A582EA",
-            borderWidth: 2,
-          },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: 'rgba(43,193,145,0.3)'
-                },
-                {
-                  offset: 1,
-                  color: 'rgba(43,193,145,0)'
-                }
-              ], false),
-            }
-          },
-          data: [4, 7, 5, 4, 3, 5, 8]//data.values
         },
         {
-          name: '液位异常报警',
+          name: '对比时间',
           type: 'line',
           smooth: 0.3,
           showAllSymbol: true,
           symbol: 'circle',
           symbolSize: 10,
-          lineStyle: {
+          data: [3, 5, 4, 2, 1, 7, 6],
+          itemStyle: {
             normal: {
-              color: "#2CABE3",
+              color: '#4EBBC8',
             },
           },
-          label: {
-            // show: true,
-            position: 'top',
-            textStyle: {
-              color: '#2CABE3',
-            }
-          },
-          itemStyle: {
-            color: "#fff",
-            borderColor: "#2CABE3",
-            borderWidth: 2,
-          },
-          // areaStyle: {
-          //   normal: {
-          //     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          //       {
-          //         offset: 0,
-          //         color: 'rgba(81,150,164,0.3)'
-          //       },
-          //       {
-          //         offset: 1,
-          //         color: 'rgba(81,150,164,0)'
-          //       }
-          //     ], false),
-          //   }
-          // },
-          data: [3, 5, 4, 2, 1, 7, 6]//data.values
         },
-      ]
+      ],
     }
     myCharts.setOption(option, true)
   }
