@@ -29,15 +29,9 @@ class HollowPie extends React.Component {
       },
       legend: {
         orient: 'vertical',
-<<<<<<< HEAD
         left: '45%',
         top: 'center',
         data: [serise[0].name, serise[1].name],
-=======
-        left: 'right',
-        top: '30',
-        data: ['方案库300套', '推荐平台225套'],
->>>>>>> a8ad85eb6db2a6b3fccbe5bfaa0894db9876ff71
         textStyle: { // 图例文字的样式
           color: '#fff',
           fontSize: 12,
@@ -48,16 +42,8 @@ class HollowPie extends React.Component {
           name: '访问来源',
           type: 'pie',
           radius: '55%',
-<<<<<<< HEAD
           center: ['25%', '50%'],
           data: serise,
-=======
-          center: ['40%', '50%'],
-          data: [
-            { value: 300, name: '方案库300套' },
-            { value: 225, name: '推荐平台225套' },
-          ],
->>>>>>> a8ad85eb6db2a6b3fccbe5bfaa0894db9876ff71
           itemStyle: {
             normal: {
               color(params) {
