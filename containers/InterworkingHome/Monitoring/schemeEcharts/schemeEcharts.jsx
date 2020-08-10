@@ -1,5 +1,6 @@
 import React from 'react'
 import echarts from 'echarts'
+import { nodeName } from 'jquery'
 
 class HollowPie extends React.Component {
   constructor(props) {
@@ -9,19 +10,28 @@ class HollowPie extends React.Component {
   componentDidMount = () => {
     const chartsBox = echarts.init(this.chartsBox)
     // const { seriseData, totleDevice } = this.props.chartsDatas
-    this.renderCharts(chartsBox, [{ value: 104, name: "中控" }, { value: 242, name: "海信" }], 346)
+    this.renderCharts(chartsBox, [{ value: 104, name: "方案库104套" }, { value: 242, name: "推荐平台242套" }], 346)
   }
   renderCharts = (chartsBox, serise, totle) => {
     const options = {
+      title : {
+        text: '共产出优化方案数'+totle+'套',
+        textStyle: { // 图例文字的样式
+          color: '#fff',
+          fontSize: 14,
+        },
+        x:'45%',
+        y:'25%',
+      },
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
+        formatter: '{b} : {c} ({d}%)'
       },
       legend: {
         orient: 'vertical',
-        left: 'right',
+        left: '45%',
         top: 'center',
-        data: ['直接访问', '邮件营销'],
+        data: [serise[0].name, serise[1].name],
         textStyle: { // 图例文字的样式
           color: '#fff',
           fontSize: 12,
@@ -32,11 +42,8 @@ class HollowPie extends React.Component {
           name: '访问来源',
           type: 'pie',
           radius: '55%',
-          center: ['50%', '60%'],
-          data: [
-            { value: 335, name: '直接访问' },
-            { value: 310, name: '邮件营销' },
-          ],
+          center: ['25%', '50%'],
+          data: serise,
           itemStyle: {
             normal: {
               color(params) {
@@ -45,6 +52,12 @@ class HollowPie extends React.Component {
                 return colorList[params.dataIndex]
               },
             },
+          },
+          label: {
+            normal: {
+               position: 'inner',
+               show : false
+            }
           },
           emphasis: {
             itemStyle: {

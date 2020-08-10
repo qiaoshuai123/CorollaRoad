@@ -5,6 +5,7 @@ import styles from './Monitoring.scss'
 import EvaluateEcharts from './evaluateEcharts/evaluateEcharts'
 import SchemeEcharts from './schemeEcharts/schemeEcharts'
 import Item from 'antd/lib/list/Item'
+import { Icon } from 'antd'
 
 class Monitoring extends Component {
   constructor(props) {
@@ -33,17 +34,17 @@ class Monitoring extends Component {
           <span className={!ckeckRanking ? styles.actives : ''} onClick={() => this.ckeckRanking(false)}>优化排名</span>
         </div>
         <div className={styles.Monitoring_box}>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsRed} type="arrow-up" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsRed} type="arrow-up" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsRed} type="arrow-up" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsGreen} type="arrow-down" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsGreen} type="arrow-down" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsGreen} type="arrow-down" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsRed} type="arrow-up" /></li>
+          <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><Icon className={styles.arrowsRed} type="arrow-up" /></li>
         </div>
         <div className={styles.Monitoring_scheme}>
-          <li>优化方案统计及</li>
+          <li>优化方案统计</li>
           <SchemeEcharts />
         </div>
         <div className={styles.Monitoring_evaluate}>

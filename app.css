@@ -156,3 +156,13 @@ a.amap-logo img{
       transform: scale(1.5);
     }
   }
+/* 地图弹层样式 */
+  .minemap-popup-content {
+    background: rgba(33, 77, 106, 0.9);
+  }
+  .minemap-popup{
+    z-index: 999998;
+  }
+  .minemap-popup-anchor-bottom .minemap-popup-tip {
+    border-top-color: rgba(33, 77, 106, 0.9);
+  }

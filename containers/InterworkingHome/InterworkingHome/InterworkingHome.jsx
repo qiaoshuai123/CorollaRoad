@@ -25,6 +25,9 @@ class InterworkingHome extends Component {
   componentDidUpdate = () => {
 
   }
+  changeLeftMenu = () => {
+
+  }
   // RedirectsRouter = () => {
   //   console.log(this.props.location.pathname, 'sv')
   //   if (this.props.location.pathname === '/') {
@@ -81,6 +84,8 @@ class InterworkingHome extends Component {
               <span /><span>用户管理</span>
             </div>
           </div>
+          {/* <div title="收起" onClick={this.changeLeftMenu} style={{ lineHeight:'60px', padding:'0px 5px 0px 1px', background:'#163b53', position: 'absolute', top: '50%', right:'0', marginTop: '-30px', cursor: 'pointer'}}>《 </div> */}
+          <div title="展开" onClick={this.changeLeftMenu} style={{ lineHeight:'60px', padding:'0px 0px 0px 8px', background:'#163b53', position: 'absolute', top: '50%', right:'0', marginTop: '-30px', cursor: 'pointer'}}>》</div>
         </div>
         <div className={styles.Interwork_right}>
           <MineData />
