@@ -68,7 +68,7 @@ class InterworkingHome extends Component {
               <Search
                 placeholder="关键词搜索"
                 onSearch={value => console.log(value)}
-                style={{ width: 250 }}
+                style={{ width: 240 }}
               />
             </div>
             <div onClick={this.goMonitoring} className={`${isname === 'goMonitoring' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>

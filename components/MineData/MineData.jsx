@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import $bus from '../../utils/events'
 import styles from './MineData.scss'
 
 class MineData extends Component {
@@ -10,6 +11,12 @@ class MineData extends Component {
   }
   componentDidMount() {
     this.handlerenderMineMap()
+    this.messageInformation()
+  }
+  messageInformation = () => {
+    $bus.on('message', (text) => {
+      console.log(text, '改变数据')
+    })
   }
   handlerenderMineMap = () => {
     /* 初始化地图实例 */
@@ -29,7 +36,7 @@ class MineData extends Component {
   }
   render() {
     return (
-      <div id="mapContainer" className={styles.mapBox}/>
+      <div id="mapContainer" className={styles.mapBox} />
     )
   }
 }

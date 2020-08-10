@@ -17,7 +17,7 @@ axios.interceptors.request.use((config) => {
     if (userInfo) {
       // config.headers.Authorization = userInfo.token
     } else {
-      window.location.href = '#login' // 登录失效后的跳转地址
+      // window.location.href = '#login' // 登录失效后的跳转地址
     }
     // 临时使用
     // config.headers.Authorization = 'dcc6f4eff3b017a1b425051765f351b9d62bee5f9c0d7e9a3db056faedd3fe6fde7bf3a9d8d8e707edf4a1169f5eec1437c7eb859c135847c6db4983208aca47'
