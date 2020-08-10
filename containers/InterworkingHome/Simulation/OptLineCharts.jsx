@@ -8,28 +8,28 @@ class ExportCharts extends React.Component {
     this.keyNum = Math.random()
     this.colors = ['#44f0ff', '#ff9d00', '#ec6941', '#00fffc', '#ffff00', '#ff0000', '#f19ec2', '#00ff00', '#cfa972', '#acd598', '#7d0000', '#0db4ff', '#732c95']
     this.reverseColors = ['#ff9d00', '#0db4ff', '#7d0000', '#acd598', '#cfa972', '#00ff00', '#44f0ff', '#f19ec2', '#ff0000', '#ffff00', '#00fffc', '#ec6941', '#732c95']
-    this.legend = ['东进口左转', '东进口直行', '东南进口左转', '东南进口直行', '西南进口左转', '西南进口直行', '西北进口左转', '西北进口直行', '西北进口左转1', '西北进口直行1']
+    this.legend = ['方案一', '方案二']
     this.time = ['10:50', '10:55', '11:00', '11:05', '11:10', '11:15', '11:20', '11:25', '11:30', '11:35', '11:40', '11:45', '11:50']
     this.series = [
       {
-        name: '东进口左转',
+        name: '方案一',
         type: 'line',
         data: [2.0, 4.9, 1.0, 33.2, 25.6, 75.7, 25.6, 162.2, 32.6, 20.0, 6.4, 3.3, 33],
         itemStyle: {
           normal: {
-            color: '#44f0ff',
+            color: '#01CD74',
           },
         },
         symbol: 'circle',
         symbolSize: 10,
       },
       {
-        name: '东进口直行',
+        name: '方案二',
         type: 'line',
         data: [2.0, 4.9, 10, 33.2, 25.6, 70, 25.6, 162.2, 32.6, 20.0, 6.4, 30, 23],
         itemStyle: {
           normal: {
-            color: '#ff9d00',
+            color: '#00DCFE',
           },
         },
         symbol: 'circle',
@@ -103,6 +103,7 @@ class ExportCharts extends React.Component {
         containLabel: true,
       },
       legend: {
+        icon: 'rect',
         // data: ['东进口左转', '东进口直行', '东南进口左转', '东南进口直行', '西南进口左转', '西南进口直行', '西北进口左转', '西北进口直行', '西北进口左转1', '西北进口直行1'],
         data: legend,
         top: 5,
@@ -156,7 +157,7 @@ class ExportCharts extends React.Component {
   }
   render() {
     return (
-      <div ref={(input) => { this.chartsBox = input }} style={{ height: '95%', width: '100%' }} />
+      <div ref={(input) => { this.chartsBox = input }} style={{ height: '80%', width: '100%' }} />
     )
   }
 }

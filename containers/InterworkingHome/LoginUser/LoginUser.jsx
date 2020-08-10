@@ -17,7 +17,10 @@ class LoginUser extends Component {
   componentDidMount = () => {
 
   }
-
+  handlePagination = (pageNumber) => {
+    // console.log('Page: ', pageNumber)
+    // this.sysUser.pageNo = pageNumber
+  }
   render() {
     const { addUsersPop, deleteUserPop, changePwdPop } = this.state
     return (
@@ -33,24 +36,26 @@ class LoginUser extends Component {
             <div className={styles.listTd} >创建时间</div>
             <div className={styles.listTd} >操作</div>
           </div>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 6, 5].map((item, index) => {
-            return (
-              <div className={styles.listItems} key={index}>
-                <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
-                <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
-                <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
-                <div className={styles.listTd} >
-                  <span className={styles.Item} onClick={() => { this.setState({ changePwdPop: true }) }}>修改密码</span>
-                  <span className={styles.Item} onClick={() => { this.setState({ deleteUserPop: true }) }}>删除用户</span>
-                </div>
-              </div>)
-          })}
-          {
-            null ? <div className={styles.noData}>当前查询无数据</div> : null
-          }
+          <div className={styles.listItemsBox}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 6, 5].map((item, index) => {
+              return (
+                <div className={styles.listItems} key={index}>
+                  <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
+                  <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
+                  <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
+                  <div className={styles.listTd} >
+                    <span className={styles.Item} onClick={() => { this.setState({ changePwdPop: true }) }}>修改密码</span>
+                    <span className={styles.Item} onClick={() => { this.setState({ deleteUserPop: true }) }}>删除用户</span>
+                  </div>
+                </div>)
+            })}
+            {
+              null ? <div className={styles.noData}>当前查询无数据</div> : null
+            }
+          </div>
         </div>
-        <div className={styles.userFooter}>
-          <div className={styles.page}><span className={styles.count}>当前共{30}条，每页显示10条</span><Pagination showQuickJumper current={1} total={30} /></div>
+        <div className={styles.GpsMapCenterTime}>
+          <div className={styles.page}>当前共{10}条，每页显示10条</div><Pagination showQuickJumper current={1} total={50} onChange={this.handlePagination} />
         </div>
         {
           addUsersPop ?

@@ -7,7 +7,7 @@ class CustomTree extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      expendsKey: [1],
+      expendsKey: [1, 2, 3],
     }
     this.loopDate = [
       {

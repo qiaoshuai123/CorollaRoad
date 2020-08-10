@@ -21,8 +21,8 @@ class Abnormalwarning extends Component {
     })
   }
   handlePagination = (pageNumber) => {
-    console.log('Page: ', pageNumber)
-    this.sysUser.pageNo = pageNumber
+    // console.log('Page: ', pageNumber)
+    // this.sysUser.pageNo = pageNumber
   }
   render() {
     const { lsitLists, num } = this.state
@@ -63,11 +63,11 @@ class Abnormalwarning extends Component {
         </div>
         <div className={styles.GpsMapRight}>
           <div className={styles.GpsMapEcharts}>
-            <div className={styles.listhead}>路口流量</div>
+            <div className={styles.listhead}>近七天预警统计</div>
             <OptLineCharts />
           </div>
           <div className={styles.GpsMapEcharts}>
-            <div className={styles.listhead}>路口排大队长度</div>
+            <div className={styles.listhead}>按路口统计</div>
             <OptLineCharts />
           </div>
         </div>
