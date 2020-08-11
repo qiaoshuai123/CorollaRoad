@@ -74,7 +74,7 @@ class Monitoring extends Component {
         <div className={styles.Monitoring_box}>
           {
             roadRankingList && roadRankingList.map(item =>
-              <li key={item.node_id + item}><span className={styles.circulars} /><span className={styles.ItemList}>{item.node_name}</span><span className={styles.arrows}></span></li>
+              <li key={item.node_id + item}><span className={styles.circulars} /><span className={styles.ItemList}>{item.node_name}</span><Icon className={styles.arrowsGreen} type="arrow-down" /></li>
             )
           }
         </div>
