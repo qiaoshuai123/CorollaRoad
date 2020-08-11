@@ -8,20 +8,33 @@ class HollowPie extends React.Component {
     this.state = {}
   }
   componentDidMount = () => {
-    const chartsBox = echarts.init(this.chartsBox)
+    this.chartsBoxer = echarts.init(this.chartsBox)
     // const { seriseData, totleDevice } = this.props.chartsDatas
-    this.renderCharts(chartsBox, [{ value: 104, name: "方案库104套" }, { value: 242, name: "推荐平台242套" }], 346)
+    this.renders()
+  }
+  renders = () => {
+    const { optimizationPlanList } = this.props
+    const arrList = []
+    let ind = 0
+    optimizationPlanList.forEach((item) => {
+      const objs = {}
+      objs.name = item.plan_type
+      objs.value = item.num
+      arrList.push(objs)
+      ind += item.num
+    })
+    this.renderCharts(this.chartsBoxer, arrList, ind)
   }
   renderCharts = (chartsBox, serise, totle) => {
     const options = {
-      title : {
-        text: '共产出优化方案数'+totle+'套',
+      title: {
+        text: `共产出优化方案数${totle}套`,
         textStyle: { // 图例文字的样式
           color: '#fff',
           fontSize: 14,
         },
-        x:'45%',
-        y:'25%',
+        x: '45%',
+        y: '25%',
       },
       tooltip: {
         trigger: 'item',
@@ -55,8 +68,8 @@ class HollowPie extends React.Component {
           },
           label: {
             normal: {
-               position: 'inner',
-               show : false
+              position: 'inner',
+              show: false
             }
           },
           emphasis: {

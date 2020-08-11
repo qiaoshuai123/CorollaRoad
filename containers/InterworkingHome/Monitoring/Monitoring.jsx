@@ -1,13 +1,13 @@
 // 全局监视
-
 import React, { Component } from 'react'
-import styles from './Monitoring.scss'
+import { Icon } from 'antd'
 import EvaluateEcharts from './evaluateEcharts/evaluateEcharts'
 import SchemeEcharts from './schemeEcharts/schemeEcharts'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import $bus from '../../../utils/events'
 import Item from 'antd/lib/list/Item'
-import { Icon } from 'antd'
+
+import styles from './Monitoring.scss'
 
 class Monitoring extends Component {
   constructor(props) {
@@ -15,14 +15,19 @@ class Monitoring extends Component {
     this.state = {
       ckeckRanking: true,
       roadRankingList: [],
+      optimizationPlanList: null, // 优化方案统计
+      evaluatingLsit: null, // 评价指标统计
     }
     this.jam = '/signal-decision/monitor/rank/jam' // 路口排名-拥堵排名
     this.optimization = '/signal-decision/monitor/rank/optimization' // 路口排名-优化排名
-    // this.
+    this.getOptimizationPlan = '/signal-decision/monitor/getOptimizationPlan' // 优化方案统计
+    this.getEvaluating = '/signal-decision//monitor/getEvaluating' // 评价指标统计
   }
   componentDidMount = () => {
     this.roadRanking()
     this.messageInformation()
+    this.optimizationPlan()
+    this.evaluating()
   }
   // 初始化传递信息给地图
   messageInformation = () => {
@@ -60,8 +65,30 @@ class Monitoring extends Component {
       }
     })
   }
+  // 优化方案
+  optimizationPlan = () => {
+    getResponseDatas('get', this.getOptimizationPlan).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({
+          optimizationPlanList: data,
+        })
+      }
+    })
+  }
+  // 评价指标统计
+  evaluating = () => {
+    getResponseDatas('get', this.getEvaluating).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({
+          evaluatingLsit: data,
+        })
+      }
+    })
+  }
   render() {
-    const { ckeckRanking, roadRankingList } = this.state
+    const { ckeckRanking, roadRankingList, optimizationPlanList, evaluatingLsit, } = this.state
     return (
       <div className={styles.Monitoring}>
         <div className={styles.Monitoring_top}>
@@ -80,11 +107,11 @@ class Monitoring extends Component {
         </div>
         <div className={styles.Monitoring_scheme}>
           <li>优化方案统计</li>
-          <SchemeEcharts />
+          {optimizationPlanList && <SchemeEcharts optimizationPlanList={optimizationPlanList} />}
         </div>
         <div className={styles.Monitoring_evaluate}>
-          <li>花冠路与甲秀南路</li>
-          <EvaluateEcharts />
+          <li>评价指标统计</li>
+          {evaluatingLsit && <EvaluateEcharts evaluatingLsit={evaluatingLsit} />}
         </div>
       </div>
     )

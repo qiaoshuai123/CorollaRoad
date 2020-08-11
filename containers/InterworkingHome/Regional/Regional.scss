@@ -1,210 +1,277 @@
-.Regional{
+.configBox {
+    z-index: 2;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(3, 52, 71, 0.9);
-    .configBox {
-        z-index: 2;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 0 10px;
-        background-color: #052841;
-        .confTitle {
-            position: relative;
-            height: 42px;
-            line-height: 42px;
-            padding-left: 15px;
-            border-bottom: 1px solid rgba(7, 165, 186, 0.5);
-            font-size: 15px;
-            .closeConf {
-                position: absolute;
-                right: 5px;
-                top: 12px;
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                text-align: center;
-                line-height: 20px;
-                transition: all .3s;
-                cursor: pointer;
-                &:hover {
-                    transform: rotate(-180deg) scale(1.3);
-                }
+    padding: 0 10px;
+    background-color: #052841;
+    .confTitle {
+        position: relative;
+        height: 42px;
+        line-height: 42px;
+        padding-left: 15px;
+        border-bottom: 1px solid rgba(7, 165, 186, 0.5);
+        font-size: 15px;
+        .closeConf {
+            position: absolute;
+            right: 5px;
+            top: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            &:hover {
+                transform: rotate(-180deg) scale(1.3);
             }
         }
-        .confContent {
-            margin-top: 10px;
-            height: calc(100% - 55px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            .confItem {
-                height: 49.5%;
-                border: 1px solid rgba(7, 165, 186, 0.5);
-                border-top: none;
-                .title {
-                    position: relative;
-                    width: 100%;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    padding-left: 10px;
-                    background-color: #214D6A;
-                    border-left: 3px solid #00FFFF;
-                    font-size: 14px;
-                    border-top: 1px solid rgba(7, 165, 186, 0.5);
-                    :global(.ant-select) {
-                        width: 120px;
-                        color: #bbb;
-                        margin-right: 25px;
-                    }
-                    :global(.ant-select-selection--single) {
-                        height: 28px;
-                        background-color: #19405A;
-                        border: none;
-                        box-shadow: none;
-                    }
-                    :global(.ant-select-selection__rendered) {
-                        line-height: 28px;
-                    }
-                    :global(.ant-select-arrow) {
-                        color: #bbb;
-                    }
+    }
+    .confContent {
+        margin-top: 10px;
+        height: calc(100% - 55px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .confItem {
+            height: 49.5%;
+            border: 1px solid rgba(7, 165, 186, 0.5);
+            border-top: none;
+            .title {
+                position: relative;
+                width: 100%;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                background-color: #214d6a;
+                border-left: 3px solid #00ffff;
+                font-size: 14px;
+                border-top: 1px solid rgba(7, 165, 186, 0.5);
+                :global(.ant-select) {
+                    width: 120px;
+                    color: #bbb;
+                    margin-right: 25px;
                 }
-                .greenWaveBox {
-                    height: calc(100% - 40px);
+                :global(.ant-select-selection--single) {
+                    height: 28px;
+                    background-color: #19405a;
+                    border: none;
+                    box-shadow: none;
+                }
+                :global(.ant-select-selection__rendered) {
+                    line-height: 28px;
+                }
+                :global(.ant-select-arrow) {
+                    color: #bbb;
+                }
+            }
+            .greenWaveBox {
+                height: calc(100% - 40px);
+                display: flex;
+                .greenWave {
+                    flex: 1;
+                }
+                .greenConf {
+                    width: 420px;
+                    padding: 2px 2px 0 0;
                     display: flex;
-                    .greenWave {
+                    flex-direction: column;
+                    .interConf {
                         flex: 1;
-                    }
-                    .greenConf {
-                        width: 420px;
-                        padding: 2px 2px 0 0;
                         display: flex;
-                        flex-direction: column;
-                        .interConf {
-                            flex: 1;
+                        align-items: center;
+                        margin-bottom: 2px;
+                        background-color: #214d6a;
+                        .splitLine {
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            width: 100%;
+                            height: 2px;
+                            background-color: #052841;
+                        }
+                        .phaseBody {
                             display: flex;
-                            align-items: center;
-                            margin-bottom: 2px;
-                            background-color: #214D6A;
-                            .splitLine {
-                                position: absolute;
-                                top: 50%;
-                                left: 0;
-                                width: 100%;
-                                height: 2px;
-                                background-color: #052841;
-                            }
-                            .phaseBody {
+                            width: 100%;
+                            height: 100%;
+                            color: #c6d2dc;
+                            .phaseItem {
+                                flex: 0 130px;
                                 display: flex;
-                                width: 100%;
-                                height: 100%;
-                                color: #C6D2DC;
-                                .phaseItem {
-                                  flex: 0 130px;
-                                  display: flex;
-                                  flex-direction: column;
-                                  .item {
+                                flex-direction: column;
+                                .item {
                                     flex: 1;
                                     display: flex;
                                     justify-content: flex-end;
                                     align-items: center;
-                                  }
                                 }
-                                .phaseValur {
-                                  flex: 1;
-                                  display: flex;
-                                  flex-direction: column;
-                                  overflow-x: auto;
-                                  .valueBox {
+                            }
+                            .phaseValur {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                overflow-x: auto;
+                                .valueBox {
                                     display: flex;
                                     flex: 1;
                                     .values {
-                                      min-width: 90px;
-                                      flex: 1;
-                                      display: flex;
-                                      align-items: center;
-                                      justify-content: center;
+                                        min-width: 90px;
+                                        flex: 1;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
                                     }
-                                  }
                                 }
-                              }
-                            .confName {
-                                flex: 0 130px;
-                                text-align: right;
-                                color: #C6D2DC;
                             }
-                            .confMsg {
-                                flex: 1;
-                                display: flex;
-                                justify-content: center;
-                                :global(.ant-select) {
-                                    width: 260px;
-                                    color: #bbb;
+                        }
+                        .confName {
+                            flex: 0 130px;
+                            text-align: right;
+                            color: #c6d2dc;
+                        }
+                        .confMsg {
+                            flex: 1;
+                            display: flex;
+                            justify-content: center;
+                            :global(.ant-select) {
+                                width: 260px;
+                                color: #bbb;
+                            }
+                            :global(.ant-select-selection--single) {
+                                height: 28px;
+                                background-color: rgba(28, 33, 39, 0.7);
+                                border: none;
+                                box-shadow: none;
+                            }
+                            :global(.ant-select-selection__rendered) {
+                                line-height: 28px;
+                            }
+                            :global(.ant-select-arrow) {
+                                color: #bbb;
+                            }
+                            .interSpeed {
+                                position: relative;
+                                width: 260px;
+                                height: 28px;
+                                padding-left: 10px;
+                                line-height: 28px;
+                                background-color: rgba(28, 33, 39, 0.7);
+                                border-radius: 3px;
+                                .confUnit {
+                                    position: absolute;
+                                    right: 5px;
+                                    top: 0px;
+                                    color: rgba(198, 210, 220, 0.7);
                                 }
-                                :global(.ant-select-selection--single) {
-                                    height: 28px;
-                                    background-color: rgba(28,33,39, .7);
-                                    border: none;
-                                    box-shadow: none;
-                                }
-                                :global(.ant-select-selection__rendered) {
-                                    line-height: 28px;
-                                }
-                                :global(.ant-select-arrow) {
-                                    color: #bbb;
-                                }
-                                .interSpeed {
-                                    position: relative;
-                                    width: 260px;
-                                    height: 28px;
-                                    padding-left: 10px;
-                                    line-height: 28px;
-                                    background-color: rgba(28,33,39, .7);
-                                    border-radius: 3px;
-                                    .confUnit {
-                                        position: absolute;
-                                        right: 5px;
-                                        top: 0px;
-                                        color: rgba(198,210,220, 0.7);
-                                    }
-                                }
-                                .confVal {
-                                    color: #00FFFF;
-                                }
+                            }
+                            .confVal {
+                                color: #00ffff;
                             }
                         }
                     }
                 }
             }
-            .confItem:last-child {
-                border: none;
-                display: flex;
-                justify-content: space-between;
-                .confCharts {
-                    width: 49.8%;
-                    height: 100%;
-                    border: 1px solid rgba(7, 165, 186, 0.5);
-                    border-top: none;
-                    overflow: hidden;
-                    .chartMsg {
-                        height: calc(100% - 40px);
-                    }
+        }
+        .confItem:last-child {
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            .confCharts {
+                width: 49.8%;
+                height: 100%;
+                border: 1px solid rgba(7, 165, 186, 0.5);
+                border-top: none;
+                overflow: hidden;
+                .chartMsg {
+                    height: calc(100% - 40px);
                 }
             }
         }
     }
-    .interListBox {
-        position: absolute;
-        top: 2px;
-        left: 3px;
-        width: 400px;
-        height: calc(100% - 5px);
-        overflow-y: auto;
+}
+.interListBox {
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    width: 400px;
+    height: calc(100% - 5px);
+    overflow-y: auto;
+    border: 1px solid rgba(7, 165, 186, 0.7);
+    border-top: none;
+    background-color: rgba(5, 41, 67, 0.9);
+    .title {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        background-color: #214d6a;
+        border-left: 3px solid #00ffff;
+        font-size: 15px;
+        .areaConfig {
+            position: absolute;
+            right: 5px;
+            top: 7px;
+            height: 26px;
+            line-height: 24px;
+            padding: 0 8px;
+            border: 1px solid #40e7ff;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #40e7ff;
+            cursor: pointer;
+        }
+    }
+    .interMsg {
+        height: calc(100% - 40px);
+        margin: 0;
+        padding: 0 10px;
+        font-size: 14px;
+        background-color: rgba(14, 46, 65, 0.5);
+        .interItem {
+            padding: 10px 0;
+            border-bottom: 1px solid #07a5ba;
+            color: #c6d2dc;
+            .interName {
+                height: 24px;
+                line-height: 24px;
+                color: #00ffff;
+            }
+            .interDetails {
+                display: flex;
+                height: 26px;
+                .detailsItems {
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 13px;
+                }
+            }
+        }
+        .interItem:last-child {
+            border-bottom: none;
+        }
+    }
+}
+.areaChartsBox {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    width: 500px;
+    height: calc(100% - 6px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: rgba(5, 41, 67, 0.9);
+    .chartsItem {
+        height: 49.8%;
         border: 1px solid rgba(7, 165, 186, 0.7);
         border-top: none;
         .title {
@@ -214,83 +281,12 @@
             display: flex;
             align-items: center;
             padding-left: 10px;
-            background-color: #214D6A;
-            border-left: 3px solid #00FFFF;
+            background-color: #214d6a;
+            border-left: 3px solid #00ffff;
             font-size: 15px;
-            .areaConfig {
-                position: absolute;
-                right: 5px;
-                top: 7px;
-                height: 26px;
-                line-height: 24px;
-                padding: 0 8px;
-                border: 1px solid #40E7FF;
-                border-radius: 4px;
-                font-size: 13px;
-                color: #40E7FF;
-                cursor: pointer;
-            }
         }
-        .interMsg {
+        .chartsWrap {
             height: calc(100% - 40px);
-            margin: 0;
-            padding: 0 10px;
-            font-size: 14px;
-            background-color: rgba(14, 46, 65, 0.5);
-            .interItem {
-                padding: 10px 0;
-                border-bottom: 1px solid #07A5BA;
-                color: #C6D2DC;
-                .interName {
-                    height: 24px;
-                    line-height: 24px;
-                    color: #00FFFF;
-                }
-                .interDetails {
-                    display: flex;
-                    height: 26px;
-                    .detailsItems {
-                        flex: 1;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 13px;
-                    }
-                }
-            }
-            .interItem:last-child {
-                border-bottom: none;
-            }
-        }
-    }
-    .areaChartsBox {
-        position: absolute;
-        right: 0;
-        top: 3px;
-        width: 500px;
-        height: calc(100% - 6px);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-        .chartsItem {
-            height: 49.8%;
-            border: 1px solid rgba(7, 165, 186, 0.7);
-            border-top: none;
-            .title {
-                position: relative;
-                width: 100%;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                padding-left: 10px;
-                background-color: #214D6A;
-                border-left: 3px solid #00FFFF;
-                font-size: 15px;
-            }
-            .chartsWrap {
-                height: calc(100% - 40px);
-            }
         }
     }
 }
