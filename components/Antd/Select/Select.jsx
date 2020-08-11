@@ -23,6 +23,7 @@ class AntdSelect extends Component {
     return (
       <div style={this.props.style} className={styles.AntdSelectBox}>
         <Select
+          mode={this.props.modeStatus ? "multiple" : ""}
           showSearch
           className={styles.AntdSelect}
           placeholder="请选择"
