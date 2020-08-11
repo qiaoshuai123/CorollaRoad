@@ -3,7 +3,8 @@ import { renderRoutes } from 'react-router-config'
 import Header from '../../../components/Header/Header'
 import CustomTree from '../../../components/CustomTree/CustomTree'
 import MineData from '../../../components/MineData/MineData'
-
+import classNames from 'classnames'
+import 'animate.css'
 import { Input } from 'antd'
 import styles from './InterworkingHome.scss'
 
@@ -16,8 +17,13 @@ class InterworkingHome extends Component {
         this.props.location.pathname === '/interworkingHome/Monitoring' ? 'goMonitoring' :
           this.props.location.pathname === '/interworkingHome/Simulation' ? 'evaluate' :
             this.props.location.pathname === '/interworkingHome/LoginUser' ? 'goUser' : '',
+      showFlag: null, // 是否显示左侧导航栏
     }
-
+    this.stylesH = `width: 0px;
+      transition:all .5s;`
+    this.stylesRH = `width: 100%;
+      left: 0px;
+      transition:all .5s;`
     // this.RedirectsRouter()
   }
   componentDidMount = () => {
@@ -27,7 +33,19 @@ class InterworkingHome extends Component {
 
   }
   changeLeftMenu = () => {
-
+    if (this.state.showFlag) {
+      this.setState({
+        showFlag: null
+      })
+      $("#container-right").attr("style",'')
+      $("#menu-left").attr("style",'')
+    } else {
+      this.setState({
+        showFlag: true
+      })
+      $("#container-right").attr("style",this.stylesRH)
+      $("#menu-left").attr("style",this.stylesH)
+    }
   }
   // RedirectsRouter = () => {
   //   console.log(this.props.location.pathname, 'sv')
@@ -61,11 +79,11 @@ class InterworkingHome extends Component {
   }
   render() {
     const { Search } = Input
-    const { isname } = this.state
+    const { isname, showFlag } = this.state
     return (
       <div className={styles.InterworkingHomeBox}>
         <Header {...this.props} />
-        <div className={styles.Interwork_left}>
+        <div id='menu-left' className={classNames('animated', styles.Interwork_left)}>
           <div className={styles.Interwork_leftBox}>
             <div className={styles.InterworkLeft_search}>
               <Search
@@ -85,10 +103,9 @@ class InterworkingHome extends Component {
               <span /><span>用户管理</span>
             </div>
           </div>
-          {/* <div title="收起" onClick={this.changeLeftMenu} style={{ lineHeight:'60px', padding:'0px 5px 0px 1px', background:'#163b53', position: 'absolute', top: '50%', right:'0', marginTop: '-30px', cursor: 'pointer'}}>《 </div> */}
-          <div title="展开" onClick={this.changeLeftMenu} style={{ lineHeight:'60px', padding:'0px 0px 0px 8px', background:'#163b53', position: 'absolute', top: '50%', right:'0', marginTop: '-30px', cursor: 'pointer'}}>》</div>
+          { !showFlag ? <div className={styles.closeBtn} title="收起" onClick={this.changeLeftMenu}>《 </div> : <div className={styles.openBtn} title="展开" onClick={this.changeLeftMenu}>》</div> }
         </div>
-        <div className={styles.Interwork_right}>
+        <div id='container-right' className={classNames('animated', styles.Interwork_right)}>
           <MineData />
           {renderRoutes(this.props.route.routes)}
         </div>
