@@ -6,6 +6,8 @@ import EvaluateEcharts from './evaluateEcharts/evaluateEcharts'
 import SchemeEcharts from './schemeEcharts/schemeEcharts'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import $bus from '../../../utils/events'
+import Item from 'antd/lib/list/Item'
+import { Icon } from 'antd'
 
 class Monitoring extends Component {
   constructor(props) {
@@ -77,7 +79,7 @@ class Monitoring extends Component {
           }
         </div>
         <div className={styles.Monitoring_scheme}>
-          <li>优化方案统计及</li>
+          <li>优化方案统计</li>
           <SchemeEcharts />
         </div>
         <div className={styles.Monitoring_evaluate}>

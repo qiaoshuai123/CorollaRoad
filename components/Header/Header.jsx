@@ -160,7 +160,7 @@ class Header extends React.Component {
       <div className={styles.headerWrapper}>
         <div className={styles.header_left}>
           <span />
-          花冠路AI管控系统
+          花冠路交通信号控制决策系统
         </div>
         {/* <div className={styles.header_center}>
           {
