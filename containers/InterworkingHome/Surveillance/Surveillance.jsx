@@ -38,8 +38,8 @@ class Surveillance extends Component {
       <React.Fragment>
         {
           isGpsMap ?
-            <div className={styles.Surveillance}>
-              <div className={styles.Surveillance_messageLeft}>
+            <div>
+              <div className={styles.Surveillance_messageLeft} >
                 <div className={styles.listhead}>优化方案统计及</div>
                 <div className={styles.listBox}>
                   {
@@ -47,23 +47,26 @@ class Surveillance extends Component {
                   }
                   <div onClick={this.btnMe}>点我</div>
                 </div>
-              </div>
-              <div className={styles.Surveillance_messageRight}>
-                <div className={styles.Surveillance_RightLists}>
-                  <div className={styles.listhead}>拥堵排名</div>
-                  <div className={styles.Surveillance_RightListsBox}>
-                    <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-                    <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-                    <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
-                    <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
+              </div >
+              <div className={styles.Surveillance}>
+                <div className={styles.Surveillance_messageRight}>
+                  <div className={styles.Surveillance_RightLists}>
+                    <div className={styles.listhead}>拥堵排名</div>
+                    <div className={styles.Surveillance_RightListsBox}>
+                      <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
+                      <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
+                      <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
+                      <li><span className={styles.circulars} /><span className={styles.ItemList}>花冠路与甲秀南路</span><span className={styles.arrows}></span></li>
+                    </div>
+                  </div>
+                  <div className={styles.Surveillance_messageRightEcharts}>
+                    <div className={styles.listhead}>延误时间排名</div>
+                    <EvaluateEcharts />
                   </div>
                 </div>
-                <div className={styles.Surveillance_messageRightEcharts}>
-                  <div className={styles.listhead}>延误时间排名</div>
-                  <EvaluateEcharts />
-                </div>
               </div>
-            </div> : <GpsMap isGpsMapShow={this.isGpsMapShow} />
+            </div >
+            : <GpsMap isGpsMapShow={this.isGpsMapShow} />
         }
       </React.Fragment>
     )

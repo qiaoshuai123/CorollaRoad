@@ -1,3 +1,41 @@
+.Surveillance_messageLeft {
+    width: 200px;
+    height: 480px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    border: 1px solid rgba(7, 165, 186, 0.7);
+    background-color: #133146;
+    .listhead {
+        color: #37e2ea;
+        height: 40px;
+        padding-left: 15px;
+        background-color: #214d6a;
+        line-height: 40px;
+        border-left: 2px solid #00ffff;
+    }
+    .listBox {
+        height: 440px;
+        overflow-y: auto;
+        li {
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        div {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            line-height: 45px;
+            background-color: red;
+            cursor: pointer;
+        }
+    }
+}
 .Surveillance {
     position: absolute;
     width: 410px;
@@ -12,41 +50,6 @@
         background-color: #214d6a;
         line-height: 40px;
         border-left: 2px solid #00ffff;
-    }
-    .Surveillance_messageLeft {
-        width: 200px;
-        height: 480px;
-        position: absolute;
-        top: 2px;
-        @media (min-width: 1850px) {
-            left: -305%;
-        }
-        @media (min-width: 1200px) and (max-width: 1850px) {
-            left: -229%;
-        }
-        border: 1px solid rgba(7, 165, 186, 0.7);
-        background-color: #133146;
-        .listBox {
-            height: 440px;
-            overflow-y: auto;
-            li {
-                height: 45px;
-                line-height: 45px;
-                text-align: center;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                cursor: pointer;
-            }
-            div {
-                width: 45px;
-                height: 45px;
-                text-align: center;
-                line-height: 45px;
-                background-color: red;
-                cursor: pointer;
-            }
-        }
     }
     .Surveillance_messageRight {
         height: 100%;

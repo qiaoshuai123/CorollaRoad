@@ -4,7 +4,7 @@ import Header from '../../../components/Header/Header'
 import CustomTree from '../../../components/CustomTree/CustomTree'
 import MineData from '../../../components/MineData/MineData'
 import classNames from 'classnames'
-import 'animate.css'
+// import 'animate.css'
 import { Input } from 'antd'
 import styles from './InterworkingHome.scss'
 
@@ -27,7 +27,7 @@ class InterworkingHome extends Component {
     // this.RedirectsRouter()
   }
   componentDidMount = () => {
-
+    this.map
   }
   componentDidUpdate = () => {
 
@@ -37,14 +37,14 @@ class InterworkingHome extends Component {
       this.setState({
         showFlag: null
       })
-      $("#container-right").attr("style",'')
-      $("#menu-left").attr("style",'')
+      $("#container-right").attr("style", '')
+      $("#menu-left").attr("style", '')
     } else {
       this.setState({
         showFlag: true
       })
-      $("#container-right").attr("style",this.stylesRH)
-      $("#menu-left").attr("style",this.stylesH)
+      $("#container-right").attr("style", this.stylesRH)
+      $("#menu-left").attr("style", this.stylesH)
     }
   }
   // RedirectsRouter = () => {
@@ -103,7 +103,7 @@ class InterworkingHome extends Component {
               <span /><span>用户管理</span>
             </div>
           </div>
-          { !showFlag ? <div className={styles.closeBtn} title="收起" onClick={this.changeLeftMenu}>《 </div> : <div className={styles.openBtn} title="展开" onClick={this.changeLeftMenu}>》</div> }
+          {!showFlag ? <div className={styles.closeBtn} title="收起" onClick={this.changeLeftMenu}>《 </div> : <div className={styles.openBtn} title="展开" onClick={this.changeLeftMenu}>》</div>}
         </div>
         <div id='container-right' className={classNames('animated', styles.Interwork_right)}>
           <MineData />

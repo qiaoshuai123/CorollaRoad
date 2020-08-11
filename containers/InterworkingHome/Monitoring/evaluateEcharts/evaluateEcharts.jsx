@@ -5,22 +5,22 @@ class evaluateEcharts extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.xDatas = ['离点断线', '关灯控制', '全红控制', '黄闪控制', '本地多时段', '本地感应', '中心多时段', '勤务控制']
+    this.xDatas = ['延误时间', '旅行时间', '停车次数', '平均速度', '流量']
     this.series = [0, 0, 0, 4, 0]
   }
   componentDidMount = () => {
-    const chartsBox = echarts.init(this.chartsBox)
-    // const { chartsDatas } = this.props
-    // if (chartsDatas) {
-    //   const xData = []
-    //   const seriseData = []
-    //   chartsDatas.forEach((item) => {
-    //     xData.push(item.area_name)
-    //     seriseData.push(item.amount)
-    //   })
-    //   this.renderCharts(chartsBox, xData, seriseData)
-    // }
-    this.renderCharts(chartsBox, ["人民大道", "花冠路", "龙泉苑街"], [9, 9, 4])
+    this.chartsBoxer = echarts.init(this.chartsBox)
+    this.renders()
+  }
+  renders = () => {
+    const { evaluatingLsit } = this.props
+    let arrList = []
+    arrList[0] = evaluatingLsit[0].delay_time
+    arrList[1] = evaluatingLsit[0].travel_time
+    arrList[2] = evaluatingLsit[0].stop_num
+    arrList[3] = evaluatingLsit[0].avg_speed
+    arrList[4] = evaluatingLsit[0].flow
+    this.renderCharts(this.chartsBoxer, this.xDatas, arrList)
   }
   renderCharts = (chartsBox, xData, seriesData) => {
     const options = {
