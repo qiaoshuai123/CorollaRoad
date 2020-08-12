@@ -27,19 +27,23 @@ class InterworkingHome extends Component {
     // this.RedirectsRouter()
   }
   componentDidMount = () => {
-    this.map
+    // this.map
   }
   componentDidUpdate = () => {
 
   }
   changeLeftMenu = () => {
     if (this.state.showFlag) {
+      window.showFlag = true
+      window.showStatus = true
       this.setState({
         showFlag: null
       })
       $("#container-right").attr("style", '')
       $("#menu-left").attr("style", '')
     } else {
+      window.showFlag = true
+      window.showStatus = null
       this.setState({
         showFlag: true
       })

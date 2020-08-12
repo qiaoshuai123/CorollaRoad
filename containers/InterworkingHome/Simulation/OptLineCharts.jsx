@@ -8,13 +8,17 @@ class ExportCharts extends React.Component {
     this.keyNum = Math.random()
     this.colors = ['#44f0ff', '#ff9d00', '#ec6941', '#00fffc', '#ffff00', '#ff0000', '#f19ec2', '#00ff00', '#cfa972', '#acd598', '#7d0000', '#0db4ff', '#732c95']
     this.reverseColors = ['#ff9d00', '#0db4ff', '#7d0000', '#acd598', '#cfa972', '#00ff00', '#44f0ff', '#f19ec2', '#ff0000', '#ffff00', '#00fffc', '#ec6941', '#732c95']
-    this.legend = ['方案一', '方案二']
-    this.time = ['10:50', '10:55', '11:00', '11:05', '11:10', '11:15', '11:20', '11:25', '11:30', '11:35', '11:40', '11:45', '11:50']
-    this.series = [
-      {
-        name: '方案一',
+    this.legend = this.props.legendName ? this.props.legendName.split(',') : []
+    this.time = []
+    this.series = []
+    this.props.resData.map((item, i) => {
+      if (this.time.length === 0 && item[i].length > 0) {
+        this.time = item[0]
+      }
+      const obj = {
+        name: this.props.legendName.split(',')[i],
         type: 'line',
-        data: [2.0, 4.9, 1.0, 33.2, 25.6, 75.7, 25.6, 162.2, 32.6, 20.0, 6.4, 3.3, 33],
+        data: item[1],
         itemStyle: {
           normal: {
             color: '#01CD74',
@@ -22,26 +26,16 @@ class ExportCharts extends React.Component {
         },
         symbol: 'circle',
         symbolSize: 10,
-      },
-      {
-        name: '方案二',
-        type: 'line',
-        data: [2.0, 4.9, 10, 33.2, 25.6, 70, 25.6, 162.2, 32.6, 20.0, 6.4, 30, 23],
-        itemStyle: {
-          normal: {
-            color: '#00DCFE',
-          },
-        },
-        symbol: 'circle',
-        symbolSize: 10,
-      },
-    ]
+      }
+      this.series.push(obj)      
+    })
   }
   componentDidMount = () => {
+    window.showFlag = null
     this.getPropsChartsData()
   }
   componentDidUpdate = (prevState) => {
-    console.log(prevState)
+    // console.log(prevState)
   }
   getPropsChartsData = () => {
     const chartsBox = echarts.init(this.chartsBox)
@@ -157,7 +151,12 @@ class ExportCharts extends React.Component {
   }
   render() {
     return (
-      <div ref={(input) => { this.chartsBox = input }} style={{ height: '80%', width: '100%' }} />
+      <div ref={(input) => { this.chartsBox = input }} style={ { height: '80%', width: '734px' } } /> 
+      // <div style={{ height: '80%', width: '100%' }}>
+      //   { window.showFlag ? 
+      //     <div ref={(input) => { this.chartsBox = input }} style={ { height: '100%', width: '120%' }} /> :
+      //   }
+      // </div>
     )
   }
 }
