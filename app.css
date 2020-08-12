@@ -161,7 +161,7 @@ a.amap-logo img{
     background: rgba(33, 77, 106, 0.9);
   }
   .minemap-popup{
-    z-index: 999998;
+    z-index: 98;
   }
   .minemap-popup-anchor-bottom .minemap-popup-tip {
     border-top-color: rgba(33, 77, 106, 0.9);
