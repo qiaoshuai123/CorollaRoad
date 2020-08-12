@@ -2,14 +2,14 @@ import React from 'react'
 import { Icon, message } from 'antd'
 
 import styles from './Login.scss'
-// import getResponseDatas from '../../utils/getResponseDatas'
+import getResponseDatas from '../../utils/getResponseDatas'
 
 class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.loginUrl = '/DCU/sys/user/login'
-    this.limitUrl = '/DCU/sys/menu/getUserMentList?userId='
+    this.loginUrl = '/signal-decision/user/login'
+    // this.limitUrl = '/DCU/sys/menu/getUserMentList?userId='
     this.loginParams = {
       loginName: '',
       password: '',
@@ -31,35 +31,35 @@ class Login extends React.Component {
     })
     return formData
   }
-  getUserLimit = (id) => {
-    getResponseDatas('post', `${this.limitUrl}${id}`).then((res) => {
-      const { code, data } = res.data
-      if (code === 0) {
-        localStorage.setItem('userLimit', JSON.stringify(data))
-        this.props.history.push(data[0].path) //'/interworkinghome'
-      }
-    })
-  }
+  // getUserLimit = (id) => {
+  //   getResponseDatas('post', `${this.limitUrl}${id}`).then((res) => {
+  //     const { code, data } = res.data
+  //     if (code === 0) {
+  //       localStorage.setItem('userLimit', JSON.stringify(data))
+  //       this.props.history.push(data[0].path) //'/interworkinghome'
+  //     }
+  //   })
+  // }
   handleLogin = () => {
-    this.props.history.push('/interworkingHome/Monitoring')
-    // const { loginName, passWord } = this.loginParams
-    // if (loginName !== '' && passWord !== '') {
-    //   getResponseDatas('post', this.loginUrl, this.getFormData(this.loginParams)).then((res) => {
-    //     const { code, data, msg } = res.data
-    //     if (code === 0) {
-    //       this.getUserLimit(data.id)
-    //       localStorage.setItem('userInfo', JSON.stringify(data))
-    //       this.loginParams = {
-    //         loginName: '',
-    //         passWord: '',
-    //       }
-    //     } else {
-    //       message.warning(msg)
-    //     }
-    //   })
-    // } else {
-    //   message.info('请输入用户名和密码')
-    // }
+    const { loginName, passWord } = this.loginParams
+    if (loginName !== '' && passWord !== '') {
+      getResponseDatas('post', this.loginUrl, this.getFormData(this.loginParams)).then((res) => {
+        const { code, data, msg } = res.data
+        if (code === 200) {
+          // this.getUserLimit(data.id)
+          this.props.history.push('/interworkingHome/Monitoring')
+          localStorage.setItem('userInfo', JSON.stringify(loginName))
+          this.loginParams = {
+            loginName: '',
+            passWord: '',
+          }
+        } else {
+          message.warning(msg)
+        }
+      })
+    } else {
+      message.info('请输入用户名和密码')
+    }
   }
   handleUserInput = (e) => {
     const pname = e.target.getAttribute('pname')
