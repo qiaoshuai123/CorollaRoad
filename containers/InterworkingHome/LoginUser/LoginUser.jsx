@@ -4,7 +4,7 @@ import styles from './LoginUser.scss'
 import { Pagination, Icon } from 'antd'
 import Popup from '../../../components/Popup/Popup'
 import Input from '../../../components/Antd/Input/Input'
-
+import getResponseDatas from '../../../utils/getResponseDatas'
 class LoginUser extends Component {
   constructor(props) {
     super(props)
@@ -12,17 +12,40 @@ class LoginUser extends Component {
       addUsersPop: null,
       deleteUserPop: null,
       changePwdPop: null,
+      // userListData: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],
+      userListData: null,
+      totalCount: 1,
+      current: '1',
     }
+    this.userListUrl='/signal-decision/user/list' // 获取用户列表
+    this.userSaveUrl='/signal-decision/user/save' // 新增用户
+    this.userUpdatePwd='/signal-decision/user/updatePassword' // 修改密码
+    this.userUpdatePwd='/signal-decision/user/delete' // 删除用户
   }
   componentDidMount = () => {
-
+    this.getUserData(this.state.current, '1')
+  }
+  getUserData = (pageNo, pageSize) => {
+    getResponseDatas('post', this.userListUrl + '?pageNo=' + pageNo + '&pageSize=' + pageSize).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({ userListData: data.list, totalCount: data.totalCount},()=>{
+          console.log(this.state.userListData, '列表')
+        })
+      }
+    })
   }
   handlePagination = (pageNumber) => {
-    // console.log('Page: ', pageNumber)
+    console.log('Page: ', pageNumber)
+    this.setState({
+      current: pageNumber
+    }, () => {
+      this.getUserData(this.state.current, '1')
+    })
     // this.sysUser.pageNo = pageNumber
   }
   render() {
-    const { addUsersPop, deleteUserPop, changePwdPop } = this.state
+    const { userListData, totalCount, current, addUsersPop, deleteUserPop, changePwdPop } = this.state
     return (
       <div className={styles.Abnormalwarning}>
         <div className={styles.userHeade}>
@@ -37,12 +60,13 @@ class LoginUser extends Component {
             <div className={styles.listTd} >操作</div>
           </div>
           <div className={styles.listItemsBox}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 6, 5].map((item, index) => {
+            {/* {userListData.map((item, index) => { */}
+            {userListData && userListData.map((item, index) => {
               return (
                 <div className={styles.listItems} key={index}>
-                  <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
-                  <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
-                  <div className={styles.listTd} ><span className={styles.roadName}>1111</span></div>
+                  <div className={styles.listTd} ><span className={styles.roadName}>{index+1}</span></div>
+                  <div className={styles.listTd} ><span className={styles.roadName}>{item.user_name}</span></div>
+                  <div className={styles.listTd} ><span className={styles.roadName}>{item.date_time}</span></div>
                   <div className={styles.listTd} >
                     <span className={styles.Item} onClick={() => { this.setState({ changePwdPop: true }) }}>修改密码</span>
                     <span className={styles.Item} onClick={() => { this.setState({ deleteUserPop: true }) }}>删除用户</span>
@@ -55,7 +79,7 @@ class LoginUser extends Component {
           </div>
         </div>
         <div className={styles.GpsMapCenterTime}>
-          <div className={styles.page}>当前共{10}条，每页显示10条</div><Pagination showQuickJumper current={1} total={50} onChange={this.handlePagination} />
+          <div className={styles.page}>当前共{userListData && userListData.length}条，每页显示10条</div><Pagination showQuickJumper current={Number(current)} total={totalCount} onChange={this.handlePagination} />
         </div>
         {
           addUsersPop ?

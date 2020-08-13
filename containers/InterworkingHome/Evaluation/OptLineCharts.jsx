@@ -5,6 +5,27 @@ class ExportCharts extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.legend = ['初始条件', '对比时间']
+    // this.time = []
+    this.series = this.props.resData
+    // this.props.resData.map((item, i) => {
+    //   if (this.time.length === 0 && item[i].length > 0) {
+    //     this.time = item[0]
+    //   }
+    //   const obj = {
+    //     name: this.legend.split(',')[i],
+    //     type: 'line',
+    //     data: item[1],
+    //     itemStyle: {
+    //       normal: {
+    //         color: '#01CD74',
+    //       },
+    //     },
+    //     symbol: 'circle',
+    //     symbolSize: 10,
+    //   }
+    //   this.series.push(obj)      
+    // })
   }
   componentDidMount = () => {
     this.getPropsChartsData()
@@ -75,7 +96,8 @@ class ExportCharts extends React.Component {
           show: false,
         },
         boundaryGap: false,
-        data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
+        data: series[0][0],
+        // data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
 
       }],
 
@@ -114,7 +136,7 @@ class ExportCharts extends React.Component {
           showAllSymbol: true,
           symbol: 'circle',
           symbolSize: 10,
-          data: [4, 7, 5, 4, 3, 5, 8], // data.values
+          data: series[0][1], // data.values
           itemStyle: {
             normal: {
               color: '#E59E14',
@@ -128,7 +150,7 @@ class ExportCharts extends React.Component {
           showAllSymbol: true,
           symbol: 'circle',
           symbolSize: 10,
-          data: [3, 5, 4, 2, 1, 7, 6],
+          data: series[1][1],
           itemStyle: {
             normal: {
               color: '#4EBBC8',

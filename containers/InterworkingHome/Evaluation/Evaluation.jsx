@@ -6,13 +6,14 @@ import Select from '../../../components/Antd/Select/Select'
 import AntdDatePicker from '../../../components/Antd/DatePicker/DatePicker'
 import { Button, DatePicker, Upload } from 'antd'
 import Popup from '../../../components/Popup/Popup'
+import getResponseDatas from '../../../utils/getResponseDatas'
 import moment from 'moment'
 
 const Uploadprops = {
   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
   onChange({ file, fileList }) {
     if (file.status !== 'uploading') {
-      console.log(file, fileList);
+      // console.log(file, fileList);
     }
   },
   defaultFileList: [
@@ -29,21 +30,97 @@ class Evaluation extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      options1: [{ key: '花冠路与话甲秀南路', id: 1 }],
-      options2: [{ key: '方案一', id: 1 }],
+      typeData: [
+        { key: '路口流量', value: 'flow' },
+        { key: '路口延误时间', value: 'delay_time' },
+        { key: '路口停车次数', value: 'stop_num' },
+        { key: '路口排队长度', value: 'line_up_length' },
+        { key: '路口平均速度', value: 'avg_speed' },
+        // { key: '通过断面车辆数', value: 'section_flow' },
+        // { key: '占有率', value: 'occupancy' },
+        // { key: '流量时间间隔', value: 'flow_time' },
+        // { key: '旅行时间', value: 'travel_time' }
+      ],
+      roadNode: null,
+      evaluateData: null,
+      interId: null,
+      titName: '路口流量',
+      planId: 'flow',
       dataImportPop: null,
-      startDateTime: moment('2020-06-26 11:00:00'),
-      endDateTime: moment('2020-06-26 12:00:00'),
+      startDateTime: '2020-08-10 00:00:00',
+      endDateTime: '2020-08-10 23:59:00',
+      contrastStartDate: '2020-08-11 00:00:00',
+      contrastEndDate: '2020-08-11 23:59:00',
       endOpen: false,
     }
+    this.roadListUrl = '/signal-decision/monitor/roadList' // 路口经纬度列表
+    this.getRoadEvaluateUrl = '/signal-decision/optimize/getRoadEvaluate' // 查询路口评价
   }
   componentDidMount = () => {
-
+    // 路口
+    this.getRoadData()
+  }
+  getRoadData = () => {
+    getResponseDatas('get', this.roadListUrl).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({ roadNode: data, interId: data[0].node_id },()=>{
+          $("#getDataCharts").trigger('click')
+        })
+      }
+    })
+  }
+  getSearchCharts = (startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId) => {
+    const urls = '?initStartTime=' + startDateTime + '&initEndTime=' + endDateTime + '&compareStartTime=' + contrastStartDate + '&compareEndTime=' + contrastEndDate + '&interId=' + interId + '&type=' + planId
+    getResponseDatas('get', this.getRoadEvaluateUrl + urls).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        // console.log(data, '返回数据.')
+        this.setState({ evaluateData: null }, () => {
+          let evaluateData = [], itemArr1 = [], itemArr2 = []
+          let time1 = [], datas1 = [];
+          let time2 = [], datas2 = [];
+          data.init.map(item => {
+            debugger
+            time1.push(item.time)
+            datas1.push(item.opt_value)
+            // console.log(itemArr1, '对不？')
+          })
+          itemArr1.push(time1)
+          itemArr1.push(datas1)
+          evaluateData.push(itemArr1)
+          data.compare.map(item => {
+            time2.push(item.time)
+            datas2.push(item.opt_value)
+          })
+          itemArr2.push(time2)
+          itemArr2.push(datas2)
+          evaluateData.push(itemArr2)
+          this.setState({ evaluateData })
+        })
+      }
+    })
+  }
+  getTypeName = (type) => {
+    switch(type) {
+      case 'flow':
+        this.setState({ titName: '路口流量' })
+        break;
+      case 'delay_time':
+        this.setState({ titName: '路口延误时间' })
+        break;
+      case 'stop_num':
+        this.setState({ titName: '路口停车次数' })
+        break;
+      case 'line_up_length':
+        this.setState({ titName: '路口排队长度' })
+        break;
+      case 'avg_speed':
+        this.setState({ titName: '路口平均速度' })
+        break;
+    }
   }
   onChange = (field, value) => {
-    /*     if (this.props.onChange) {
-          this.props.onChange(field, value ? moment(value).format('YYYY-MM-DD HH:mm:ss') : '')
-        } */
     this.setState({
       [field]: value,
     })
@@ -52,7 +129,6 @@ class Evaluation extends Component {
   onStartChange = (value) => {
     this.onChange('startDateTime', value)
   }
-
   onEndChange = (value) => {
     this.onChange('endDateTime', value)
   }
@@ -82,24 +158,34 @@ class Evaluation extends Component {
     this.setState({ endOpen: open })
   }
   render() {
-    const { options1, options2, dataImportPop, startDateTime, endDateTime, endOpen } = this.state
+    const { roadNode, titName, evaluateData, typeData, dataImportPop, startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId, endOpen } = this.state
     return (
       <div className={styles.Evaluation}>
         <div className={styles.searchBox}>
-          <div className={styles.search}>路口名称&nbsp;:&nbsp; <Select style={{ width: '135px' }} defaultValue={1} name="key" value="id" options={options1} onChange={(value) => { console.log(value) }} /></div>
-          <div className={styles.search}>评价指标&nbsp;:&nbsp; <Select style={{ width: '135px' }} defaultValue={1} name="key" value="id" options={options2} onChange={(value) => { console.log(value) }} /></div>
-          <div className={styles.search}>初始时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { console.log(field, value) }} /></div>
-          <div className={styles.search}>对比时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { console.log(field, value) }} /></div>
+          <div className={styles.search}>路口名称&nbsp;:&nbsp; 
+            {
+              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} /> 
+            } 
+          </div>
+          <div className={styles.search} style={{ margin: '0' }}>评价指标&nbsp;:&nbsp; 
+            {
+              typeData && <Select defaultValue={planId} name="key" value="value" options={typeData} onChange={(value) => { this.getTypeName(value) }} />
+            }
+          </div>
+          <div className={styles.search}>初始时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { this.onChange(field, value)}} /></div>
+          <div className={styles.search} style={{ margin: '0' }}>对比时间&nbsp;:&nbsp; <AntdDatePicker contrastFlag={true} onChange={(field, value) => { this.onChange(field, value) }} /></div>
           <div className={styles.buttons}>
+            <Button id="getDataCharts" type="primary" className={styles.Button} onClick={() => {this.getSearchCharts(startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId)}}>查&nbsp;&nbsp;&nbsp;&nbsp;询</Button>
             <Button type="primary" className={styles.Button} onClick={() => { this.setState({ dataImportPop: true }) }}>数据导入</Button>
-            <Button type="primary" className={styles.Button}>查&nbsp;&nbsp;&nbsp;&nbsp;询</Button>
           </div>
         </div>
         <div className={styles.mainBox}>
-          <div className={styles.Title}> 路口流量</div>
+          <div className={styles.Title}>{titName} </div>
           <div className={styles.content}>
             <div className={styles.center}>
-              <OptLineCharts />
+              {
+                evaluateData && <OptLineCharts resData={evaluateData} />
+              }
             </div>
           </div>
         </div>

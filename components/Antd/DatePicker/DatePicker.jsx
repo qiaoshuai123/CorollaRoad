@@ -10,8 +10,10 @@ class datePicker extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDateTime: moment('2020-06-26 11:00:00'),
-      endDateTime: moment('2020-06-26 12:00:00'),
+      startDateTime: moment('2020-08-10 00:00:00'),
+      endDateTime: moment('2020-08-10 23:59:00'),
+      contrastStartDate: moment('2020-08-10 00:00:00'),
+      contrastEndDate: moment('2020-08-10 23:59:00'),
       endOpen: false,
     }
   }
@@ -29,11 +31,19 @@ class datePicker extends React.Component {
   }
 
   onStartChange = (value) => {
-    this.onChange('startDateTime', value)
+    if (this.props.contrastFlag) {
+      this.onChange('contrastStartDate', value)
+    } else {
+      this.onChange('startDateTime', value)
+    }
   }
 
   onEndChange = (value) => {
-    this.onChange('endDateTime', value)
+    if (this.props.contrastFlag) {
+      this.onChange('contrastEndDate', value)
+    } else {
+      this.onChange('endDateTime', value)
+    }
   }
   disabledStartDate = (startDateTime) => {
     const { endDateTime } = this.state
@@ -50,6 +60,21 @@ class datePicker extends React.Component {
     }
     return endDateTime.valueOf() <= startDateTime.valueOf()
   }
+  disabledStartDates = (contrastStartDate) => {
+    const { contrastEndDate } = this.state
+    if (!contrastStartDate || !contrastEndDate) {
+      return false
+    }
+    return contrastStartDate.valueOf() > contrastEndDate.valueOf()
+  }
+
+  disabledEndDates = (contrastEndDate) => {
+    const { contrastStartDate } = this.state
+    if (!contrastEndDate || !contrastStartDate) {
+      return false
+    }
+    return contrastEndDate.valueOf() <= contrastStartDate.valueOf()
+  }
 
   handleStartOpenChange = (open) => {
     if (!open) {
@@ -61,18 +86,18 @@ class datePicker extends React.Component {
     this.setState({ endOpen: open })
   }
   render() {
-    const { startDateTime, endDateTime, endOpen } = this.state
+    const { startDateTime, endDateTime, contrastStartDate, contrastEndDate, endOpen } = this.state
     return (
       <div className={styles.DatePicker}>
         <div className={styles.PickerItem} style={this.props.style}>
           <DatePicker
-            disabledDate={this.disabledStartDate}
+            disabledDate={this.props.contrastFlag ? this.disabledStartDates :  this.disabledStartDate}
             showTime={{
               format: 'HH:mm',
             }}
             minuteStep={10}
             format="YYYY-MM-DD HH:mm"
-            value={startDateTime}
+            value={this.props.contrastFlag ? contrastStartDate : startDateTime}
             placeholder="开始时间"
             onChange={this.onStartChange}
             onOpenChange={this.handleStartOpenChange}
@@ -81,12 +106,12 @@ class datePicker extends React.Component {
         &nbsp;至&nbsp;
         <div className={styles.PickerItem}>
           <DatePicker
-            disabledDate={this.disabledEndDate}
+            disabledDate={this.props.contrastFlag ? this.disabledEndDates : this.disabledEndDate}
             showTime={{
               format: 'HH:mm',
             }}
             format="YYYY-MM-DD HH:mm"
-            value={endDateTime}
+            value={this.props.contrastFlag ? contrastEndDate : endDateTime}
             placeholder="结束时间"
             onChange={this.onEndChange}
             open={endOpen}

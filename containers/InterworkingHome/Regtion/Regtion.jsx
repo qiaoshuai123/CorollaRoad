@@ -12,9 +12,16 @@ class Regtion extends Component {
     super(props)
     this.state = {
       options2: [{ key: '方案一', id: 1 }],
-      startDateTime: moment('2020-06-26 11:00:00'),
-      endDateTime: moment('2020-06-26 12:00:00'),
+      startDateTime: '2020-08-10 00:00',
+      endDateTime: '2020-08-10 23:59',
       endOpen: false,
+      titName: '区域平均流量',
+      planId: 'flow',
+      typeData: [
+        { key: '区域平均流量', value: 'flow' },
+        { key: '区域平均延误时间', value: 'delay_time' },
+        { key: '区域平均拥堵延时', value: 'congestion_delay' }
+      ],
     }
   }
   componentDidMount = () => {
@@ -62,7 +69,7 @@ class Regtion extends Component {
     this.setState({ endOpen: open })
   }
   render() {
-    const { options2, dataImportPop, startDateTime, endDateTime, endOpen } = this.state
+    const { options2, titName, dataImportPop, startDateTime, endDateTime, endOpen } = this.state
     return (
       <div className={styles.Regtion}>
         <div className={styles.echartsBox}>
@@ -169,9 +176,11 @@ class Regtion extends Component {
           </div>
         </div>
         <div className={styles.mainBox}>
-          <div className={styles.Title}> 路口流量</div>
+          <div className={styles.Title}> {titName}</div>
           <div className={styles.content}>
-            <OptLineCharts />
+            {
+              evaluateData && <OptLineCharts resData={evaluateData} />
+            }
           </div>
         </div>
       </div>
