@@ -6,6 +6,7 @@ import MineData from '../../../components/MineData/MineData'
 import classNames from 'classnames'
 import 'animate.css'
 import { Input } from 'antd'
+import $bus from '../../../utils/events'
 import styles from './InterworkingHome.scss'
 
 
@@ -28,9 +29,17 @@ class InterworkingHome extends Component {
   }
   componentDidMount = () => {
     // this.map
+    this.messageInformation()
   }
   componentDidUpdate = () => {
 
+  }
+  messageInformation = () => {
+    $bus.on('messageRouter', (text) => {
+      this.setState({
+        isname: text,
+      })
+    })
   }
   changeLeftMenu = () => {
     if (this.state.showFlag) {

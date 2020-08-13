@@ -113,11 +113,12 @@
                             .phaseValur {
                                 flex: 1;
                                 display: flex;
-                                flex-direction: column;
                                 overflow-x: auto;
+                                color: #00ffff;
                                 .valueBox {
                                     display: flex;
                                     flex: 1;
+                                    flex-direction: column;
                                     .values {
                                         min-width: 90px;
                                         flex: 1;
@@ -199,7 +200,6 @@
     left: 3px;
     width: 400px;
     height: calc(100% - 5px);
-    overflow-y: auto;
     border: 1px solid rgba(7, 165, 186, 0.7);
     border-top: none;
     background-color: rgba(5, 41, 67, 0.9);
@@ -232,6 +232,7 @@
         margin: 0;
         padding: 0 10px;
         font-size: 14px;
+        overflow-y: auto;
         background-color: rgba(14, 46, 65, 0.5);
         .interItem {
             padding: 10px 0;
