@@ -12,44 +12,93 @@ class SignalStatus extends Component {
     this.state = {
       SelectRoadValue: '',
       mapRoadList: [],
+      planListValue: '',
+      planListList: [],
+      getrankLenghtList: null,
+      getFlowList: null,
+      getDelayTimeList: null,
+      roadPlanInfoList: {},
     }
     this.roadList = 'signal-decision/monitor/roadList' // 下拉框选择路口
     this.getAvgSpeed = '/signal-decision/road/getAvgSpeed' // 路口平均速度
+    this.getStopNum = '/signal-decision/road/getStopNum' // 路口停车次数
     this.getrankLenght = '/signal-decision/road/getrankLenght' // 方案预评估-路口排队长度
     this.getFlow = '/signal-decision/road/getFlow' // 方案预评估-路口流量
     this.getDelayTime = '/signal-decision/road/getDelayTime' // 方案预评估-路口延误时间
-    this.getStopNum = '/signal-decision/road/getStopNum' // 路口停车次数
-    this.planInfo = '/signal-decision/road/planInfo' // 优化控制方案明细
     this.planList = '/signal-decision/road/planList' // 优化控制方案列表
+    this.planInfo = '/signal-decision/road/planInfo' // 优化控制方案明细
   }
   componentDidMount = () => {
     this.renderRoadList()
   }
-  selectRoad = () => {
-
+  selectRoad = (value) => {
+    const { mapRoadList } = this.state
+    this.setState({
+      SelectRoadValue: value,
+    })
+    this.nodeId = mapRoadList.find(item => item.node_name === value).node_id
+    this.roadData()
   }
-  roadData = (interId) => {
-    getResponseDatas('get', this.getrankLenght, { interId }).then((res) => {
+  selectPlan = (value) => {
+    const { planListList } = this.state
+    this.setState({
+      planListValue: value,
+    })
+    this.plan_id = planListList.find(item => item.plan_name + item.plan_time_slot === value).plan_id
+    this.roadPlanInfo()
+  }
+  roadData = () => {
+    // 方案预评估-路口排队长度
+    getResponseDatas('get', this.getrankLenght, { interId: this.nodeId }).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
+        // console.log(data, '路口排队长度')
         this.setState({
-          // optimizationPlanList: data,
+          getrankLenghtList: data.ori,
         })
       }
     })
-    getResponseDatas('get', this.getFlow, { interId }).then((res) => {
+    // 方案预评估-路口流量
+    getResponseDatas('get', this.getFlow, { interId: this.nodeId }).then((res) => {
       const { code, data } = res.data
+      // console.log(data, '路口流量')
       if (code === 200) {
         this.setState({
-          // optimizationPlanList: data,
+          getFlowList: data.ori,
         })
       }
     })
-    getResponseDatas('get', this.getDelayTime, { interId }).then((res) => {
+    // 方案预评估-路口延误时间
+    getResponseDatas('get', this.getDelayTime, { interId: this.nodeId }).then((res) => {
       const { code, data } = res.data
+      // console.log(data, '路口延误时间')
       if (code === 200) {
         this.setState({
-          // optimizationPlanList: data,
+          getDelayTimeList: data.ori,
+        })
+      }
+    })
+    // 优化控制操作
+    getResponseDatas('get', this.planList, { interId: this.nodeId }).then((res) => {
+      const { code, data } = res.data
+      // console.log(data, '路口延误时间')
+      if (code === 200) {
+        this.setState({
+          planListList: data,
+          planListValue: data[0].plan_name + data[0].plan_time_slot,
+        })
+        this.plan_id = data[0].plan_id
+        this.roadPlanInfo()
+      }
+    })
+  }
+  roadPlanInfo = () => {
+    getResponseDatas('get', this.planInfo, { interId: this.nodeId, planId: this.plan_id }).then((res) => {
+      const { code, data } = res.data
+      // console.log(data, '优化控制方案明细')
+      if (code === 200) {
+        this.setState({
+          roadPlanInfoList: data,
         })
       }
     })
@@ -62,102 +111,98 @@ class SignalStatus extends Component {
           SelectRoadValue: data[0].node_name,
           mapRoadList: data,
         })
+        this.nodeId = data[0].node_id
         this.roadData(data[0].node_id)
       }
     })
   }
-
-
   render() {
-    const { mapRoadList, SelectRoadValue } = this.state
+    const { mapRoadList, SelectRoadValue, getrankLenghtList, getFlowList,
+      getDelayTimeList, planListList, planListValue, roadPlanInfoList,
+    } = this.state
     return (
       <div className={styles.SignalStatus}>
-        <div className={styles.interBox}>
-          <div className={styles.innerMap}>
-            <div className={styles.title}>
-              <Select value={SelectRoadValue} onChange={this.selectRoad}>
-                {
-                  mapRoadList && mapRoadList.map(item =>
-                    <Option key={item.node_id + item} value={item.node_name}>{item.node_name}</Option>)
-                }
-              </Select>
-            </div>
+        <div className={styles.innerMap}>
+          <div className={styles.title}>
+            <Select value={SelectRoadValue} onChange={this.selectRoad}>
+              {
+                mapRoadList && mapRoadList.map(item =>
+                  <Option key={item.node_id + item} value={item.node_name}>{item.node_name}</Option>)
+              }
+            </Select>
           </div>
-          <div className={styles.interDetails}>
-            <div className={styles.title}>
-              优化控制操作：
-              <span className={styles.planTime}>
-                <Select defaultValue="1">
-                  <Option key="1" value="1">方案一（00:00-07:00）</Option>
-                </Select>
-              </span>
-              <span className={styles.exportBtn}>导出</span>
-            </div>
-            <div className={styles.pahseDetails}>
-              <div className={styles.planMsg}>
-                <div className={styles.planTitle}>执行方案（方案编号：202006131840020）</div>
-                <div className={styles.phaseTable}>
-                  <div className={styles.phaseBody}>
-                    <div className={styles.phaseItem}>
-                      <div className={styles.item}>相位</div>
-                      <div className={styles.item}>相位时间(s)</div>
-                      <div className={styles.item}>绿信比(%)</div>
-                    </div>
-                    <div className={styles.phaseValur}>
-                      <div className={styles.valueBox}>
-                        <div className={styles.values}>东直行左转</div>
-                        <div className={styles.values}>东直行左转</div>
-                        <div className={styles.values}>东直行左转</div>
-                      </div>
-                      <div className={styles.valueBox}>
-                        <div className={styles.values}>18</div>
-                        <div className={styles.values}>21</div>
-                        <div className={styles.values}>22</div>
-                      </div>
-                      <div className={styles.valueBox}>
-                        <div className={styles.values}>29</div>
-                        <div className={styles.values}>34</div>
-                        <div className={styles.values}>32</div>
-                      </div>
-                    </div>
+        </div>
+        <div className={styles.interDetails}>
+          <div className={styles.title}>
+            优化控制操作：
+            <span className={styles.planTime}>
+              <Select value={planListValue} onChange={this.selectPlan}>
+                {planListList && planListList.map(item =>
+                  <Option key={item.plan_id + item} value={item.plan_name + item.plan_time_slot}>{item.plan_name + item.plan_time_slot}</Option>)}
+              </Select>
+            </span>
+            <span className={styles.exportBtn}>导出</span>
+          </div>
+          <div className={styles.pahseDetails}>
+            <div className={styles.planMsg}>
+              <div className={styles.planTitle}>执行方案（方案编号：202006131840020）</div>
+              <div className={styles.phaseTable}>
+                <div className={styles.phaseBody}>
+                  <div className={styles.phaseItem}>
+                    <div className={styles.item}>相位</div>
+                    <div className={styles.item}>相位时间(s)</div>
+                    <div className={styles.item}>绿信比(%)</div>
                   </div>
-                  <div className={styles.phaseBottom}>
-                    <div className={styles.bottomLeft}>周期(S)</div>
-                    <div className={styles.bottomRight}>61</div>
+                  <div className={styles.phaseValur}>
+                    {
+                      roadPlanInfoList.ori && roadPlanInfoList.ori.map((item) => {
+                        return (
+                          <div key={item + item.phase_time} className={styles.valueBox}>
+                            <div className={styles.values}>{item.phase_name}</div>
+                            <div className={styles.values}>{item.phase_time}</div>
+                            <div className={styles.values}>{item.green_letter_ratio}</div>
+                          </div>
+                        )
+                      })
+                    }
                   </div>
                 </div>
+                <div className={styles.phaseBottom}>
+                  <div className={styles.bottomLeft}>周期(S)</div>
+                  <div className={styles.bottomRight}>{roadPlanInfoList.ori && roadPlanInfoList.ori[0].cycle}</div>
+                </div>
               </div>
-              <div className={styles.planMsg}>
-                <div className={styles.planTitle}>建议优化方案</div>
-                <div className={styles.phaseTable}>
-                  <div className={styles.phaseBody}>
-                    <div className={styles.phaseItem}>
-                      <div className={styles.item}>相位</div>
-                      <div className={styles.item}>相位时间(s)</div>
-                      <div className={styles.item}>绿信比(%)</div>
+            </div>
+            <div className={styles.planMsg}>
+              <div className={styles.planTitle}>建议优化方案</div>
+              <div className={styles.phaseTable}>
+                <div className={styles.phaseBody}>
+                  <div className={styles.phaseItem}>
+                    <div className={styles.item}>相位</div>
+                    <div className={styles.item}>相位时间(s)</div>
+                    <div className={styles.item}>绿信比(%)</div>
+                  </div>
+                  <div className={styles.phaseValur}>
+                    <div className={styles.valueBox}>
+                      <div className={styles.values}>东直行左转</div>
+                      <div className={styles.values}>东直行左转</div>
+                      <div className={styles.values}>东直行左转</div>
                     </div>
-                    <div className={styles.phaseValur}>
-                      <div className={styles.valueBox}>
-                        <div className={styles.values}>东直行左转</div>
-                        <div className={styles.values}>东直行左转</div>
-                        <div className={styles.values}>东直行左转</div>
-                      </div>
-                      <div className={styles.valueBox}>
-                        <div className={styles.values}>18</div>
-                        <div className={styles.values}>21</div>
-                        <div className={styles.values}>22</div>
-                      </div>
-                      <div className={styles.valueBox}>
-                        <div className={styles.values}>29</div>
-                        <div className={styles.values}>34</div>
-                        <div className={styles.values}>32</div>
-                      </div>
+                    <div className={styles.valueBox}>
+                      <div className={styles.values}>18</div>
+                      <div className={styles.values}>21</div>
+                      <div className={styles.values}>22</div>
+                    </div>
+                    <div className={styles.valueBox}>
+                      <div className={styles.values}>29</div>
+                      <div className={styles.values}>34</div>
+                      <div className={styles.values}>32</div>
                     </div>
                   </div>
-                  <div className={styles.phaseBottom}>
-                    <div className={styles.bottomLeft}>周期(S)</div>
-                    <div className={styles.bottomRight}>61</div>
-                  </div>
+                </div>
+                <div className={styles.phaseBottom}>
+                  <div className={styles.bottomLeft}>周期(S)</div>
+                  <div className={styles.bottomRight}>61</div>
                 </div>
               </div>
             </div>
@@ -169,15 +214,15 @@ class SignalStatus extends Component {
             <div className={styles.optPlanBox}>
               <div className={styles.optCharts}>
                 <div className={styles.chartsName}>路口排队长度</div>
-                <OptLineCharts />
+                {getrankLenghtList && <OptLineCharts name="getrankLenghtList" dataList={getrankLenghtList} />}
               </div>
               <div className={styles.optCharts}>
                 <div className={styles.chartsName}>路口流量</div>
-                <OptLineCharts />
+                {getFlowList && <OptLineCharts name="getFlowList" dataList={getFlowList} />}
               </div>
               <div className={styles.optCharts}>
                 <div className={styles.chartsName}>路口延误时间</div>
-                <OptLineCharts />
+                {getDelayTimeList && <OptLineCharts name="getDelayTimeList" dataList={getDelayTimeList} />}
               </div>
             </div>
           </div>

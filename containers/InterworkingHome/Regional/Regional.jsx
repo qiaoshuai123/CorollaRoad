@@ -11,6 +11,11 @@ class Regional extends Component {
     this.state = {
       showAreaConfig: false,
     }
+    this.getAvgDelay = '/signal-decision/area/roadList' // 区域路口列表
+    this.roadList = '/signal-decision/area/getAvgDelay' // 区域平均延误
+    this.getAvgSpeed = '/signal-decision/area/getAvgSpeed' // 区域平均车速
+    this.mainLineList = '/signal-decision/area/mainLineList' // 干线列表
+    this.planList = '/signal-decision/area/planList' // 优化方案列表
   }
   componentDidMount = () => {
 

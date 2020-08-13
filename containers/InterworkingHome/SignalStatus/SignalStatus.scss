@@ -1,143 +1,143 @@
 .SignalStatus {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 99;
-  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: #052841;
-  overflow: hidden;
-  .interBox {
-    flex: 1;
-    margin: 5px 0 0 5px;
+  .pahseDetails {
+    height: calc(100% - 40px);
     display: flex;
-    &:last-child {
-      border: 1px solid rgba(7, 165, 186, 0.7);
-      border-top: none;
-    }
-    .innerMap {
+    flex-direction: column;
+    .planMsg {
       flex: 1;
-      margin-right: 5px;
-      border: 1px solid rgba(7, 165, 186, 0.7);
-      border-top: none;
-    }
-    .interDetails {
-      width: 415px;
-      height: 100%;
-      border: 1px solid rgba(7, 165, 186, 0.7);
-      border-top: none;
-    }
-    .title {
-      position: relative;
-      width: 100%;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      padding-left: 10px;
-      background-color: #214D6A;
-      border-left: 3px solid #00FFFF;
-      :global(.ant-select-selection) {
-        background-color: transparent;
-        border: none;
-        outline: none;
-        box-shadow: none;
+      .planTitle {
+        height: 40px;
+        padding-left: 12px;
+        line-height: 40px;
+        background-color: #102d40;
+        color: #00ffff;
       }
-      :global(.ant-select-selection--single) {
-        height: 22px;
-      }
-      :global(.ant-select-selection__rendered) {
-        margin-left: 0;
-        margin-right: 30px;
-        line-height: 22px;
-      }
-      :global(.ant-select) {
-        color: #fff;
-      }
-      :global(.ant-select-arrow) {
-        color: #fff;
-      }
-      .planTime {
-        padding-left: 10px;
-        background-color: #000;
-        opacity: .5;
-        font-size: 13px;
-      }
-      .exportBtn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #40E7FF;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-    }
-    .pahseDetails {
-      height: calc(100% - 40px);
-      display: flex;
-      flex-direction: column;
-      .planMsg {
-        flex: 1;
-        .planTitle {
-          height: 40px;
-          padding-left: 12px;
-          line-height: 40px;
-          background-color: #102D40;
-          color: #00FFFF;
-        }
-        .phaseTable {
-          height: calc(100% - 80px);
-          .phaseBody {
-            height: 100%;
+      .phaseTable {
+        height: calc(100% - 80px);
+        .phaseBody {
+          height: 100%;
+          display: flex;
+          .phaseItem {
+            flex: 0 100px;
             display: flex;
-            .phaseItem {
-              flex: 0 100px;
-              display: flex;
-              flex-direction: column;
-              .item {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-            }
-            .phaseValur {
-              display: 1;
-              display: flex;
-              flex-direction: column;
-              overflow-x: auto;
-              .valueBox {
-                display: flex;
-                flex: 1;
-                .values {
-                  min-width: 100px;
-                  flex: 1;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                }
-              }
-            }
-          }
-          .phaseBottom {
-            height: 40px;
-            display: flex;
-            .bottomLeft {
-              flex: 0 100px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-            .bottomRight {
+            flex-direction: column;
+            .item {
               flex: 1;
               display: flex;
               align-items: center;
               justify-content: center;
             }
           }
+          .phaseValur {
+            display: 1;
+            display: flex;
+            overflow-x: auto;
+            width: 300px;
+            .valueBox {
+              width: 100px;
+              display: flex;
+              flex-direction: column;
+              .values {
+                min-width: 100px;
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+            }
+          }
+        }
+        .phaseBottom {
+          height: 40px;
+          display: flex;
+          .bottomLeft {
+            flex: 0 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .bottomRight {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
+    }
+  }
+  .innerMap {
+    width: calc(100% - 420px);
+    height: 480px;
+    margin-right: 5px;
+    border: 1px solid rgba(7, 165, 186, 0.7);
+    border-top: none;
+  }
+  .interDetails {
+    width: 415px;
+    height: 480px;
+    border: 1px solid rgba(7, 165, 186, 0.7);
+    border-top: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #133146;
+  }
+  .title {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    background-color: #214d6a;
+    border-left: 3px solid #00ffff;
+    :global(.ant-select-selection) {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+    :global(.ant-select-selection--single) {
+      height: 22px;
+    }
+    :global(.ant-select-selection__rendered) {
+      margin-left: 0;
+      margin-right: 30px;
+      line-height: 22px;
+    }
+    :global(.ant-select) {
+      color: #fff;
+    }
+    :global(.ant-select-arrow) {
+      color: #fff;
+    }
+    .planTime {
+      padding-left: 10px;
+      background-color: #000;
+      opacity: 0.5;
+      font-size: 13px;
+    }
+    .exportBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #40e7ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  .interBox {
+    width: 100%;
+    position: absolute;
+    margin-top: 5px;
+    height: calc(100% - 485px);
+    border: 1px solid rgba(7, 165, 186, 0.7);
+    background-color: #0f2c3e;
+    &:last-child {
+      border: 1px solid rgba(7, 165, 186, 0.7);
+      border-top: none;
     }
     .interInnerBox {
       width: 100%;
@@ -160,11 +160,10 @@
             left: 0;
             padding-left: 10px;
             font-size: 15px;
-            color: #25B8D4;
+            color: #25b8d4;
           }
         }
       }
     }
-    
   }
 }

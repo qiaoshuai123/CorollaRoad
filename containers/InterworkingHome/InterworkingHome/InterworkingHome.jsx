@@ -4,7 +4,7 @@ import Header from '../../../components/Header/Header'
 import CustomTree from '../../../components/CustomTree/CustomTree'
 import MineData from '../../../components/MineData/MineData'
 import classNames from 'classnames'
-// import 'animate.css'
+import 'animate.css'
 import { Input } from 'antd'
 import styles from './InterworkingHome.scss'
 
