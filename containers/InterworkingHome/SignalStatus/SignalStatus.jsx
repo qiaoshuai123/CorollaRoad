@@ -20,16 +20,31 @@ class SignalStatus extends Component {
       roadPlanInfoList: {},
     }
     this.roadList = 'signal-decision/monitor/roadList' // 下拉框选择路口
-    this.getAvgSpeed = '/signal-decision/road/getAvgSpeed' // 路口平均速度
+    // this.getAvgSpeed = '/signal-decision/road/getAvgSpeed' // 路口平均速度
     this.getStopNum = '/signal-decision/road/getStopNum' // 路口停车次数
     this.getrankLenght = '/signal-decision/road/getrankLenght' // 方案预评估-路口排队长度
     this.getFlow = '/signal-decision/road/getFlow' // 方案预评估-路口流量
     this.getDelayTime = '/signal-decision/road/getDelayTime' // 方案预评估-路口延误时间
     this.planList = '/signal-decision/road/planList' // 优化控制方案列表
     this.planInfo = '/signal-decision/road/planInfo' // 优化控制方案明细
+    this.export = '/signal-decision/road/export' // 优化控制方案导出
   }
   componentDidMount = () => {
     this.renderRoadList()
+  }
+  getResetParams = (params) => {
+    if (JSON.stringify(params) !== '{}') {
+      let newParams = '?'
+      const resetParams = Object.keys(params)
+      const lengths = resetParams.length
+      Object.keys(params).forEach((item, index) => {
+        if (params[item] !== null && params[item] !== 'null') {
+          newParams += `${item}=${params[item]}${index !== lengths - 1 ? '&' : ''}`
+        }
+      })
+      return newParams
+    }
+    return params
   }
   selectRoad = (value) => {
     const { mapRoadList } = this.state
@@ -47,6 +62,17 @@ class SignalStatus extends Component {
     this.plan_id = planListList.find(item => item.plan_name + item.plan_time_slot === value).plan_id
     this.roadPlanInfo()
   }
+  // 导出表格
+  exportTable = () => {
+    // this.nodeId
+    // this.plan_id
+    const logListParams = {
+      interId: this.nodeId,
+      planId: this.plan_id,
+      planName: this.state.planListValue,
+    }
+    window.location.href = `${this.export}${this.getResetParams(logListParams)}`
+  }
   roadData = () => {
     // 方案预评估-路口排队长度
     getResponseDatas('get', this.getrankLenght, { interId: this.nodeId }).then((res) => {
@@ -54,7 +80,7 @@ class SignalStatus extends Component {
       if (code === 200) {
         // console.log(data, '路口排队长度')
         this.setState({
-          getrankLenghtList: data.ori,
+          getrankLenghtList: data,
         })
       }
     })
@@ -64,7 +90,7 @@ class SignalStatus extends Component {
       // console.log(data, '路口流量')
       if (code === 200) {
         this.setState({
-          getFlowList: data.ori,
+          getFlowList: data,
         })
       }
     })
@@ -74,7 +100,7 @@ class SignalStatus extends Component {
       // console.log(data, '路口延误时间')
       if (code === 200) {
         this.setState({
-          getDelayTimeList: data.ori,
+          getDelayTimeList: data,
         })
       }
     })
@@ -116,6 +142,7 @@ class SignalStatus extends Component {
       }
     })
   }
+
   render() {
     const { mapRoadList, SelectRoadValue, getrankLenghtList, getFlowList,
       getDelayTimeList, planListList, planListValue, roadPlanInfoList,
@@ -141,7 +168,7 @@ class SignalStatus extends Component {
                   <Option key={item.plan_id + item} value={item.plan_name + item.plan_time_slot}>{item.plan_name + item.plan_time_slot}</Option>)}
               </Select>
             </span>
-            <span className={styles.exportBtn}>导出</span>
+            <span onClick={this.exportTable} className={styles.exportBtn}>导出</span>
           </div>
           <div className={styles.pahseDetails}>
             <div className={styles.planMsg}>

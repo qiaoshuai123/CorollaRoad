@@ -57,12 +57,28 @@ class ExportCharts extends React.Component {
     }
     const timeList = []
     const lists = []
-    dataList.forEach((item) => {
-      timeList.push(item.time)
-      lists.push(item[values])
-    })
-    this.series[0].data = []
-    this.series[1].data = lists
+    const listsTwo = []
+    if (dataList.ori && dataList.ori.length) {
+      dataList.ori.forEach((item) => {
+        timeList.push(item.time)
+        lists.push(item[values])
+      })
+      this.series[1].data = lists
+    }
+    if (dataList.opt && dataList.opt.length) {
+      if (!timeList.length) {
+        dataList.opt.forEach((item) => {
+          timeList.push(item.time)
+          listsTwo.push(item[values])
+        })
+        this.series[0].data = listsTwo
+      } else {
+        dataList.opt.forEach((item) => {
+          listsTwo.push(item[values])
+        })
+        this.series[0].data = listsTwo
+      }
+    }
     // console.log(this.series)
     this.renderCharts(this.chartsBoxer, this.legend, timeList, this.series)
   }

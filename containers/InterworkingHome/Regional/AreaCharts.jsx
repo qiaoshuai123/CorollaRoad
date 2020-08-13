@@ -9,32 +9,45 @@ class AreaCharts extends React.Component {
     this.series = [1, 2, 3, 4, 0]
   }
   componentDidMount = () => {
-    const chartsBox = echarts.init(this.chartsBox)
+    this.chartsBox = echarts.init(this.chartsBox)
+    this.renders()
+  }
+  componentDidUpdate = (prevProps) => {
     const { chartsDatas } = this.props
+    if (chartsDatas != prevProps.chartsDatas) {
+      this.renders()
+    }
+  }
+  renders = () => {
+    const { chartsDatas, name } = this.props
     if (chartsDatas) {
       const xData = []
       const seriseData = []
+      let values = null
+      if (name === 'delay_time') {
+        values = 'delay_time'
+      } else if (name === 'avg_speed') {
+        values = 'avg_speed'
+      }
       chartsDatas.forEach((item) => {
-        xData.push(item.area_name)
-        seriseData.push(item.amount)
+        xData.push(item.time)
+        seriseData.push(item[values])
       })
-      this.renderCharts(chartsBox, xData, seriseData)
-    } else {
-      this.renderCharts(chartsBox, this.xDatas, this.series)
+      this.renderCharts(this.chartsBox, xData, seriseData)
     }
   }
   renderCharts = (chartsBox, xData, seriesData) => {
     const options = {
       color: ['#3398DB'],
-      title: {
-        show: false,
-        text: '实时信号控制状态',
-        padding: [5, 0, 0, 20],
-        textStyle: {
-          fontWeight: 'normal',
-          color: '#FFFFFF',
-        },
-      },
+      // title: {
+      //   show: false,
+      //   text: '实时信号控制状态',
+      //   padding: [5, 0, 0, 20],
+      //   textStyle: {
+      //     fontWeight: 'normal',
+      //     color: '#FFFFFF',
+      //   },
+      // },
       dataZoom: [
         {
           height: 10,
@@ -136,27 +149,9 @@ class AreaCharts extends React.Component {
       series: [
         {
           name: '',
-          type: 'bar',
+          type: 'line',
           barWidth: '10%',
           data: seriesData, // [60, 80, 120, 160, 120, 100, 60, 40],
-          itemStyle: {// 柱状图圆角
-            // emphasis: {
-            //   barBorderRadius: 7,
-            // },
-            normal: {
-              barBorderRadius: [3, 3, 0, 0],
-              color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                offset: 0,
-                color: '#05427B', // 0% 处的颜色
-              }, {
-                offset: 0.6,
-                color: '#2099B4', // 60% 处的颜色
-              }, {
-                offset: 1,
-                color: ' #39E8DB ', // 100% 处的颜色
-              }], false),
-            },
-          },
         },
       ],
     }
