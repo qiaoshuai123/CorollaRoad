@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import styles from './GpsMap.scss'
+import getResponseDatas from '../../../../utils/getResponseDatas'
 import OptLineCharts from '../OptLineCharts/OptLineCharts'
 
 class GpsMap
@@ -9,30 +10,77 @@ class GpsMap
   constructor(props) {
     super(props)
     this.state = {
-      lsitLists: [1, 2, 3, 4, 5],
+      roadLister: [],
       num: 0, // 计数器
+      getFlowList: null, // 路口流量
+      getrankLenghtList: null, // 路口排队长度
+      getRoadStatusList: {} // 运行状态
     }
+    this.roadList = '/signal-decision/monitor/roadList' // 全部路口
+    this.getFlow = '/signal-decision/road/getFlow' // 方案预评估 - 路口流量
+    this.getrankLenght = '/signal-decision/road/getrankLenght' // 方案预评估 - 路口排队长度
+    this.getRoadStatus = '/signal-decision/road/getRoadStatus' // 运行状态
   }
   componentDidMount = () => {
-
+    this.renders()
+  }
+  getControlModeler = () => {
+    getResponseDatas('get', this.getFlow, { interId: this.roadId }).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({
+          getFlowList: data,
+        })
+      }
+    })
+    getResponseDatas('get', this.getrankLenght, { interId: this.roadId }).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({
+          getrankLenghtList: data,
+        })
+      }
+    })
+    getResponseDatas('get', this.getRoadStatus, { interId: this.roadId }).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({
+          getRoadStatusList: data,
+        })
+      }
+    })
   }
   ckeckActive = (items, ind) => {
+    this.roadId = items.node_id
     this.setState({
       num: ind,
     })
+    this.getControlModeler()
   }
   isGpsMapShow = () => {
     this.props.isGpsMapShow()
   }
+  renders = () => {
+    getResponseDatas('get', this.roadList).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.roadId = data[0].node_id
+        this.setState({
+          roadLister: data,
+        })
+        this.getControlModeler()
+      }
+    })
+  }
   render() {
-    const { lsitLists, num } = this.state
+    const { roadLister, num, getrankLenghtList, getFlowList, getRoadStatusList } = this.state
     return (
       <div className={styles.GpsMap}>
         <div className={styles.GpsMapLeft}>
           <div onClick={this.isGpsMapShow} className={styles.listhead}>返回GIS地图</div>
           <div className={styles.listBox}>
             {
-              lsitLists.map((item, ind) => <li className={num === ind ? styles.actives : ''} onClick={() => this.ckeckActive(item, ind)} key={item}>花冠路与贾秀路交叉口{ind}</li>)
+              roadLister && roadLister.map((item, ind) => <li className={num === ind ? styles.actives : ''} onClick={() => this.ckeckActive(item, ind)} key={item.node_id + item}>{item.node_name}</li>)
             }
           </div>
         </div>
@@ -46,9 +94,9 @@ class GpsMap
           <div className={styles.GpsMapCenterTime}>
             <div className={styles.listhead}>2020-07-20 12:12:51</div>
             <div className={styles.listBox}>
-              <div className={styles.equipmentStatus}>设备状态:<span>正常</span></div>
+              <div className={styles.equipmentStatus}>设备状态:<span>{getRoadStatusList.road && getRoadStatusList.road[0].device_status}</span></div>
               <div className={styles.controlStatus}>控制状态:本地多时段</div>
-              <div className={styles.timeInterval}>但前时段:<span>1</span><span>2</span><span>3</span></div>
+              <div className={styles.timeInterval}>但前时段:{getRoadStatusList.phase && getRoadStatusList.phase.map(item => <span key={item.phase_name + item}>1</span>)}</div>
               <div className={styles.programme}>当前方案:<span>方案一</span></div>
               <div className={styles.programmeTime}>
                 <div className={styles.programmeTimeBox}>
@@ -61,11 +109,11 @@ class GpsMap
         <div className={styles.GpsMapRight}>
           <div className={styles.GpsMapEcharts}>
             <div className={styles.listhead}>路口流量</div>
-            <OptLineCharts />
+            {getFlowList && <OptLineCharts name="flow" dataList={getFlowList} />}
           </div>
           <div className={styles.GpsMapEcharts}>
-            <div className={styles.listhead}>路口排大队长度</div>
-            <OptLineCharts />
+            <div className={styles.listhead}>路口排队长度</div>
+            {getrankLenghtList && <OptLineCharts name="line_up_length" dataList={getrankLenghtList} />}
           </div>
         </div>
       </div >

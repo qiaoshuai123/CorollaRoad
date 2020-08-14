@@ -5,16 +5,12 @@ class ExportCharts extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.keyNum = Math.random()
-    this.colors = ['#44f0ff', '#ff9d00', '#ec6941', '#00fffc', '#ffff00', '#ff0000', '#f19ec2', '#00ff00', '#cfa972', '#acd598', '#7d0000', '#0db4ff', '#732c95']
-    this.reverseColors = ['#ff9d00', '#0db4ff', '#7d0000', '#acd598', '#cfa972', '#00ff00', '#44f0ff', '#f19ec2', '#ff0000', '#ffff00', '#00fffc', '#ec6941', '#732c95']
     this.legend = ['建议方案', '原方案']
-    this.time = ['10:50', '10:55', '11:00', '11:05', '11:10', '11:15', '11:20', '11:25', '11:30', '11:35', '11:40', '11:45', '11:50']
     this.series = [
       {
         name: '建议方案',
         type: 'line',
-        data: [2.0, 4.9, 1.0, 33.2, 25.6, 75.7, 25.6, 162.2, 32.6, 20.0, 6.4, 3.3, 33],
+        data: [],
         itemStyle: {
           normal: {
             color: '#01CD74',
@@ -26,7 +22,7 @@ class ExportCharts extends React.Component {
       {
         name: '原方案',
         type: 'line',
-        data: [2.0, 4.9, 10, 33.2, 25.6, 70, 25.6, 162.2, 32.6, 20.0, 6.4, 30, 23],
+        data: [],
         itemStyle: {
           normal: {
             color: '#00DCFE',
@@ -38,16 +34,57 @@ class ExportCharts extends React.Component {
     ]
   }
   componentDidMount = () => {
-    this.getPropsChartsData()
+    this.chartsBoxer = echarts.init(this.chartsBox)
+    this.renders()
   }
-  componentDidUpdate = (prevState) => {
-    console.log(prevState)
+  componentDidUpdate = (prevProps) => {
+    const { dataList } = this.props
+    if (dataList != prevProps.dataList) {
+      this.renders()
+    }
+
+    // console.log(prevState)
   }
-  getPropsChartsData = () => {
-    const chartsBox = echarts.init(this.chartsBox)
-    this.renderCharts(chartsBox)
+  renders = () => {
+    const { dataList, name } = this.props
+    let values = null
+    if (name === 'getrankLenghtList') {
+      values = 'line_up_length'
+    } else if (name === 'getFlowList') {
+      values = 'flow'
+    } else if (name === 'getDelayTimeList') {
+      values = 'delay_time'
+    } else if (name === 'getStopNumList') {
+      values = 'plan_type'
+    }
+    const timeList = []
+    const lists = []
+    const listsTwo = []
+    if (dataList.ori && dataList.ori.length) {
+      dataList.ori.forEach((item) => {
+        timeList.push(item.time)
+        lists.push(item[values])
+      })
+      this.series[1].data = lists
+    }
+    if (dataList.opt && dataList.opt.length) {
+      if (!timeList.length) {
+        dataList.opt.forEach((item) => {
+          timeList.push(item.time)
+          listsTwo.push(item[values])
+        })
+        this.series[0].data = listsTwo
+      } else {
+        dataList.opt.forEach((item) => {
+          listsTwo.push(item[values])
+        })
+        this.series[0].data = listsTwo
+      }
+    }
+    // console.log(this.series)
+    this.renderCharts(this.chartsBoxer, this.legend, timeList, this.series)
   }
-  renderCharts = (myCharts, legend = this.legend, time = this.time, series = this.series) => {
+  renderCharts = (myCharts, legend, time, series) => {
     // 绘制图表
     const options = {
       title: {

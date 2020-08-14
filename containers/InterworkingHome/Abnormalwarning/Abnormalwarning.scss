@@ -83,7 +83,15 @@
                         line-height: 20px;
                         margin: 15px;
                         text-align: center;
-                        background-color: #9F101D;
+                    }
+                    .active1 {
+                        background-color: #9f101d;
+                    }
+                    .active2 {
+                        background-color: #966E19;
+                    }
+                    .active3 {
+                        background-color: #558458;
                     }
                     .listBox {
                         flex: 1;
@@ -144,22 +152,22 @@
         color: white !important;
     }
     :global(.ant-pagination-item-active) {
-        background-color: #268AA1 !important;
+        background-color: #268aa1 !important;
     }
     :global(.ant-pagination-item) {
         background-color: #133146;
     }
-    :global(.ant-pagination-item a ){
+    :global(.ant-pagination-item a) {
         color: white !important;
     }
-    :global(.ant-pagination-item-link){
+    :global(.ant-pagination-item-link) {
         color: white !important;
         background-color: #133146 !important;
     }
-    :global(.ant-pagination-options-quick-jumper){
+    :global(.ant-pagination-options-quick-jumper) {
         color: white !important;
     }
-    :global(.ant-pagination-options-quick-jumper input){
+    :global(.ant-pagination-options-quick-jumper input) {
         color: white !important;
         background-color: #133146 !important;
     }

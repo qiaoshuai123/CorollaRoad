@@ -15,17 +15,19 @@ class HollowPie extends React.Component {
   renders = () => {
     const { optimizationPlanList } = this.props
     const arrList = []
+    const namesList = []
     let ind = 0
     optimizationPlanList.forEach((item) => {
       const objs = {}
       objs.name = item.plan_type
       objs.value = item.num
       arrList.push(objs)
+      namesList.push(item.plan_type)
       ind += item.num
     })
-    this.renderCharts(this.chartsBoxer, arrList, ind)
+    this.renderCharts(this.chartsBoxer, arrList, ind, namesList)
   }
-  renderCharts = (chartsBox, serise, totle) => {
+  renderCharts = (chartsBox, serise, totle, namesList) => {
     const options = {
       title: {
         text: `共产出优化方案数${totle}套`,
@@ -38,13 +40,13 @@ class HollowPie extends React.Component {
       },
       tooltip: {
         trigger: 'item',
-        formatter: '{b} : {c} ({d}%)'
+        formatter: '{b} : {c} ({d}%)',
       },
       legend: {
         orient: 'vertical',
         left: '45%',
         top: 'center',
-        data: [serise[0].name, serise[1].name],
+        data: namesList,
         textStyle: { // 图例文字的样式
           color: '#fff',
           fontSize: 12,
@@ -69,8 +71,8 @@ class HollowPie extends React.Component {
           label: {
             normal: {
               position: 'inner',
-              show: false
-            }
+              show: false,
+            },
           },
           emphasis: {
             itemStyle: {

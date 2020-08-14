@@ -9,19 +9,28 @@ class evaluateEcharts extends React.Component {
     this.series = [0, 0, 0, 4, 0]
   }
   componentDidMount = () => {
-    const chartsBox = echarts.init(this.chartsBox)
-    // const { chartsDatas } = this.props
-    // if (chartsDatas) {
-    //   const xData = []
-    //   const seriseData = []
-    //   chartsDatas.forEach((item) => {
-    //     xData.push(item.area_name)
-    //     seriseData.push(item.amount)
-    //   })
-    //   this.renderCharts(chartsBox, xData, seriseData)
-    // }
-    this.renderCharts(chartsBox, ["人民大道", "花冠路", "龙泉苑街"], [9, 9, 4])
+    this.chartsBoxer = echarts.init(this.chartsBox)
+    this.renders()
   }
+  componentDidUpdate = (prevProps) => {
+    const { dataList } = this.props
+    if (dataList != prevProps.dataList) {
+      this.renders()
+    }
+  }
+  renders = () => {
+    const { dataList } = this.props
+    if (dataList && dataList.length) {
+      const name = []
+      const value = []
+      dataList.forEach((item) => {
+        name.push(item.control_model)
+        value.push(item.num)
+      })
+      this.renderCharts(this.chartsBoxer, name, value)
+    }
+  }
+
   renderCharts = (chartsBox, xData, seriesData) => {
     const options = {
       color: ['#3398DB'],

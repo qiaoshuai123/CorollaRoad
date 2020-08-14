@@ -6,7 +6,6 @@ class evaluateEcharts extends React.Component {
     super(props)
     this.state = {}
     this.xDatas = ['延误时间', '旅行时间', '停车次数', '平均速度', '流量']
-    this.series = [0, 0, 0, 4, 0]
   }
   componentDidMount = () => {
     this.chartsBoxer = echarts.init(this.chartsBox)

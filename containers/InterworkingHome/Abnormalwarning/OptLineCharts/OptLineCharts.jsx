@@ -5,24 +5,28 @@ class evaluateEcharts extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.xDatas = ['离点断线', '关灯控制', '全红控制', '黄闪控制', '本地多时段', '本地感应', '中心多时段', '勤务控制']
-    this.series = [0, 0, 0, 4, 0]
   }
   componentDidMount = () => {
-    const chartsBox = echarts.init(this.chartsBox)
-    // const { chartsDatas } = this.props
-    // if (chartsDatas) {
-    //   const xData = []
-    //   const seriseData = []
-    //   chartsDatas.forEach((item) => {
-    //     xData.push(item.area_name)
-    //     seriseData.push(item.amount)
-    //   })
-    //   this.renderCharts(chartsBox, xData, seriseData)
-    // }
-    this.renderCharts(chartsBox, ["人民大道", "花冠路", "龙泉苑街"], [9, 9, 4])
+    this.chartsBoxer = echarts.init(this.chartsBox)
+    this.renders()
   }
-  renderCharts = (chartsBox, xData, seriesData) => {
+  renders = () => {
+    const { name, dataList } = this.props
+    let xDatasName = null
+    const xDatas = []
+    const xNumber = []
+    if (name === 'getNearSevenCountList') {
+      xDatasName = 'time' // time 是日期 week 是星期
+    } else if (name === 'getRoadCountList') {
+      xDatasName = 'roadname'
+    }
+    dataList.forEach((item) => {
+      xDatas.push(item[xDatasName])
+      xNumber.push(item.num)
+    })
+    this.renderCharts(this.chartsBoxer, xDatas, xNumber, name)
+  }
+  renderCharts = (chartsBox, xData, seriesData, name) => {
     const options = {
       color: ['#3398DB'],
       title: {
@@ -34,23 +38,19 @@ class evaluateEcharts extends React.Component {
           color: '#FFFFFF',
         },
       },
-      dataZoom: [
-        {
-          height: 10,
-          type: 'slider',
-          show: false,
-          xAxisIndex: [0],
-          start: 0,
-          end: xData.length > 5 ? 30 : 100,
-          top: 0,
-        },
-        {
-          type: 'inside',
-          xAxisIndex: [0],
-          start: 50,
-          end: 100,
-        },
-      ],
+      dataZoom: [{
+        type: 'slider',
+        show: name === 'getNearSevenCountList' ? true : false,
+        xAxisIndex: [0],
+        left: '9%',
+        height: 10,
+        handleSize: 0, // 滑动条的 左右2个滑动条的大小
+        borderColor: '#1C385F',
+        fillerColor: '#269cdb',
+        bottom: 10,
+        start: 0,
+        end: 30, // 初始化滚动条
+      }],
       tooltip: {
         trigger: 'axis',
         axisPointer: { // 坐标轴指示器，坐标轴触发有效
