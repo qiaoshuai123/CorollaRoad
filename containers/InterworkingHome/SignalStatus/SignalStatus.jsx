@@ -210,26 +210,22 @@ class SignalStatus extends Component {
                     <div className={styles.item}>绿信比(%)</div>
                   </div>
                   <div className={styles.phaseValur}>
-                    <div className={styles.valueBox}>
-                      <div className={styles.values}>东直行左转</div>
-                      <div className={styles.values}>东直行左转</div>
-                      <div className={styles.values}>东直行左转</div>
-                    </div>
-                    <div className={styles.valueBox}>
-                      <div className={styles.values}>18</div>
-                      <div className={styles.values}>21</div>
-                      <div className={styles.values}>22</div>
-                    </div>
-                    <div className={styles.valueBox}>
-                      <div className={styles.values}>29</div>
-                      <div className={styles.values}>34</div>
-                      <div className={styles.values}>32</div>
-                    </div>
+                    {
+                      roadPlanInfoList.opt && roadPlanInfoList.opt.map((item) => {
+                        return (
+                          <div key={item + item.phase_time} className={styles.valueBox}>
+                            <div className={styles.values}>{item.phase_name}</div>
+                            <div className={styles.values}>{item.phase_time}</div>
+                            <div className={styles.values}>{item.green_letter_ratio}</div>
+                          </div>
+                        )
+                      })
+                    }
                   </div>
                 </div>
                 <div className={styles.phaseBottom}>
                   <div className={styles.bottomLeft}>周期(S)</div>
-                  <div className={styles.bottomRight}>61</div>
+                  <div className={styles.bottomRight}>{roadPlanInfoList.opt && roadPlanInfoList.opt[0].cycle}</div>
                 </div>
               </div>
             </div>
