@@ -64,7 +64,7 @@ class Evaluation extends Component {
     getResponseDatas('get', this.roadListUrl).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
-        this.setState({ roadNode: data, interId: data[0].node_id },()=>{
+        this.setState({ roadNode: data, interId: data[0].node_id }, () => {
           $("#getDataCharts").trigger('click')
         })
       }
@@ -102,7 +102,7 @@ class Evaluation extends Component {
     })
   }
   getTypeName = (type) => {
-    switch(type) {
+    switch (type) {
       case 'flow':
         this.setState({ titName: '路口流量' })
         break;
@@ -119,6 +119,9 @@ class Evaluation extends Component {
         this.setState({ titName: '路口平均速度' })
         break;
     }
+  }
+  getPlanData = () => {
+
   }
   onChange = (field, value) => {
     this.setState({
@@ -162,20 +165,20 @@ class Evaluation extends Component {
     return (
       <div className={styles.Evaluation}>
         <div className={styles.searchBox}>
-          <div className={styles.search}>路口名称&nbsp;:&nbsp; 
+          <div className={styles.search}>路口名称&nbsp;:&nbsp;
             {
-              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} /> 
-            } 
+              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} />
+            }
           </div>
-          <div className={styles.search} style={{ margin: '0' }}>评价指标&nbsp;:&nbsp; 
+          <div className={styles.search} style={{ margin: '0' }}>评价指标&nbsp;:&nbsp;
             {
               typeData && <Select defaultValue={planId} name="key" value="value" options={typeData} onChange={(value) => { this.getTypeName(value) }} />
             }
           </div>
-          <div className={styles.search}>初始时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { this.onChange(field, value)}} /></div>
+          <div className={styles.search}>初始时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { this.onChange(field, value) }} /></div>
           <div className={styles.search} style={{ margin: '0' }}>对比时间&nbsp;:&nbsp; <AntdDatePicker contrastFlag={true} onChange={(field, value) => { this.onChange(field, value) }} /></div>
           <div className={styles.buttons}>
-            <Button id="getDataCharts" type="primary" className={styles.Button} onClick={() => {this.getSearchCharts(startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId)}}>查&nbsp;&nbsp;&nbsp;&nbsp;询</Button>
+            <Button id="getDataCharts" type="primary" className={styles.Button} onClick={() => { this.getSearchCharts(startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId) }}>查&nbsp;&nbsp;&nbsp;&nbsp;询</Button>
             <Button type="primary" className={styles.Button} onClick={() => { this.setState({ dataImportPop: true }) }}>数据导入</Button>
           </div>
         </div>

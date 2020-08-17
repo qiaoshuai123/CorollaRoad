@@ -65,6 +65,10 @@ class Abnormalwarning extends Component {
     })
     this.getControlModeler()
   }
+  // 点击处置跳转至路口优化
+  goSignalStatus = (obj) => {
+    this.props.history.push({ pathname: `/interworkingHome/signalStatus/${obj.node_id}` })
+  }
   renders = () => {
     // 全部路口
     getResponseDatas('get', this.roadList).then((res) => {
@@ -110,7 +114,7 @@ class Abnormalwarning extends Component {
         </div>
         <div className={styles.GpsMapCenter}>
           <div className={styles.GpsMapCenterMap}>
-            <div className={styles.listhead}>预警消息列表(12条)
+            <div className={styles.listhead}>预警消息列表({alertListObj && alertListObj.totalCount})
               <div className={styles.days}>
                 <div><span onClick={() => this.checkDay(0)}>全部</span></div>
                 <div><span onClick={() => this.checkDay(1)}>近一天</span></div>
@@ -130,7 +134,7 @@ class Abnormalwarning extends Component {
                         <div className={styles.listBoxContain}>{item.early_warning_message}</div>
                         <div className={styles.listBoxTime}>{item.dateTime}</div>
                       </div>
-                      <span className={styles.management}>处置</span>
+                      <span onClick={() => this.goSignalStatus(item)} className={styles.management}>处置</span>
                     </div>
                   )
                 })

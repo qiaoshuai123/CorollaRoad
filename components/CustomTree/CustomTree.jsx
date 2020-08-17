@@ -17,7 +17,7 @@ class CustomTree extends React.Component {
           {
             name: '路口优化',
             id: 11,
-            path: '/interworkingHome/signalStatus',
+            path: '/interworkingHome/signalStatus/',
           },
           {
             name: '区域优化',

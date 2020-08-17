@@ -4,17 +4,18 @@ import React, { Component } from 'react'
 import styles from './GpsMap.scss'
 import getResponseDatas from '../../../../utils/getResponseDatas'
 import OptLineCharts from '../OptLineCharts/OptLineCharts'
+import ImgMove from './ImgMove/ImgMove'
 
 class GpsMap
   extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      roadLister: [],
+      roadLister: null,
       num: 0, // 计数器
       getFlowList: null, // 路口流量
       getrankLenghtList: null, // 路口排队长度
-      getRoadStatusList: {} // 运行状态
+      getRoadStatusList: {}, // 运行状态
     }
     this.roadList = '/signal-decision/monitor/roadList' // 全部路口
     this.getFlow = '/signal-decision/road/getFlow' // 方案预评估 - 路口流量
@@ -60,6 +61,11 @@ class GpsMap
   isGpsMapShow = () => {
     this.props.isGpsMapShow()
   }
+  closePoint = () => {
+    this.setState({
+      isMessagePage: false,
+    })
+  }
   renders = () => {
     getResponseDatas('get', this.roadList).then((res) => {
       const { code, data } = res.data
@@ -86,9 +92,11 @@ class GpsMap
         </div>
         <div className={styles.GpsMapCenter}>
           <div className={styles.GpsMapCenterMap}>
-            <div className={styles.listhead}>花冠路与花桐路交叉口</div>
+            <div className={styles.listhead}>{roadLister && roadLister[num].node_name}</div>
             <div className={styles.GpsMapCenterMapBox}>
-              1
+              {
+                getRoadStatusList.road && getRoadStatusList.road.map((item, index) => <ImgMove pictureInformation={item} key={item.device_id} />)
+              }
             </div>
           </div>
           <div className={styles.GpsMapCenterTime}>

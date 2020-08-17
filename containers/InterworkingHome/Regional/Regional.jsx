@@ -165,6 +165,7 @@ class Regional extends Component {
     getResponseDatas('get', this.roadList, { areaId: this.areaId }).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
+        console.log(data, 'ss')
         this.setState({
           roadLister: data,
         })

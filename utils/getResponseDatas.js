@@ -1,6 +1,5 @@
 import axios from 'axios'
 // import requestUrl from './getRequestBaseUrl'
-
 // const instance = axios.create({
 //   // baseURL: requestUrl(),
 // })

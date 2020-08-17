@@ -12,14 +12,14 @@ class Surveillance extends Component {
     super(props)
     this.state = {
       num: 0, // 计数器
-      isGpsMap: true,
+      isGpsMap: false,
       roadRankingList: [],
       roadLister: [],
       getControlModelList: null,
     }
-    this.roadList = 'signal-decision/monitor/roadList' // 全部路口
+    this.roadList = '/signal-decision/monitor/roadList' // 全部路口
     this.jam = '/signal-decision/monitor/rank/jam' // 路口排名-拥堵排名
-    this.getControlModel = 'signal-decision/road/getControlModel' // 控制状态排名
+    this.getControlModel = '/signal-decision/road/getControlModel' // 控制状态排名
   }
   componentDidMount = () => {
     this.renders()

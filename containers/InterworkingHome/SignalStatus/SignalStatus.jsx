@@ -130,15 +130,28 @@ class SignalStatus extends Component {
     })
   }
   renderRoadList = () => {
+    const { pathname } = this.props.location
+    const index = pathname.lastIndexOf('/')
+    const number = pathname.slice(index + 1)
     getResponseDatas('get', this.roadList).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
-        this.setState({
-          SelectRoadValue: data[0].node_name,
-          mapRoadList: data,
-        })
-        this.nodeId = data[0].node_id
-        this.roadData(data[0].node_id)
+        if (number) {
+          this.nodeId = number
+          this.roadData(number)
+          const names = data.find(item => item.node_id == number).node_name
+          this.setState({
+            SelectRoadValue: names,
+            mapRoadList: data,
+          })
+        } else {
+          this.setState({
+            SelectRoadValue: data[0].node_name,
+            mapRoadList: data,
+          })
+          this.nodeId = data[0].node_id
+          this.roadData(data[0].node_id)
+        }
       }
     })
   }
