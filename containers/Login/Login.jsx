@@ -44,8 +44,8 @@ class Login extends React.Component {
     const { loginName, passWord } = this.loginParams
     if (loginName !== '' && passWord !== '') {
       getResponseDatas('post', this.loginUrl, this.getFormData(this.loginParams)).then((res) => {
-        const { code, data, msg } = res.data
-        if (code === 200) {
+        const { code, data } = res.data
+        if (code === 200 && data === 1) {
           // this.getUserLimit(data.id)
           this.props.history.push('/interworkingHome/Monitoring')
           localStorage.setItem('userInfo', JSON.stringify(loginName))
@@ -54,7 +54,7 @@ class Login extends React.Component {
             passWord: '',
           }
         } else {
-          message.warning(msg)
+          message.warning('用户名和密码错误')
         }
       })
     } else {

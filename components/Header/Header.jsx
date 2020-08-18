@@ -16,11 +16,11 @@ class Header extends React.Component {
             返回主页
           </span>
         </Menu.Item>
-        <Menu.Item key='2'>
+        {/* <Menu.Item key='2'>
           <span>
             修改密码
           </span>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key='3'>
           <span>
             退出登录
@@ -30,10 +30,13 @@ class Header extends React.Component {
     )
   }
   componentDidMount = () => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-    this.setState({
-      userInfo,
-    })
+    const t = setTimeout(() => {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      this.setState({
+        userInfo
+      })
+      clearTimeout(t);
+    }, 50)
   }
   handleUserMenu = ({ key }, e) => {
     if (key === '1') {
@@ -42,6 +45,7 @@ class Header extends React.Component {
     } else if (key === '2') {
       // this.props.history.push('/login')
     } else if (key === '3') {
+      localStorage.clear()
       this.props.history.push('/')
     }
   }
@@ -78,7 +82,7 @@ class Header extends React.Component {
         <span><Icon type="user" /></span> */}
           <Icon type="user" style={{ marginRight: '5px' }} /><Dropdown overlay={this.menu}>
             <b onClick={e => e.preventDefault()}>
-              hello,{userInfo} <Icon type="down" />
+              hello,{userInfo !==null && userInfo} <Icon type="down" />
             </b>
           </Dropdown>
         </div>

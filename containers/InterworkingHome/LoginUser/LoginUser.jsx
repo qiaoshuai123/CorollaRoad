@@ -91,15 +91,14 @@ class LoginUser extends Component {
       $("#rightPassword").focus()
       return
     }
-    debugger
     if (rightPassword !== newPassword) {
       message.info('确认密码与新密码不一致！')
       $("#rightPassword").focus()
       return
     }
     getResponseDatas('post', this.userUpdatePwdUrl + '?userId=' + userId + '&oldPassword=' + oldPassword + '&newPassword=' + newPassword).then((res) => {
-      const { code } = res.data
-      if (code === 200) {
+      const { code, data } = res.data
+      if (code === 200 && data === 1) {
         message.info(res.data.message)
         this.setState({ changePwdPop: null })
         this.getUserData('1', '10')
@@ -109,7 +108,7 @@ class LoginUser extends Component {
   delUserFn = (userId) => {
     getResponseDatas('post', this.userDelUrl + '?userId=' + userId).then((res) => {
       const { code } = res.data
-      if (code === 200) {
+      if (code === 200 && data === 1) {
         message.info(res.data.message)
         this.setState({ deleteUserPop: null })
         this.getUserData('1', '10')
