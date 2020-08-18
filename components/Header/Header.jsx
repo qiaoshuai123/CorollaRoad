@@ -35,7 +35,7 @@ class Header extends React.Component {
       this.setState({
         userInfo
       })
-      clearTimeout(t);
+      clearTimeout(t)
     }, 50)
   }
   handleUserMenu = ({ key }, e) => {

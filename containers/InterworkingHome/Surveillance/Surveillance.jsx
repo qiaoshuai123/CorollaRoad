@@ -12,10 +12,13 @@ class Surveillance extends Component {
     super(props)
     this.state = {
       num: 0, // 计数器
+      roadName: null,
       isGpsMap: false,
       roadRankingList: [],
       roadLister: [],
       getControlModelList: null,
+      nodeData: null, 
+      currentIndex: null,
     }
     this.roadList = '/signal-decision/monitor/roadList' // 全部路口
     this.jam = '/signal-decision/monitor/rank/jam' // 路口排名-拥堵排名
@@ -23,6 +26,15 @@ class Surveillance extends Component {
   }
   componentDidMount = () => {
     this.renders()
+    const t = setTimeout(() => {
+    const nodeData = JSON.parse(localStorage.getItem('nodeData'))
+    const currentIndex = JSON.parse(localStorage.getItem('currentIndex'))
+    if (nodeData !== null && currentIndex !== null) {
+      this.ckeckActive(nodeData, currentIndex)
+    }
+    clearTimeout(t)
+  }, 50)
+    window.isGpsMapFlag = JSON.parse(localStorage.getItem('isGpsMap'))
   }
   getControlModeler = () => {
     getResponseDatas('get', this.getControlModel, { interId: this.roadId }).then((res) => {
@@ -37,8 +49,14 @@ class Surveillance extends Component {
   ckeckActive = (items, ind) => {
     this.roadId = items.node_id
     this.setState({
-      num: ind,
+      num: items.node_id,
+      roadName: items.node_name,
     })
+    
+  }
+  goMapClick = (id) => {
+    console.log("进来没？")
+    $("#marker"+id).trigger("click")
     this.getControlModeler()
   }
   isGpsMapShow = () => {
@@ -73,20 +91,20 @@ class Surveillance extends Component {
   }
 
   render() {
-    const { num, isGpsMap, roadRankingList, roadLister, getControlModelList } = this.state
+    const { num, roadName, isGpsMap, roadRankingList, roadLister, getControlModelList } = this.state
     return (
       <React.Fragment>
         {
-          isGpsMap ?
+          isGpsMap || window.isGpsMapFlag ?
             <div>
               <div className={styles.Surveillance_messageLeft} >
                 <div className={styles.listhead} onClick={this.goDetail}><span>全部路口</span></div>
                 <div className={styles.listBox}>
                   {
-                    roadLister && roadLister.map((item, ind) => <li className={num === ind ? styles.actives : ''} onClick={() => this.ckeckActive(item, ind)} key={item.node_id + item}>{item.node_name}</li>)
+                    roadLister && roadLister.map((item, ind) => <li className={num === item.node_id ? styles.actives : ''} onClick={() => this.goMapClick(item.node_id)}>{item.node_name}</li>)
                   }
                 </div>
-              </div >
+              </div>
               <div className={styles.Surveillance}>
                 <div className={styles.Surveillance_messageRight}>
                   <div className={styles.Surveillance_RightLists}>
@@ -105,8 +123,8 @@ class Surveillance extends Component {
                   </div>
                 </div>
               </div>
-            </div >
-            : <GpsMap isGpsMapShow={this.isGpsMapShow} />
+            </div>
+            : <GpsMap isGpsMapShow={this.isGpsMapShow} roadName={roadName} num ={num} />
         }
       </React.Fragment>
     )

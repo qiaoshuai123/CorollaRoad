@@ -11,9 +11,9 @@ class datePicker extends React.Component {
     super(props)
     this.state = {
       startDateTime: moment('2020-08-10 00:00:00'),
-      endDateTime: moment('2020-08-10 23:59:00'),
-      contrastStartDate: moment('2020-08-10 00:00:00'),
-      contrastEndDate: moment('2020-08-10 23:59:00'),
+      endDateTime: moment('2020-08-10 07:20:00'),
+      contrastStartDate: moment('2020-08-10 07:20:00'),
+      contrastEndDate: moment('2020-08-10 08:00:00'),
       endOpen: false,
     }
   }

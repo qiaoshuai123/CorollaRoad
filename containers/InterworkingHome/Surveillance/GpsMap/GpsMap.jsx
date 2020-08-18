@@ -13,6 +13,7 @@ class GpsMap
     this.state = {
       roadLister: null,
       num: 0, // 计数器
+      roadName: null,
       getFlowList: null, // 路口流量
       getrankLenghtList: null, // 路口排队长度
       getRoadStatusList: {}, // 运行状态
@@ -24,6 +25,14 @@ class GpsMap
   }
   componentDidMount = () => {
     this.renders()
+    const t = setTimeout(() => {
+      const nodeData = JSON.parse(localStorage.getItem('nodeData'))
+      const currentIndex = JSON.parse(localStorage.getItem('currentIndex'))
+      if (nodeData !== null && currentIndex !== null) {
+        this.ckeckActive(nodeData, currentIndex)
+      }
+      clearTimeout(t)
+    }, 50)
   }
   getControlModeler = () => {
     getResponseDatas('get', this.getFlow, { interId: this.roadId }).then((res) => {
@@ -54,6 +63,7 @@ class GpsMap
   ckeckActive = (items, ind) => {
     this.roadId = items.node_id
     this.setState({
+      roadName: items.node_name,
       num: ind,
     })
     this.getControlModeler()
@@ -79,20 +89,20 @@ class GpsMap
     })
   }
   render() {
-    const { roadLister, num, getrankLenghtList, getFlowList, getRoadStatusList } = this.state
+    const { roadLister, num, roadName, getrankLenghtList, getFlowList, getRoadStatusList } = this.state
     return (
       <div className={styles.GpsMap}>
         <div className={styles.GpsMapLeft}>
           <div onClick={this.isGpsMapShow} className={styles.listhead}>返回GIS地图</div>
           <div className={styles.listBox}>
             {
-              roadLister && roadLister.map((item, ind) => <li className={num === ind ? styles.actives : ''} onClick={() => this.ckeckActive(item, ind)} key={item.node_id + item}>{item.node_name}</li>)
+              roadLister && roadLister.map((item, ind) => <li className={(this.props.num !== null ? this.props.num : num) === item.node_id ? styles.actives : ''} onClick={() => this.ckeckActive(item, item.node_id)} key={item.node_id + item}>{item.node_name}</li>)
             }
           </div>
         </div>
         <div className={styles.GpsMapCenter}>
           <div className={styles.GpsMapCenterMap}>
-            <div className={styles.listhead}>{roadLister && roadLister[num].node_name}</div>
+            <div className={styles.listhead}>{this.props.roadName !== null ? this.props.roadName : roadName}</div>
             <div className={styles.GpsMapCenterMapBox}>
               {
                 getRoadStatusList.road && getRoadStatusList.road.map((item, index) => <ImgMove pictureInformation={item} key={item.device_id} />)

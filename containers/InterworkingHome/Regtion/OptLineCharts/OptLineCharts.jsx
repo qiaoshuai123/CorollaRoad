@@ -142,6 +142,26 @@ class ExportCharts extends React.Component {
               color: '#E59E14',
             },
           },
+          areaStyle: {
+            normal: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                  offset: 0,
+                  color: '#E59E14'
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.30)'
+                }],
+                globalCoord: false
+              }
+            }
+          }
         },
         {
           name: '对比时间',
@@ -156,7 +176,28 @@ class ExportCharts extends React.Component {
               color: '#4EBBC8',
             },
           },
+          areaStyle: {
+            normal: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                  offset: 0,
+                  color: '#4EBBC8'
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.30)'
+                }],
+                globalCoord: false
+              }
+            }
+          }
         },
+        
       ],
     }
     myCharts.setOption(option, true)

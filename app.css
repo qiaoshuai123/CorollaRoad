@@ -166,3 +166,6 @@ a.amap-logo img{
   .minemap-popup-anchor-bottom .minemap-popup-tip {
     border-top-color: rgba(33, 77, 106, 0.9);
   }
+  .minemap-ctrl-bottom-left{
+    display: none;
+  }
