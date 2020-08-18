@@ -16,6 +16,7 @@ class GpsMap
       getFlowList: null, // 路口流量
       getrankLenghtList: null, // 路口排队长度
       getRoadStatusList: {}, // 运行状态
+      GpsMapCenterMapBoxBac: '', // 路口底图
     }
     this.roadList = '/signal-decision/monitor/roadList' // 全部路口
     this.getFlow = '/signal-decision/road/getFlow' // 方案预评估 - 路口流量
@@ -45,8 +46,13 @@ class GpsMap
     getResponseDatas('get', this.getRoadStatus, { interId: this.roadId }).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
+        let nums = 0
+        data.phase.forEach((item) => {
+          nums += (item.green_time + item.yellow_time)
+        })
         this.setState({
           getRoadStatusList: data,
+          nums,
         })
       }
     })
@@ -55,6 +61,7 @@ class GpsMap
     this.roadId = items.node_id
     this.setState({
       num: ind,
+      GpsMapCenterMapBoxBac: items.node_img,
     })
     this.getControlModeler()
   }
@@ -73,29 +80,36 @@ class GpsMap
         this.roadId = data[0].node_id
         this.setState({
           roadLister: data,
+          GpsMapCenterMapBoxBac: data[0].node_img,
         })
         this.getControlModeler()
       }
     })
   }
   render() {
-    const { roadLister, num, getrankLenghtList, getFlowList, getRoadStatusList } = this.state
+    const { roadLister, num, getrankLenghtList, getFlowList, getRoadStatusList, GpsMapCenterMapBoxBac, nums, } = this.state
     return (
       <div className={styles.GpsMap}>
         <div className={styles.GpsMapLeft}>
           <div onClick={this.isGpsMapShow} className={styles.listhead}>返回GIS地图</div>
           <div className={styles.listBox}>
             {
-              roadLister && roadLister.map((item, ind) => <li className={num === ind ? styles.actives : ''} onClick={() => this.ckeckActive(item, ind)} key={item.node_id + item}>{item.node_name}</li>)
+              roadLister && roadLister.map((item, ind) => <li className={num === ind ? styles.actives : ''} onClick={() => this.ckeckActive(item, ind)} key={item.node_id}>{item.node_name}</li>)
             }
           </div>
         </div>
         <div className={styles.GpsMapCenter}>
           <div className={styles.GpsMapCenterMap}>
             <div className={styles.listhead}>{roadLister && roadLister[num].node_name}</div>
-            <div className={styles.GpsMapCenterMapBox}>
+            <div
+              style={{
+                backgroundImage: GpsMapCenterMapBoxBac ? `url(${require(`./img/${GpsMapCenterMapBoxBac}`)})` : '',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '100% 100%',
+              }}
+              className={styles.GpsMapCenterMapBox}>
               {
-                getRoadStatusList.road && getRoadStatusList.road.map((item, index) => <ImgMove pictureInformation={item} key={item.device_id} />)
+                getRoadStatusList.road && getRoadStatusList.road.map(item => <ImgMove pictureInformation={item} key={item.device_id} />)
               }
             </div>
           </div>
@@ -104,11 +118,31 @@ class GpsMap
             <div className={styles.listBox}>
               <div className={styles.equipmentStatus}>设备状态:<span>{getRoadStatusList.road && getRoadStatusList.road[0].device_status}</span></div>
               <div className={styles.controlStatus}>控制状态:本地多时段</div>
-              <div className={styles.timeInterval}>但前时段:{getRoadStatusList.phase && getRoadStatusList.phase.map(item => <span key={item.phase_name + item}>1</span>)}</div>
+              <div className={styles.timeInterval}>当前时段:{getRoadStatusList.phase && getRoadStatusList.phase.map(item => <div className={styles.timeIntervalBox} key={item.phase_name + item}><img src={require(`./img/${item.phase_img}`)} /></div>)}</div>
               <div className={styles.programme}>当前方案:<span>方案一</span></div>
               <div className={styles.programmeTime}>
                 <div className={styles.programmeTimeBox}>
-                  123
+                  {/* 123 */}
+                  <div className={styles.AnimationTime}>
+                    <div className={styles.palnRunBox}>
+                      <div className={styles.runStage} style={{ width: `${50}px` }}><span className={styles.stageInner} /></div>
+                      {
+                        getRoadStatusList.phase && getRoadStatusList.phase.map((item) => {
+                          const allSm = item.green_time + item.yellow_time
+                          const yellowNum = (item.yellow_time * 100) / allSm
+                          const greenNum = (item.green_time * 100) / allSm
+                          const allNum = (allSm * 100) / nums
+                          return (
+                            <div key={item.phase_name + item.phase_img} style={{ width: `${allNum}%` }} className={styles.planRunStage}>
+                              <span className={styles.stageMsg}>{item.phase_name} &nbsp;{item.green_time}秒</span>
+                              <div className={styles.greenStage} style={{ width: `${greenNum}%` }} />
+                              <div className={styles.yellowStage} style={{ width: `${yellowNum}%` }} />
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

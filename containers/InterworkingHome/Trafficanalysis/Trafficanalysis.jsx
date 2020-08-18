@@ -29,7 +29,7 @@ class Trafficanalysis
   // echarts 图表
   getControlModeler = () => {
     // 方案预评估-路口排队长度
-    console.log(this.nodeId, 'sdsdsdsd')
+    // console.log(this.nodeId, 'sdsdsdsd')
     getResponseDatas('get', this.getrankLenght, { interId: this.nodeId }).then((res) => {
       const { code, data } = res.data
       if (code === 200) {

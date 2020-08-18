@@ -48,7 +48,8 @@ const getResponseDatas = async (type, url, requestParams) => {
         reponse = await axios.get(url, { params: requestParams })
         break
       case 'post':
-        reponse = await axios.post(url, requestParams)
+        reponse = await axios.post(`${url}?${requestParams}`)
+        // reponse = await axios.post(url, requestParams)
         break
       case 'put':
         reponse = await axios.put(url, requestParams)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Select } from 'antd'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import styles from './SignalStatus.scss'
-
+import $bus from '../../../utils/events'
 import OptLineCharts from './OptLineCharts'
 
 const { Option } = Select
@@ -137,18 +137,23 @@ class SignalStatus extends Component {
       const { code, data } = res.data
       if (code === 200) {
         if (number) {
+          console.log(number, 'sss')
           this.nodeId = number
           this.roadData(number)
-          const names = data.find(item => item.node_id == number).node_name
+          const objName = data.find(item => item.node_id == number)
+          $bus.emit('goMapBtn', objName)
+          console.log(objName, objName.node_name, '123456')
           this.setState({
-            SelectRoadValue: names,
+            SelectRoadValue: objName.node_name,
             mapRoadList: data,
           })
         } else {
+          console.log(number, data[0].node_name, 'sss')
           this.setState({
             SelectRoadValue: data[0].node_name,
             mapRoadList: data,
           })
+          $bus.emit('goMapBtn', data[0])
           this.nodeId = data[0].node_id
           this.roadData(data[0].node_id)
         }

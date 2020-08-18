@@ -4,6 +4,7 @@ import styles from './MineData.scss'
 import markIcon from '../../containers/images/icon_mark.png'
 import videoIcon from '../../containers/images/icon_video.png'
 import getResponseDatas from '../../utils/getResponseDatas'
+
 class MineData extends Component {
   constructor(props) {
     super(props)
@@ -17,8 +18,30 @@ class MineData extends Component {
   }
   componentDidMount() {
     this.handlerenderMineMap()
-    this.messageInformation()
+    // this.messageInformation()
     this.mapRender() // 初始化地图点位
+    this.goMapBtn()
+  }
+  goMapBtn = () => {
+    $bus.on('goMapBtn', (obj) => {
+      // const objs = {}
+      // objs.lng = obj.unit_longitude
+      // objs.lat = obj.unit_latitude
+      // this.infowindow += 1
+      // const el = document.createElement('div')
+      // el.id = 'marker'
+      // el.style['background-image'] = `url(${markIcon})`
+      // el.style['background-size'] = 'cover'
+      // el.style.width = '18px'
+      // el.style.height = '28px'
+      // el.style.zIndex = '9'
+      // this.lnglat = objs
+      // this.fixedPopup = new window.minemap.Popup(el, { offset: [-9, -14] })
+      //   .setLngLat([obj.unit_longitude, obj.unit_latitude])
+      //   .setPopup(this.showInterInfo(obj))
+      //   .addTo(this.map)
+      // // this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
+    })
   }
   mapRender = () => {
     getResponseDatas('get', this.roadList).then((res) => {
@@ -30,11 +53,6 @@ class MineData extends Component {
           this.addMarker(data)
         })
       }
-    })
-  }
-  messageInformation = () => {
-    $bus.on('message', (text) => {
-      console.log(text, '改变数据')
     })
   }
   // 添加坐标点
@@ -57,6 +75,7 @@ class MineData extends Component {
           .setPopup(this.showInterInfo(item))
           .addTo(this.map)
         el.addEventListener('click', () => {
+          this.fixedPopup = null
           this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
         })
       })
