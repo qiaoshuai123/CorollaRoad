@@ -25,11 +25,40 @@ class Regtion extends Component {
         { key: '区域平均延误时间', value: 'delay_time' },
         { key: '区域平均拥堵延时', value: 'congestion_delay' }
       ],
+      delayData: null,
+      one: null,
+      ones: null,
+      two: null,
+      twos: null,
+      three: null,
+      threes: null,
     }
     this.getAreaEvaluateUrl = '/signal-decision/optimize/getAreaEvaluate' //查询区域评价
+    this.getDelayTimeUrl = '/signal-decision/optimize/getAreaEvaluateDelayTime' //查询区域评价拥堵延时
   }
   componentDidMount = () => {
     $("#getDataCharts").trigger('click')
+    this.getDelayTime()
+  }
+  getDelayTime = () => {
+    getResponseDatas('get', this.getDelayTimeUrl + '?areaId=1&initStartTime=2020-08-10 00:00:00').then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.setState({
+          delayData: data
+        }, () =>{
+          this.setState({
+            one: (data.avgList[0].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
+            ones: (data.avgList[1].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
+            two: (data.zaoList[0].opt_value / (data.zaoList[0].opt_value + data.zaoList[1].opt_value) * 100).toFixed(2), 
+            twos: (data.zaoList[1].opt_value / (data.zaoList[0].opt_value + data.zaoList[1].opt_value) * 100).toFixed(2), 
+            three: (data.avgList[0].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
+            threes: (data.avgList[1].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
+
+          })
+        })
+      }
+    })
   }
   getSearchCharts = (startDateTime, endDateTime, contrastStartDate, contrastEndDate, areaId, planId) => {
     const urls = '?initStartTime=' + startDateTime + '&initEndTime=' + endDateTime + '&compareStartTime=' + contrastStartDate + '&compareEndTime=' + contrastEndDate + '&areaId=' + areaId + '&type=' + planId
@@ -41,7 +70,6 @@ class Regtion extends Component {
           let time1 = [], datas1 = [];
           let time2 = [], datas2 = [];
           data.init.map(item => {
-            debugger
             time1.push(item.time)
             datas1.push(item.opt_value)
             // console.log(itemArr1, '对不？')
@@ -119,28 +147,28 @@ class Regtion extends Component {
     this.setState({ endOpen: open })
   }
   render() {
-    const { typeData, planId, titName, startDateTime, endDateTime, contrastStartDate, contrastEndDate, evaluateData } = this.state
+    const { typeData, planId, titName, startDateTime, endDateTime, contrastStartDate, contrastEndDate, evaluateData, delayData, one, ones, two, twos, three, threes } = this.state
     return (
       <div className={styles.Regtion}>
         <div className={styles.echartsBox}>
           <div className={styles.echartsItem}>
             <div className={styles.echartsItemLeft}>
-              <div className={styles.lastDay}>昨日平均拥堵延时</div>
-              <div className={styles.nowWeek}>本周:9.23</div>
-              <div className={styles.lastWeek}>上周:1.21</div>
+              <div className={styles.lastDay}>平均拥堵延时</div>
+              <div className={styles.nowWeek}>本周:{delayData && delayData.avgList[0].opt_value}</div>
+              <div className={styles.lastWeek}>上周:{delayData && delayData.avgList[1].opt_value}</div>
             </div>
             <div className={styles.echartsItemRight}>
               <div className={styles.echartsItemOut}>
                 <Progress
                   type="circle"
                   strokeLinecap="square"
-                  percent={75}
+                  percent={one !== null && one}
                   strokeColor={{
                     '0%': '#2486CC',
                     '100%': '#0CCAD6',
                   }}
                   format={() => `${'拥堵延时'}`}
-                />
+                /> 
               </div>
               <div className={styles.echartsItemIn}>
                 <Progress
@@ -148,7 +176,7 @@ class Regtion extends Component {
                   strokeColor="F0AA18"
                   strokeLinecap="square"
                   width={100}
-                  percent={30}
+                  percent={ones !== null && ones}
                   format={() => ''}
                 />
               </div>
@@ -156,16 +184,16 @@ class Regtion extends Component {
           </div>
           <div className={styles.echartsItem}>
             <div className={styles.echartsItemLeft}>
-              <div className={styles.lastDay}>昨日平均延时</div>
-              <div className={styles.nowWeek}>本周:9.23</div>
-              <div className={styles.lastWeek}>上周:1.21</div>
+              <div className={styles.lastDay}>早高峰拥堵延时</div>
+              <div className={styles.nowWeek}>本周:{delayData && delayData.zaoList[0].opt_value}</div>
+              <div className={styles.lastWeek}>上周:{delayData && delayData.zaoList[1].opt_value}</div>
             </div>
             <div className={styles.echartsItemRight}>
               <div className={styles.echartsItemOut}>
                 <Progress
                   type="circle"
                   strokeLinecap="square"
-                  percent={75}
+                  percent={two !== null && two}
                   strokeColor={{
                     '0%': '#2486CC',
                     '100%': '#0CCAD6',
@@ -179,7 +207,7 @@ class Regtion extends Component {
                   strokeColor="F0AA18"
                   strokeLinecap="square"
                   width={100}
-                  percent={30}
+                  percent={twos !== null && twos}
                   format={() => ''}
                 />
               </div>
@@ -187,16 +215,16 @@ class Regtion extends Component {
           </div>
           <div className={styles.echartsItem}>
             <div className={styles.echartsItemLeft}>
-              <div className={styles.lastDay}>昨日晚高峰拥堵延时</div>
-              <div className={styles.nowWeek}>本周:9.23</div>
-              <div className={styles.lastWeek}>上周:1.21</div>
+              <div className={styles.lastDay}>晚高峰拥堵延时</div>
+              <div className={styles.nowWeek}>本周:{delayData && delayData.wanList[0].opt_value}</div>
+              <div className={styles.lastWeek}>上周:{delayData && delayData.wanList[1].opt_value}</div>
             </div>
             <div className={styles.echartsItemRight}>
               <div className={styles.echartsItemOut}>
                 <Progress
                   type="circle"
                   strokeLinecap="square"
-                  percent={75}
+                  percent={three !== null && three}
                   strokeColor={{
                     '0%': '#2486CC',
                     '100%': '#0CCAD6',
@@ -210,7 +238,7 @@ class Regtion extends Component {
                   strokeColor="F0AA18"
                   strokeLinecap="square"
                   width={100}
-                  percent={30}
+                  percent={threes !== null && threes}
                   format={() => ''}
                 />
               </div>

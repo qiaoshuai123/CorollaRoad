@@ -8,6 +8,7 @@ class ExportCharts extends React.Component {
     this.legend = ['初始条件', '对比时间']
     // this.time = []
     this.series = this.props.resData
+    // console.log(this.series, '看下数据...')
     // this.props.resData.map((item, i) => {
     //   if (this.time.length === 0 && item[i].length > 0) {
     //     this.time = item[0]
@@ -26,6 +27,7 @@ class ExportCharts extends React.Component {
     //   }
     //   this.series.push(obj)      
     // })
+    this.count = 0
   }
   componentDidMount = () => {
     this.getPropsChartsData()
@@ -85,11 +87,11 @@ class ExportCharts extends React.Component {
         type: 'category',
         axisLine: {
           show: false,
-          color: '#105D6C',
+          color: '#E59E14',
         },
 
         axisLabel: {
-          color: '#03F4F3',
+          color: '#E59E14',
           width: 100,
         },
         splitLine: {
@@ -99,7 +101,27 @@ class ExportCharts extends React.Component {
         data: series[0][0],
         // data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
 
-      }],
+      },
+      {
+        type: 'category',
+        axisLine: {
+          show: false,
+          color: '#4EBBC8',
+        },
+
+        axisLabel: {
+          color: '#4EBBC8',
+          width: 100,
+        },
+        splitLine: {
+          show: false,
+        },
+        boundaryGap: false,
+        data: series[1][0],
+        // data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
+
+      }
+    ],
 
       yAxis: [{
         type: 'value',
