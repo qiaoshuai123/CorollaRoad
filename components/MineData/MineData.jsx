@@ -28,6 +28,7 @@ class MineData extends Component {
   }
   goMapBtn = () => {
     $bus.on('goMapBtn', (obj) => {
+      console.log(obj, 'sss')
       // const objs = {}
       // objs.lng = obj.unit_longitude
       // objs.lat = obj.unit_latitude

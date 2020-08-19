@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { Icon, Select } from 'antd'
+import { param } from 'jquery'
 import AreaCharts from './AreaCharts'
 import AreaLineCharts from './AreaLineCharts'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import Axios from '../../../utils/aixosAll'
+import datas from './data.js'
+import GreenWaveCharts from '../../../components/GreenWaveCharts/GreenWaveCharts'
 import styles from './Regional.scss'
-import { param } from 'jquery'
+
 
 const { Option } = Select
 class Regional extends Component {
@@ -27,6 +30,10 @@ class Regional extends Component {
       roadListByPlanValue: '',
       roadListByPlan: [], // 区域优化配置-区域路口列表
       roadListByPlanInfoList: [], // 区域优化配置-区域路口方案详情
+      greenWaveData: null,
+      totleDistance: 900,
+      showForwordWave: true,
+      showReverseWave: true,
     }
     this.getAnyOne = '/signal-decision/area/getAnyOne' // 区域优化配置渠道化
     this.roadList = '/signal-decision/area/getAvgDelay' // 区域平均延误
@@ -78,6 +85,16 @@ class Regional extends Component {
   }
   // 区域优化配置
   regionalOptimization = () => {
+    // 区域优化配置渠道化
+    getResponseDatas('get', this.getAnyOne, { areaId: this.areaId }).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        console.log(123456789, data)
+        this.setState({
+          greenWaveData: data,
+        })
+      }
+    })
     // 干线列表
     getResponseDatas('get', this.mainLineList, { areaId: this.areaId }).then((res) => {
       const { code, data } = res.data
@@ -211,7 +228,17 @@ class Regional extends Component {
                     <span style={{ color: '#00FFFF' }}>方案适用时段：{programmeTime}</span>
                   </div>
                   <div className={styles.greenWaveBox}>
-                    <div className={styles.greenWave}>123</div>
+                    <div className={styles.greenWave}>
+                      {
+                        this.state.greenWaveData &&
+                        <GreenWaveCharts
+                          chartsData={this.state.greenWaveData}
+                          totleDistance={this.state.totleDistance}
+                          showForwordWave={this.state.showForwordWave}
+                          showReverseWave={this.state.showReverseWave}
+                        />
+                      }
+                    </div>
                     <div className={styles.greenConf}>
                       <div className={styles.interConf}>
                         <div className={styles.confName}>区域路口：</div>

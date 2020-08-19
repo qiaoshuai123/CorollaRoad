@@ -74,6 +74,9 @@
                 display: flex;
                 .greenWave {
                     flex: 1;
+                    display: flex;
+                    padding-top: 10px;
+                    justify-content: center;
                 }
                 .greenConf {
                     width: 420px;
