@@ -47,6 +47,7 @@ class SignalStatus extends Component {
     return params
   }
   selectRoad = (value) => {
+    $bus.emit('goMapBtn', value)
     const { mapRoadList } = this.state
     this.setState({
       SelectRoadValue: value,
@@ -141,7 +142,7 @@ class SignalStatus extends Component {
           this.nodeId = number
           this.roadData(number)
           const objName = data.find(item => item.node_id == number)
-          $bus.emit('goMapBtn', objName)
+          // $bus.emit('goMapBtn', objName)
           console.log(objName, objName.node_name, '123456')
           this.setState({
             SelectRoadValue: objName.node_name,
@@ -153,7 +154,7 @@ class SignalStatus extends Component {
             SelectRoadValue: data[0].node_name,
             mapRoadList: data,
           })
-          $bus.emit('goMapBtn', data[0])
+          // $bus.emit('goMapBtn', data[0])
           this.nodeId = data[0].node_id
           this.roadData(data[0].node_id)
         }
