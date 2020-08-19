@@ -21,20 +21,10 @@ class MineData extends Component {
     // this.messageInformation()
     this.mapRender() // 初始化地图点位
     this.goMapBtn()
+    this.sendAndGetFn()
   }
-  getInterData = (data, index) => {
-    if (this.popup) {
-      this.popup.remove();
-      this.popup = null;
-    }
-    if (location.href.indexOf('/interworkingHome/Surveillance') > -1) {
-      localStorage.setItem('isGpsMap', JSON.stringify(false))
-    } else {
-      this.props.history.push('/interworkingHome/Surveillance')
-    }
-    localStorage.setItem('nodeData', JSON.stringify(data))
-    localStorage.setItem('currentIndex', index)
-
+  sendAndGetFn = () => {
+    $bus.emit('isGpsMapShow', false)
   }
   goMapBtn = () => {
     $bus.on('goMapBtn', (obj) => {
@@ -116,13 +106,12 @@ class MineData extends Component {
   }
   getInterData = (data, index) => {
     if (this.popup) {
-      // this.popup.remove();
-      // this.popup = null
       $("#originMarker").trigger("click")
     }
     if (location.href.indexOf('/interworkingHome/Surveillance') > -1) {
       localStorage.setItem('isGpsMap', JSON.stringify(false))
       window.isGpsMapFlag = false
+      this.sendAndGetFn() // 参数传递
     } else {
       this.props.history.push('/interworkingHome/Surveillance')
     }

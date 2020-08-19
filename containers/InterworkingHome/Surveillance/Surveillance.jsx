@@ -28,6 +28,7 @@ class Surveillance extends Component {
   
   componentDidMount = () => {
     this.renders()
+    this.sendAndGetFn()
     const t = setTimeout(() => {
     const nodeData = JSON.parse(localStorage.getItem('nodeData'))
     const currentIndex = JSON.parse(localStorage.getItem('currentIndex'))
@@ -37,11 +38,19 @@ class Surveillance extends Component {
     }
     clearTimeout(t)
   }, 50)
-  this.sendAndGetFn()
   }
   sendAndGetFn = () => {
-    $bus.on('isGpsMapShow', (obj) => {
-
+    // $bus.on('isGpsMapShow', (obj) => {
+    //   console.log(obj, '传过来的是啥？')
+    //   this.setState({ isGpsMap: obj})
+    // })
+    $bus.on('isGpsMapShow', (msg) => {
+      const t = setTimeout(() => {
+        this.setState({
+          isGpsMap: msg,
+        })
+        clearTimeout(t)
+      }, 50)
     })
   }
   getControlModeler = () => {
@@ -67,19 +76,14 @@ class Surveillance extends Component {
     this.getControlModeler()
   }
   isGpsMapShow = () => {
-    if (window.isGpsMapFlag !== null){
-      this.setState({
-        isGpsMap: !window.isGpsMapFlag
-      })
-    }
-    
+    this.setState({
+      isGpsMap: true,
+    })
   }
   goDetail = () => {
-    if (window.isGpsMapFlag !== null){
-      this.setState({
-        isGpsMap: window.isGpsMapFlag,
-      })
-    }
+    this.setState({
+      isGpsMap: false,
+    })
   }
   renders = () => {
     getResponseDatas('get', this.jam).then((res) => {

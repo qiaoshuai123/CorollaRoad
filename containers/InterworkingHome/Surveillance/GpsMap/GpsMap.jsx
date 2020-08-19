@@ -104,13 +104,13 @@ class GpsMap
           <div onClick={this.isGpsMapShow} className={styles.listhead}>返回GIS地图</div>
           <div className={styles.listBox}>
             {
-              roadLister && roadLister.map((item, ind) => <li className={(this.props.num !== null ? this.props.num : num) === item.node_id ? styles.actives : ''} onClick={() => this.ckeckActive(item, item.node_id)} key={item.node_id + item}>{item.node_name}</li>)
+              roadLister && roadLister.map((item, ind) => <li className={num === item.node_id ? styles.actives : ''} onClick={() => this.ckeckActive(item, item.node_id)} key={item.node_id + item}>{item.node_name}</li>)
             }
           </div>
         </div>
         <div className={styles.GpsMapCenter}>
           <div className={styles.GpsMapCenterMap}>
-            <div className={styles.listhead}>{this.props.roadName !== null ? this.props.roadName : roadName}</div>
+            <div className={styles.listhead}>{roadName}</div>
             <div
               style={{
                 backgroundImage: GpsMapCenterMapBoxBac ? `url(${require(`./img/${GpsMapCenterMapBoxBac}`)})` : '',
