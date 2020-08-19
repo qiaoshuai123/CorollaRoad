@@ -46,7 +46,7 @@ const getResponseDatas = async (type, url, requestParams) => {
     switch (type) {
       case 'get':
         // reponse = await axios.get(url, { params: requestParams })
-        reponse = await axios.post(`${url}?${requestParams}`)
+        reponse = await axios.get(`${url}?${requestParams}`)
         break
       case 'post':
         reponse = await axios.post(url, requestParams)
