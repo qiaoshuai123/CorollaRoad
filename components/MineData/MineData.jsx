@@ -21,20 +21,10 @@ class MineData extends Component {
     // this.messageInformation()
     this.mapRender() // 初始化地图点位
     this.goMapBtn()
+    this.sendAndGetFn()
   }
-  getInterData = (data, index) => {
-    if (this.popup) {
-      this.popup.remove();
-      this.popup = null;
-    }
-    if (location.href.indexOf('/interworkingHome/Surveillance') > -1) {
-      localStorage.setItem('isGpsMap', JSON.stringify(false))
-    } else {
-      this.props.history.push('/interworkingHome/Surveillance')
-    }
-    localStorage.setItem('nodeData', JSON.stringify(data))
-    localStorage.setItem('currentIndex', index)
-
+  sendAndGetFn = () => {
+    $bus.emit('isGpsMapShow', false)
   }
   goMapBtn = () => {
     $bus.on('goMapBtn', (obj) => {
@@ -58,6 +48,7 @@ class MineData extends Component {
       // // this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
     })
     window.getInterData = this.getInterData
+    window.returnPop = this.returnPop
   }
   mapRender = () => {
     getResponseDatas('get', this.roadList).then((res) => {
@@ -93,12 +84,46 @@ class MineData extends Component {
         el.addEventListener('click', () => {
           this.fixedPopup = null
           this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
+          
         })
+      })
+      // 创建一个圆点
+      const originEl = document.createElement('div')
+      originEl.id = 'originMarker'
+      originEl.style.width = '0px'
+      originEl.style.height = '0px'
+      const markerOrigin = new window.minemap.Marker(originEl, { offset: [-9, -14] })
+        .setLngLat({lng:0, lat:0})
+        .addTo(this.map)
+      originEl.addEventListener('click', () => {
+        console.log('原点触发点击事件！')
       })
     }
   }
+  returnPop = () => {
+    if (this.props.returnPop) {
+      $("#originMarker").trigger("click")
+    }
+  }
+  getInterData = (data, index) => {
+    if (this.popup) {
+      $("#originMarker").trigger("click")
+    }
+    if (location.href.indexOf('/interworkingHome/Surveillance') > -1) {
+      localStorage.setItem('isGpsMap', JSON.stringify(false))
+      window.isGpsMapFlag = false
+      this.sendAndGetFn() // 参数传递
+    } else {
+      this.props.history.push('/interworkingHome/Surveillance')
+    }
+    localStorage.setItem('nodeData', JSON.stringify(data))
+    localStorage.setItem('currentIndex', index)
+    
+  }
   // 自定义信息窗体
   showInterInfo = (information, index) => {
+    debugger
+    this.props.turnPopFn(true)
     localStorage.setItem('nodeData', null)
     localStorage.setItem('currentIndex', null)
     // this.removeInterInfo()
@@ -137,7 +162,7 @@ class MineData extends Component {
       minZoom: 3,
     })
     map.on('click', (e) => {
-
+      // console.log('地图点击')
     })
     this.map = map
   }

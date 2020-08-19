@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { Icon } from 'antd'
 import EvaluateEcharts from './EvaluateEcharts/EvaluateEcharts'
+import $bus from '../../../utils/events'
 import GpsMap from './GpsMap/GpsMap'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import styles from './Surveillance.scss'
@@ -11,7 +12,7 @@ class Surveillance extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      num: 0, // 计数器
+      num: 1010, // 计数器
       roadName: null,
       isGpsMap: false,
       roadRankingList: [],
@@ -24,17 +25,33 @@ class Surveillance extends Component {
     this.jam = '/signal-decision/monitor/rank/jam' // 路口排名-拥堵排名
     this.getControlModel = '/signal-decision/road/getControlModel' // 控制状态排名
   }
+  
   componentDidMount = () => {
     this.renders()
+    this.sendAndGetFn()
     const t = setTimeout(() => {
     const nodeData = JSON.parse(localStorage.getItem('nodeData'))
     const currentIndex = JSON.parse(localStorage.getItem('currentIndex'))
+    window.isGpsMapFlag = JSON.parse(localStorage.getItem('isGpsMap'))
     if (nodeData !== null && currentIndex !== null) {
       this.ckeckActive(nodeData, currentIndex)
     }
     clearTimeout(t)
   }, 50)
-    window.isGpsMapFlag = JSON.parse(localStorage.getItem('isGpsMap'))
+  }
+  sendAndGetFn = () => {
+    // $bus.on('isGpsMapShow', (obj) => {
+    //   console.log(obj, '传过来的是啥？')
+    //   this.setState({ isGpsMap: obj})
+    // })
+    $bus.on('isGpsMapShow', (msg) => {
+      const t = setTimeout(() => {
+        this.setState({
+          isGpsMap: msg,
+        })
+        clearTimeout(t)
+      }, 50)
+    })
   }
   getControlModeler = () => {
     getResponseDatas('get', this.getControlModel, { interId: this.roadId }).then((res) => {
@@ -55,7 +72,6 @@ class Surveillance extends Component {
     
   }
   goMapClick = (id) => {
-    console.log("进来没？")
     $("#marker"+id).trigger("click")
     this.getControlModeler()
   }
@@ -95,13 +111,13 @@ class Surveillance extends Component {
     return (
       <React.Fragment>
         {
-          isGpsMap || window.isGpsMapFlag ?
+          isGpsMap ?
             <div>
               <div className={styles.Surveillance_messageLeft} >
                 <div className={styles.listhead} onClick={this.goDetail}><span>全部路口</span></div>
                 <div className={styles.listBox}>
                   {
-                    roadLister && roadLister.map((item, ind) => <li className={num === item.node_id ? styles.actives : ''} onClick={() => this.goMapClick(item.node_id)}>{item.node_name}</li>)
+                    roadLister && roadLister.map((item, ind) => <li key={'roadList'+ind} className={num === item.node_id ? styles.actives : ''} onClick={() => this.goMapClick(item.node_id)}>{item.node_name}</li>)
                   }
                 </div>
               </div>
@@ -124,7 +140,7 @@ class Surveillance extends Component {
                 </div>
               </div>
             </div>
-            : <GpsMap isGpsMapShow={this.isGpsMapShow} roadName={roadName} num ={num} />
+            : <GpsMap isGpsMapShow={this.isGpsMapShow} { ...this.props } roadName={roadName} num ={num} />
         }
       </React.Fragment>
     )

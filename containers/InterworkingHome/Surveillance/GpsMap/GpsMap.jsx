@@ -12,8 +12,8 @@ class GpsMap
     super(props)
     this.state = {
       roadLister: null,
-      num: 0, // 计数器
-      roadName: null,
+      num: 1010, // 计数器
+      roadName: '甲秀南路与花冠路路口',
       getFlowList: null, // 路口流量
       getrankLenghtList: null, // 路口排队长度
       getRoadStatusList: {}, // 运行状态
@@ -104,13 +104,13 @@ class GpsMap
           <div onClick={this.isGpsMapShow} className={styles.listhead}>返回GIS地图</div>
           <div className={styles.listBox}>
             {
-              roadLister && roadLister.map((item, ind) => <li className={(this.props.num !== null ? this.props.num : num) === item.node_id ? styles.actives : ''} onClick={() => this.ckeckActive(item, item.node_id)} key={item.node_id + item}>{item.node_name}</li>)
+              roadLister && roadLister.map((item, ind) => <li className={num === item.node_id ? styles.actives : ''} onClick={() => this.ckeckActive(item, item.node_id)} key={item.node_id + item}>{item.node_name}</li>)
             }
           </div>
         </div>
         <div className={styles.GpsMapCenter}>
           <div className={styles.GpsMapCenterMap}>
-            <div className={styles.listhead}>{this.props.roadName !== null ? this.props.roadName : roadName}</div>
+            <div className={styles.listhead}>{roadName}</div>
             <div
               style={{
                 backgroundImage: GpsMapCenterMapBoxBac ? `url(${require(`./img/${GpsMapCenterMapBoxBac}`)})` : '',
@@ -168,7 +168,7 @@ class GpsMap
             {getrankLenghtList && <OptLineCharts name="line_up_length" dataList={getrankLenghtList} />}
           </div>
         </div>
-      </div >
+      </div>
     )
   }
 }
