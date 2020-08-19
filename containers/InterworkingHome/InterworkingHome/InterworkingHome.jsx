@@ -107,13 +107,13 @@ class InterworkingHome extends Component {
         <Header {...this.props} />
         <div id='menu-left' className={classNames('animated', styles.Interwork_left)}>
           <div className={styles.Interwork_leftBox}>
-            <div className={styles.InterworkLeft_search}>
+            {/* <div className={styles.InterworkLeft_search}>
               <Search
                 placeholder="关键词搜索"
                 onSearch={value => console.log(value)}
                 style={{ width: 240 }}
               />
-            </div>
+            </div> */}
             <div onClick={this.goMonitoring} className={`${isname === 'goMonitoring' ? styles.active : ''} ${styles.InterworkLeft_Title}`}>
               <span /><span>全局监视</span>
             </div>
