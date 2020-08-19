@@ -19,6 +19,7 @@ class InterworkingHome extends Component {
           this.props.location.pathname === '/interworkingHome/Simulation' ? 'evaluate' :
             this.props.location.pathname === '/interworkingHome/LoginUser' ? 'goUser' : '',
       showFlag: null, // 是否显示左侧导航栏
+      returnPopFlag: null,
     }
     this.stylesH = `width: 0px;
       transition:all .5s;`
@@ -70,9 +71,17 @@ class InterworkingHome extends Component {
   clearActive = () => {
     this.setState({
       isname: '',
+      returnPopFlag: true,
+    }, () => {
+      returnPop()
+      this.setState({ returnPopFlag: null })
     })
   }
+  turnPopFn = (status) => {
+    this.setState({ returnPopFlag: status })
+  }
   goMonitoring = () => {
+    this.clearActive()
     this.setState({
       isname: 'goMonitoring',
     })
@@ -92,7 +101,7 @@ class InterworkingHome extends Component {
   }
   render() {
     const { Search } = Input
-    const { isname, showFlag } = this.state
+    const { isname, showFlag, returnPopFlag } = this.state
     return (
       <div className={styles.InterworkingHomeBox}>
         <Header {...this.props} />
@@ -119,7 +128,7 @@ class InterworkingHome extends Component {
           {!showFlag ? <div className={styles.closeBtn} title="收起" onClick={this.changeLeftMenu}>《 </div> : <div className={styles.openBtn} title="展开" onClick={this.changeLeftMenu}>》</div>}
         </div>
         <div id='container-right' className={classNames('animated', styles.Interwork_right)}>
-          <MineData {...this.props} />
+          <MineData {...this.props} returnPop={returnPopFlag} turnPopFn={this.turnPopFn} />
           {renderRoutes(this.props.route.routes)}
         </div>
       </div >

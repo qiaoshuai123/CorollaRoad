@@ -12,8 +12,8 @@ class GpsMap
     super(props)
     this.state = {
       roadLister: null,
-      num: 0, // 计数器
-      roadName: null,
+      num: 1010, // 计数器
+      roadName: '甲秀南路与花冠路路口',
       getFlowList: null, // 路口流量
       getrankLenghtList: null, // 路口排队长度
       getRoadStatusList: {}, // 运行状态
@@ -134,7 +134,7 @@ class GpsMap
             {getrankLenghtList && <OptLineCharts name="line_up_length" dataList={getrankLenghtList} />}
           </div>
         </div>
-      </div >
+      </div>
     )
   }
 }
