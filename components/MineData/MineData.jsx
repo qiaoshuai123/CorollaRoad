@@ -4,6 +4,7 @@ import styles from './MineData.scss'
 import markIcon from '../../containers/images/icon_mark.png'
 import videoIcon from '../../containers/images/icon_video.png'
 import getResponseDatas from '../../utils/getResponseDatas'
+
 class MineData extends Component {
   constructor(props) {
     super(props)
@@ -17,8 +18,44 @@ class MineData extends Component {
   }
   componentDidMount() {
     this.handlerenderMineMap()
-    this.messageInformation()
+    // this.messageInformation()
     this.mapRender() // 初始化地图点位
+    this.goMapBtn()
+  }
+  getInterData = (data, index) => {
+    if (this.popup) {
+      this.popup.remove();
+      this.popup = null;
+    }
+    if (location.href.indexOf('/interworkingHome/Surveillance') > -1) {
+      localStorage.setItem('isGpsMap', JSON.stringify(false))
+    } else {
+      this.props.history.push('/interworkingHome/Surveillance')
+    }
+    localStorage.setItem('nodeData', JSON.stringify(data))
+    localStorage.setItem('currentIndex', index)
+
+  }
+  goMapBtn = () => {
+    $bus.on('goMapBtn', (obj) => {
+      // const objs = {}
+      // objs.lng = obj.unit_longitude
+      // objs.lat = obj.unit_latitude
+      // this.infowindow += 1
+      // const el = document.createElement('div')
+      // el.id = 'marker'
+      // el.style['background-image'] = `url(${markIcon})`
+      // el.style['background-size'] = 'cover'
+      // el.style.width = '18px'
+      // el.style.height = '28px'
+      // el.style.zIndex = '9'
+      // this.lnglat = objs
+      // this.fixedPopup = new window.minemap.Popup(el, { offset: [-9, -14] })
+      //   .setLngLat([obj.unit_longitude, obj.unit_latitude])
+      //   .setPopup(this.showInterInfo(obj))
+      //   .addTo(this.map)
+      // // this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
+    })
     window.getInterData = this.getInterData
     window.returnPop = this.returnPop
   }
@@ -34,11 +71,6 @@ class MineData extends Component {
       }
     })
   }
-  messageInformation = () => {
-    $bus.on('message', (text) => {
-      console.log(text, '改变数据')
-    })
-  }
   // 添加坐标点
   addMarker = (positionList) => {
     if (this.map) {
@@ -48,7 +80,7 @@ class MineData extends Component {
         objs.lat = item.unit_latitude
         this.infowindow += 1
         const el = document.createElement('div')
-        el.id = 'marker'+item.node_id
+        el.id = 'marker' + item.node_id
         el.style['background-image'] = `url(${markIcon})`
         el.style['background-size'] = 'cover'
         el.style.width = '18px'
@@ -59,6 +91,7 @@ class MineData extends Component {
           .setPopup(this.showInterInfo(item, item.node_id))
           .addTo(this.map)
         el.addEventListener('click', () => {
+          this.fixedPopup = null
           this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
           
         })
@@ -110,7 +143,7 @@ class MineData extends Component {
       <div style="width:400px;height:120px;background-size:100% 100%;">
         <div style="position:relative;height:50px;padding-left:20px;line-height:50px;font-size:16px;">
           ${information.node_name}
-          <div onClick='getInterData(`+ JSON.stringify(information) +','+ index +`)' style="background:url(${videoIcon}) no-repeat;width:17px;height:21px;position:absolute;top:10px;right:10px;cursor:pointer;"></div>
+          <div onClick='getInterData(`+ JSON.stringify(information) + ',' + index + `)' style="background:url(${videoIcon}) no-repeat;width:17px;height:21px;position:absolute;top:10px;right:10px;cursor:pointer;"></div>
         </div>
         <div style="display:flex;font-size:14px;">
           <div style="flex:1;">

@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { Icon } from 'antd'
 import EvaluateEcharts from './EvaluateEcharts/EvaluateEcharts'
-import $bus from '../../utils/events'
+import $bus from '../../../utils/events'
 import GpsMap from './GpsMap/GpsMap'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import styles from './Surveillance.scss'
@@ -40,7 +40,9 @@ class Surveillance extends Component {
   this.sendAndGetFn()
   }
   sendAndGetFn = () => {
-    $bus.emit('isGpsMapShow', this.state.isGpsMap)
+    $bus.on('isGpsMapShow', (obj) => {
+
+    })
   }
   getControlModeler = () => {
     getResponseDatas('get', this.getControlModel, { interId: this.roadId }).then((res) => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import getResponseDatas from '../../../../../utils/getResponseDatas'
-import styles from './ImgMove.scss'
 
 class ImgMove extends React.Component {
   constructor(props) {
@@ -40,6 +39,14 @@ class ImgMove extends React.Component {
       this.drag = false
     })
   }
+  // 转格式
+  getFormData = (obj) => {
+    let str = ''
+    for (const i in obj) {
+      str += `${i}=${obj[i]}&`
+    }
+    return str
+  }
   handleDeviceDown = (e) => {
     this.timeStap = new Date().getTime()
     this.drag = true
@@ -49,36 +56,25 @@ class ImgMove extends React.Component {
     this.defaultTop = parseInt(this.imgBox.style.top, 0)
     this.imgBox.style.cursor = 'move'
   }
-  handleDeviceUp = () => {
-    // const { } = this.props
-    // const objs = {
-    //   left: this.ImgLeft,
-    //   top: this.ImgTop,
-    // }
-    // getResponseDatas('post', this.updateImageInfo,).then((res) => {
-    //   const { code, data } = res.data
-    //   if (code === 200) {
 
-    //   }
-    // })
-    // const nowTime = new Date().getTime()
-    // this.imgBox.style.cursor = 'default'
-    // const {
-    //   ID,
-    //   DEVICE_ID,
-    //   DETAIL,
-    //   UI_WIDTH,
-    //   UI_HIGHT,
-    // } = this.props.imgMsg
-    // if (nowTime - this.timeStap < 200) {
-    //   if (DEVICE_ID) {
-    //     this.props.getshowDeviceInfo(ID, this.props.InterIds)
-    //   } else {
-    //     this.props.showNameOfRoad(DETAIL, ID, UI_WIDTH, UI_HIGHT)
-    //   }
-    // } else {
-    //   this.props.geteditDeviceInfoPo(ID, this.ImgLeft, this.ImgTop)
-    // }
+  handleDeviceUp = () => {
+    const { node_id, device_id, device_img, angle, } = this.props.pictureInformation
+    console.log(node_id, device_id, device_img, angle, 'ssdsd')
+    const objs = {
+      angle,
+      deviceId: device_id,
+      // nodeId: JSON.stringify(node_id),
+      deviceImg: device_img,
+      left: this.ImgLeft,
+      top: this.ImgTop,
+    }
+    console.log(this.getFormData(objs), 'sssssssssss')
+    getResponseDatas('post', this.updateImageInfo, this.getFormData(objs)).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        console.log(data, 'ssff')
+      }
+    })
   }
   render() {
     const {
