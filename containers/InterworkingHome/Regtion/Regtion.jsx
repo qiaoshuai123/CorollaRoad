@@ -14,9 +14,9 @@ class Regtion extends Component {
     this.state = {
       options2: [{ key: '方案一', id: 1 }],
       startDateTime: '2020-08-10 00:00:00',
-      endDateTime: '2020-08-10 23:59:00',
-      contrastStartDate: '2020-08-11 00:00:00',
-      contrastEndDate: '2020-08-11 23:59:00',
+      endDateTime: '2020-08-10 07:20:00',
+      contrastStartDate: '2020-08-10 07:20:00',
+      contrastEndDate: '2020-08-10 08:00:00',
       endOpen: false,
       titName: '区域平均流量',
       planId: 'flow',
@@ -218,13 +218,13 @@ class Regtion extends Component {
           </div>
         </div>
         <div className={styles.searchBox}>
-        <div className={styles.search} style={{ margin: '0' }}>评价指标&nbsp;:&nbsp; 
+        <div className={styles.search}>评价指标&nbsp;:&nbsp; 
             {
               typeData && <Select defaultValue={planId} name="key" value="value" options={typeData} onChange={(value) => { this.getTypeName(value) }} />
             }
           </div>
           <div className={styles.search}>初始时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { console.log(field, value) }} /></div>
-          <div className={styles.search}>对比时间&nbsp;:&nbsp; <AntdDatePicker onChange={(field, value) => { console.log(field, value) }} /></div>
+          <div className={styles.search}>对比时间&nbsp;:&nbsp; <AntdDatePicker contrastFlag={true} onChange={(field, value) => { console.log(field, value) }} /></div>
           <div className={styles.buttons}>
             <Button id="getDataCharts" type="primary" className={styles.Button} onClick={() => this.getSearchCharts(startDateTime, endDateTime, contrastStartDate, contrastEndDate, '1', planId)}>查&nbsp;&nbsp;&nbsp;&nbsp;询</Button>
           </div>

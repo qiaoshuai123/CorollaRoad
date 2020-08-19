@@ -4,28 +4,31 @@ import styles from './Evaluation.scss'
 import OptLineCharts from './OptLineCharts'
 import Select from '../../../components/Antd/Select/Select'
 import AntdDatePicker from '../../../components/Antd/DatePicker/DatePicker'
-import { Button, DatePicker, Upload } from 'antd'
+import { Button, DatePicker, Upload, message } from 'antd'
 import Popup from '../../../components/Popup/Popup'
 import getResponseDatas from '../../../utils/getResponseDatas'
 import moment from 'moment'
-
-const Uploadprops = {
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  onChange({ file, fileList }) {
-    if (file.status !== 'uploading') {
-      // console.log(file, fileList);
-    }
-  },
-  defaultFileList: [
-    {
-      uid: '1',
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
-    },
-  ],
-}
+// const _this = this
+// const Uploadprops = {
+//   action: '',
+//   onChange({ file, fileList }) {
+//     if (file.status !== 'uploading') {
+//       console.log(file, fileList);
+//       _this.setState({ uploadFileData: file },()=>{
+//         console.log(this.state.uploadFileData, '变了吗？？？')
+//       })
+//     }
+//   },
+//   defaultFileList: [
+//     {
+//       uid: '1',
+//       name: 'xxx.xlsx',
+//       status: 'done',
+//       response: 'Server Error 500', // custom error message to show
+//       url: 'http://www.baidu.com/xxx.png',
+//     },
+//   ],
+// }
 class Evaluation extends Component {
   constructor(props) {
     super(props)
@@ -52,9 +55,32 @@ class Evaluation extends Component {
       contrastStartDate: '2020-08-11 00:00:00',
       contrastEndDate: '2020-08-11 23:59:00',
       endOpen: false,
+      uploadFileData: null,
+    }
+    const _that = this
+    this.Uploadprops = {
+      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+      onChange({ file, fileList }) {
+        if (file.status !== 'uploading') {
+          console.log(file, fileList);
+          _that.setState({ uploadFileData: file.originFileObj }, ()=>{
+            console.log(_that.state.uploadFileData, '变了吗？？？')
+          })
+        }
+      },
+      defaultFileList: [
+        // {
+        //   uid: '1',
+        //   name: 'xxx.xlsx',
+        //   status: 'done',
+        //   response: 'Server Error 500', // custom error message to show
+        //   url: 'http://www.baidu.com/xxx.xlsx',
+        // },
+      ],
     }
     this.roadListUrl = '/signal-decision/monitor/roadList' // 路口经纬度列表
     this.getRoadEvaluateUrl = '/signal-decision/optimize/getRoadEvaluate' // 查询路口评价
+    this.insertByExcelUrl = '/signal-decision/optimize/insertByExcel' // 数据导入
   }
   componentDidMount = () => {
     // 路口
@@ -66,6 +92,24 @@ class Evaluation extends Component {
       if (code === 200) {
         this.setState({ roadNode: data, interId: data[0].node_id }, () => {
           $("#getDataCharts").trigger('click')
+        })
+      }
+    })
+  }
+  insertByExcel = (startDateTime, endDateTime, file) => {
+    if (file === null){
+      message.info('请先上传文件！')
+      return
+    }
+    const formFile = new FormData()
+    //加入文件对象,向接口传入两个参数file,id
+    formFile.append("file", file);
+    getResponseDatas('post', this.insertByExcelUrl + "?endTime="+ endDateTime +"&startTime=" + startDateTime, formFile).then((res) => {
+      const { code, data } = res.data
+      if (code === 200 && data > 0) {
+        message.info('导入成功'+ data + '条数据！')
+        this.setState({
+          dataImportPop: null
         })
       }
     })
@@ -161,7 +205,7 @@ class Evaluation extends Component {
     this.setState({ endOpen: open })
   }
   render() {
-    const { roadNode, titName, evaluateData, typeData, dataImportPop, startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId, endOpen } = this.state
+    const { roadNode, titName, evaluateData, typeData, uploadFileData, dataImportPop, startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId, endOpen } = this.state
     return (
       <div className={styles.Evaluation}>
         <div className={styles.searchBox}>
@@ -179,7 +223,7 @@ class Evaluation extends Component {
           <div className={styles.search} style={{ margin: '0' }}>对比时间&nbsp;:&nbsp; <AntdDatePicker contrastFlag={true} onChange={(field, value) => { this.onChange(field, value) }} /></div>
           <div className={styles.buttons}>
             <Button id="getDataCharts" type="primary" className={styles.Button} onClick={() => { this.getSearchCharts(startDateTime, endDateTime, contrastStartDate, contrastEndDate, interId, planId) }}>查&nbsp;&nbsp;&nbsp;&nbsp;询</Button>
-            <Button type="primary" className={styles.Button} onClick={() => { this.setState({ dataImportPop: true }) }}>数据导入</Button>
+            <Button type="primary" className={styles.Button} onClick={() => { this.setState({ dataImportPop: true, uploadFileData: null }) }}>数据导入</Button>
           </div>
         </div>
         <div className={styles.mainBox}>
@@ -195,7 +239,7 @@ class Evaluation extends Component {
         {dataImportPop ?
           <Popup
             Title="数据导入"
-            Close={() => { this.setState({ dataImportPop: null }) }}
+            Close={() => { this.insertByExcel(startDateTime, endDateTime, uploadFileData) }}
             Confirm={() => { this.setState({ dataImportPop: null }) }}
           >
             <div className={styles.FromContent}>
@@ -207,7 +251,7 @@ class Evaluation extends Component {
                 }}
                 minuteStep={10}
                 format="YYYY-MM-DD HH:mm"
-                value={startDateTime}
+                value={moment(startDateTime)}
                 placeholder="开始时间"
                 onChange={this.onStartChange}
                 onOpenChange={this.handleStartOpenChange}
@@ -221,7 +265,7 @@ class Evaluation extends Component {
                   format: 'HH:mm',
                 }}
                 format="YYYY-MM-DD HH:mm"
-                value={endDateTime}
+                value={moment(endDateTime)}
                 placeholder="结束时间"
                 onChange={this.onEndChange}
                 open={endOpen}
@@ -229,7 +273,7 @@ class Evaluation extends Component {
               />
             </div>
             <div className={styles.FromContent}>
-              <Upload {...Uploadprops}>
+              <Upload {...this.Uploadprops}>
                 <Button type="primary">
                   文件选择
                 </Button>

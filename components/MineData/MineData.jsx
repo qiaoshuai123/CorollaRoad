@@ -22,6 +22,20 @@ class MineData extends Component {
     this.mapRender() // 初始化地图点位
     this.goMapBtn()
   }
+  getInterData = (data, index) => {
+    if (this.popup) {
+      this.popup.remove();
+      this.popup = null;
+    }
+    if (location.href.indexOf('/interworkingHome/Surveillance') > -1) {
+      localStorage.setItem('isGpsMap', JSON.stringify(false))
+    } else {
+      this.props.history.push('/interworkingHome/Surveillance')
+    }
+    localStorage.setItem('nodeData', JSON.stringify(data))
+    localStorage.setItem('currentIndex', index)
+
+  }
   goMapBtn = () => {
     $bus.on('goMapBtn', (obj) => {
       // const objs = {}
@@ -42,6 +56,7 @@ class MineData extends Component {
       //   .addTo(this.map)
       // // this.map.panTo([objs.lng + 0.0000001, objs.lat + 0.00000001])
     })
+    window.getInterData = this.getInterData
   }
   mapRender = () => {
     getResponseDatas('get', this.roadList).then((res) => {
@@ -58,13 +73,13 @@ class MineData extends Component {
   // 添加坐标点
   addMarker = (positionList) => {
     if (this.map) {
-      positionList.forEach((item) => {
+      positionList.forEach((item, index) => {
         const objs = {}
         objs.lng = item.unit_longitude
         objs.lat = item.unit_latitude
         this.infowindow += 1
         const el = document.createElement('div')
-        el.id = 'marker'
+        el.id = 'marker' + item.node_id
         el.style['background-image'] = `url(${markIcon})`
         el.style['background-size'] = 'cover'
         el.style.width = '18px'
@@ -72,7 +87,7 @@ class MineData extends Component {
         this.lnglat = objs
         this.marker = new window.minemap.Marker(el, { offset: [-9, -14] })
           .setLngLat(this.lnglat)
-          .setPopup(this.showInterInfo(item))
+          .setPopup(this.showInterInfo(item, item.node_id))
           .addTo(this.map)
         el.addEventListener('click', () => {
           this.fixedPopup = null
@@ -82,7 +97,9 @@ class MineData extends Component {
     }
   }
   // 自定义信息窗体
-  showInterInfo = (information) => {
+  showInterInfo = (information, index) => {
+    localStorage.setItem('nodeData', null)
+    localStorage.setItem('currentIndex', null)
     // this.removeInterInfo()
     const lnglat = this.map.getCenter()
     // const id = `removeInterInfo${this.infowindow}`
@@ -90,7 +107,7 @@ class MineData extends Component {
       <div style="width:400px;height:120px;background-size:100% 100%;">
         <div style="position:relative;height:50px;padding-left:20px;line-height:50px;font-size:16px;">
           ${information.node_name}
-          <div style="background:url(${videoIcon}) no-repeat;width:17px;height:21px;position:absolute;top:10px;right:10px;cursor:pointer;"></div>
+          <div onClick='getInterData(`+ JSON.stringify(information) + ',' + index + `)' style="background:url(${videoIcon}) no-repeat;width:17px;height:21px;position:absolute;top:10px;right:10px;cursor:pointer;"></div>
         </div>
         <div style="display:flex;font-size:14px;">
           <div style="flex:1;">

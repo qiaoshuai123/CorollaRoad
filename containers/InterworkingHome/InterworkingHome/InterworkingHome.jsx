@@ -119,7 +119,7 @@ class InterworkingHome extends Component {
           {!showFlag ? <div className={styles.closeBtn} title="收起" onClick={this.changeLeftMenu}>《 </div> : <div className={styles.openBtn} title="展开" onClick={this.changeLeftMenu}>》</div>}
         </div>
         <div id='container-right' className={classNames('animated', styles.Interwork_right)}>
-          <MineData />
+          <MineData {...this.props} />
           {renderRoutes(this.props.route.routes)}
         </div>
       </div >
