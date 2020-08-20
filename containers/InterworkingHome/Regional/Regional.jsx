@@ -4,7 +4,6 @@ import { param } from 'jquery'
 import AreaCharts from './AreaCharts'
 import AreaLineCharts from './AreaLineCharts'
 import getResponseDatas from '../../../utils/getResponseDatas'
-import datas from './data.js'
 import GreenWaveCharts from '../../../components/GreenWaveCharts/GreenWaveCharts'
 import styles from './Regional.scss'
 
