@@ -1,2 +1,3 @@
-import Bus from 'events';
-export default new Bus();
+import Bus from 'events'
+
+export default new Bus()
