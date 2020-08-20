@@ -76,7 +76,8 @@ class GpsMap
     this.getControlModeler()
   }
   isGpsMapShow = () => {
-    this.props.isGpsMapShow()
+    const { num } = this.state
+    this.props.isGpsMapShow(num)
   }
   closePoint = () => {
     this.setState({

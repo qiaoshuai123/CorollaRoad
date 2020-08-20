@@ -18,26 +18,26 @@ class Surveillance extends Component {
       roadRankingList: [],
       roadLister: [],
       getControlModelList: null,
-      nodeData: null, 
+      nodeData: null,
       currentIndex: null,
     }
     this.roadList = '/signal-decision/monitor/roadList' // 全部路口
     this.jam = '/signal-decision/monitor/rank/jam' // 路口排名-拥堵排名
     this.getControlModel = '/signal-decision/road/getControlModel' // 控制状态排名
   }
-  
+
   componentDidMount = () => {
     this.renders()
     this.sendAndGetFn()
     const t = setTimeout(() => {
-    const nodeData = JSON.parse(localStorage.getItem('nodeData'))
-    const currentIndex = JSON.parse(localStorage.getItem('currentIndex'))
-    window.isGpsMapFlag = JSON.parse(localStorage.getItem('isGpsMap'))
-    if (nodeData !== null && currentIndex !== null) {
-      this.ckeckActive(nodeData, currentIndex)
-    }
-    clearTimeout(t)
-  }, 50)
+      const nodeData = JSON.parse(localStorage.getItem('nodeData'))
+      const currentIndex = JSON.parse(localStorage.getItem('currentIndex'))
+      window.isGpsMapFlag = JSON.parse(localStorage.getItem('isGpsMap'))
+      if (nodeData !== null && currentIndex !== null) {
+        this.ckeckActive(nodeData, currentIndex)
+      }
+      clearTimeout(t)
+    }, 50)
   }
   sendAndGetFn = () => {
     // $bus.on('isGpsMapShow', (obj) => {
@@ -69,15 +69,19 @@ class Surveillance extends Component {
       num: items.node_id,
       roadName: items.node_name,
     })
-    
+
   }
   goMapClick = (id) => {
-    $("#marker"+id).trigger("click")
+    this.setState({
+      num: id,
+    })
+    $("#marker" + id).trigger("click")
     this.getControlModeler()
   }
-  isGpsMapShow = () => {
+  isGpsMapShow = (num) => {
     this.setState({
       isGpsMap: true,
+      num,
     })
   }
   goDetail = () => {
@@ -117,7 +121,7 @@ class Surveillance extends Component {
                 <div className={styles.listhead} onClick={this.goDetail}><span>全部路口</span></div>
                 <div className={styles.listBox}>
                   {
-                    roadLister && roadLister.map((item, ind) => <li key={'roadList'+ind} className={num === item.node_id ? styles.actives : ''} onClick={() => this.goMapClick(item.node_id)}>{item.node_name}</li>)
+                    roadLister && roadLister.map((item, ind) => <li key={'roadList' + ind} className={num === item.node_id ? styles.actives : ''} onClick={() => this.goMapClick(item.node_id)}>{item.node_name}</li>)
                   }
                 </div>
               </div>
@@ -140,7 +144,7 @@ class Surveillance extends Component {
                 </div>
               </div>
             </div>
-            : <GpsMap isGpsMapShow={this.isGpsMapShow} { ...this.props } roadName={roadName} num ={num} />
+            : <GpsMap isGpsMapShow={this.isGpsMapShow} {...this.props} roadName={roadName} num={num} />
         }
       </React.Fragment>
     )
