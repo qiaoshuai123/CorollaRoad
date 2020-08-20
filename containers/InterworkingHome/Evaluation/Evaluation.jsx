@@ -51,9 +51,9 @@ class Evaluation extends Component {
       planId: 'flow',
       dataImportPop: null,
       startDateTime: '2020-08-10 00:00:00',
-      endDateTime: '2020-08-10 23:59:00',
-      contrastStartDate: '2020-08-11 00:00:00',
-      contrastEndDate: '2020-08-11 23:59:00',
+      endDateTime: '2020-08-10 07:30:00',
+      contrastStartDate: '2020-08-10 07:20:00',
+      contrastEndDate: '2020-08-10 07:50:00',
       endOpen: false,
       uploadFileData: null,
     }
@@ -91,6 +91,7 @@ class Evaluation extends Component {
       const { code, data } = res.data
       if (code === 200) {
         this.setState({ roadNode: data, interId: data[0].node_id }, () => {
+        // this.setState({ roadNode: data, interId: data[0].node_id }, () => {
           $("#getDataCharts").trigger('click')
         })
       }
@@ -127,7 +128,7 @@ class Evaluation extends Component {
           data.init.map(item => {
             debugger
             time1.push(item.time)
-            datas1.push(item.opt_value)
+            datas1.push(item.opt_value === 0 ? "" : item.opt_value)
             // console.log(itemArr1, '对不？')
           })
           itemArr1.push(time1)
@@ -135,7 +136,7 @@ class Evaluation extends Component {
           evaluateData.push(itemArr1)
           data.compare.map(item => {
             time2.push(item.time)
-            datas2.push(item.opt_value)
+            datas2.push(item.opt_value === 0 ? "" : item.opt_value)
           })
           itemArr2.push(time2)
           itemArr2.push(datas2)
@@ -164,8 +165,10 @@ class Evaluation extends Component {
         break;
     }
   }
-  getPlanData = () => {
-
+  getPlanData = (field, value) => {
+    this.setState({
+      [field]: value,
+    })
   }
   onChange = (field, value) => {
     this.setState({
@@ -211,7 +214,7 @@ class Evaluation extends Component {
         <div className={styles.searchBox}>
           <div className={styles.search}>路口名称&nbsp;:&nbsp;
             {
-              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} />
+              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData('interId', value) }} />
             }
           </div>
           <div className={styles.search} style={{ margin: '0' }}>评价指标&nbsp;:&nbsp;

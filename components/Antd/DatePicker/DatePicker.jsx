@@ -10,10 +10,10 @@ class datePicker extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDateTime: moment('2020-08-10 00:00:00'),
-      endDateTime: moment('2020-08-10 07:20:00'),
+      startDateTime: moment('2020-08-10 07:00:00'),
+      endDateTime: moment('2020-08-10 07:30:00'),
       contrastStartDate: moment('2020-08-10 07:20:00'),
-      contrastEndDate: moment('2020-08-10 08:00:00'),
+      contrastEndDate: moment('2020-08-10 07:50:00'),
       endOpen: false,
     }
   }
