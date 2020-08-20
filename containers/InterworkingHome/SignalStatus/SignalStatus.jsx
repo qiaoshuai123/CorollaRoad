@@ -46,13 +46,14 @@ class SignalStatus extends Component {
     }
     return params
   }
-  selectRoad = (value) => {
-    $bus.emit('goMapBtn', value)
+  selectRoad = (id) => {
+    this.nodeId = id
     const { mapRoadList } = this.state
+    const programName = mapRoadList.find(item => item.node_id === id).node_name
+    $(`#marker${this.nodeId}`).trigger('click')
     this.setState({
-      SelectRoadValue: value,
+      SelectRoadValue: programName,
     })
-    this.nodeId = mapRoadList.find(item => item.node_name === value).node_id
     this.roadData()
   }
   selectPlan = (value) => {
@@ -173,7 +174,7 @@ class SignalStatus extends Component {
             <Select value={SelectRoadValue} onChange={this.selectRoad}>
               {
                 mapRoadList && mapRoadList.map(item =>
-                  <Option key={item.node_id + item} value={item.node_name}>{item.node_name}</Option>)
+                  <Option key={item.node_id + item} value={item.node_id}>{item.node_name}</Option>)
               }
             </Select>
           </div>
