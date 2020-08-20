@@ -68,8 +68,8 @@ class ImgMove extends React.Component {
       left: this.ImgLeft,
       top: this.ImgTop,
     }
-    console.log(this.getFormData(objs), 'sssssssssss')
-    getResponseDatas('post', this.updateImageInfo, this.getFormData(objs)).then((res) => {
+    // console.log(this.getFormData(objs), 'sssssssssss')
+    getResponseDatas('post', `${this.updateImageInfo}?${this.getFormData(objs)}`,).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
         console.log(data, 'ssff')
