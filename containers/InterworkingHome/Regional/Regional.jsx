@@ -4,8 +4,6 @@ import { param } from 'jquery'
 import AreaCharts from './AreaCharts'
 import AreaLineCharts from './AreaLineCharts'
 import getResponseDatas from '../../../utils/getResponseDatas'
-import Axios from '../../../utils/aixosAll'
-import datas from './data.js'
 import GreenWaveCharts from '../../../components/GreenWaveCharts/GreenWaveCharts'
 import styles from './Regional.scss'
 
@@ -89,7 +87,6 @@ class Regional extends Component {
     getResponseDatas('get', this.getAnyOne, { areaId: this.areaId }).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
-        console.log(123456789, data)
         this.setState({
           greenWaveData: data,
         })
@@ -128,26 +125,34 @@ class Regional extends Component {
     // 优化方案
     const that = this
     function getplanList() {
-      return Axios.get(that.planList)
+      return new Promise((resolve) => {
+        getResponseDatas('get', that.planList).then((res) => {
+          resolve(res.data)
+        })
+      })
     }
     function getroadListByPlan() {
-      return Axios.get(that.roadListByPlan, { params: { areaId: that.areaId } })
+      return new Promise((resolve) => {
+        getResponseDatas('get', that.roadListByPlan, { areaId: that.areaId }).then((res) => {
+          resolve(res.data)
+        })
+      })
     }
-    console.log('ddddddddddddddddddddd')
-    Axios.all([getplanList(), getroadListByPlan()])
-      .then(Axios.spread((acct, perms) => {
-        const { code, data } = acct.data
+    Promise.all([getplanList(), getroadListByPlan()])
+      .then((result) => {
+        const planListData = result[0]
+        const roadListByPlanData = result[1]
+        const { code, data } = planListData
         if (code === 200) {
           this.plan_id = data[0].plan_id
-          console.log(data, 'qqqqssss')
           this.setState({
             planLister: data,
             planListValue: data[0].plan_name,
             programmeTime: data[0].plan_time_slot,
           })
         }
-        const codes = perms.data.code
-        const dataLisers = perms.data.data
+        const codes = roadListByPlanData.code
+        const dataLisers = roadListByPlanData.data
         if (codes === 200) {
           this.node_id = dataLisers[0].node_id
           this.setState({
@@ -157,7 +162,8 @@ class Regional extends Component {
         }
         // 区域优化配置-区域路口方案详情
         this.roadListByPlanInfoer()
-      }))
+      })
+      .catch(e => console.log(e))
   }
   roadListByPlanInfoer = () => {
     getResponseDatas('get', this.roadListByPlanInfo, { interId: this.node_id, planId: this.plan_id }).then((res) => {
