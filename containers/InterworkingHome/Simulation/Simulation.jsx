@@ -68,6 +68,8 @@ class Simulation extends Component {
       const { code, data } = res.data
       if (code === 200) {
         this.setState({ planData: data, interId, planId: data[0] ? data[0].plan_id : null, planName: data[0] ? data[0].plan_name : null}, () => {
+          debugger
+          console.log(data)
           this.state.planData[0] ? this.planToRender(this.state.planData[0].plan_id) : null
         })
       }
@@ -162,13 +164,13 @@ class Simulation extends Component {
     })
   }
   render() {
-    const { roadNode, planData, planId, planName, getFirstChartData, getSecondChartData, getThirdChartData, getFourChartData } = this.state
+    const { roadNode, planData, interId, planId, planName, getFirstChartData, getSecondChartData, getThirdChartData, getFourChartData } = this.state
     return (
       <div className={styles.Simulation}>
         <div className={styles.searchBox}>
           <div className={styles.search}>
             {
-              roadNode && <Select defaultValue={roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} /> 
+              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} /> 
             }         
           </div>
           <div className={styles.search}>
