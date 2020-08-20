@@ -79,7 +79,7 @@ class Simulation extends Component {
       planId.map(id => {
         this.state.planData.map(item => {
           if(id === item.plan_id){
-            planName += item.plan_name + ','
+            planName += item.plan_name + item.plan_id  + ','
           }
         })
       })
@@ -87,7 +87,7 @@ class Simulation extends Component {
       }else{
         this.state.planData.map(item => {
           if(planId === item.plan_id){
-            this.setState({ planName: item.plan_name })
+            this.setState({ planName: item.plan_name + item.plan_id })
           }
         })
       }
