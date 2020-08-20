@@ -122,7 +122,7 @@ class MineData extends Component {
   }
   // 自定义信息窗体
   showInterInfo = (information, index) => {
-    debugger
+    // debugger
     this.props.turnPopFn(true)
     localStorage.setItem('nodeData', null)
     localStorage.setItem('currentIndex', null)

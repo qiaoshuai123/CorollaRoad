@@ -154,8 +154,8 @@ class Regtion extends Component {
           <div className={styles.echartsItem}>
             <div className={styles.echartsItemLeft}>
               <div className={styles.lastDay}>平均拥堵延时</div>
-              <div className={styles.nowWeek}>本周:{delayData && delayData.avgList[0].opt_value}</div>
-              <div className={styles.lastWeek}>上周:{delayData && delayData.avgList[1].opt_value}</div>
+              <div className={styles.nowWeek}>本周：{delayData && delayData.avgList[0].opt_value}</div>
+              <div className={styles.lastWeek}>上周：{delayData && delayData.avgList[1].opt_value}</div>
             </div>
             <div className={styles.echartsItemRight}>
               <div className={styles.echartsItemOut}>
@@ -186,7 +186,7 @@ class Regtion extends Component {
             <div className={styles.echartsItemLeft}>
               <div className={styles.lastDay}>早高峰拥堵延时</div>
               <div className={styles.nowWeek}>本周:{delayData && delayData.zaoList[0].opt_value}</div>
-              <div className={styles.lastWeek}>上周:{delayData && delayData.zaoList[1].opt_value}</div>
+              <div className={styles.lastWeek}>上周：{delayData && delayData.zaoList[1].opt_value}</div>
             </div>
             <div className={styles.echartsItemRight}>
               <div className={styles.echartsItemOut}>
