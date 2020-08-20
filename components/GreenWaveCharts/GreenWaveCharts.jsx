@@ -144,7 +144,7 @@ class GreenWaveCharts extends React.Component {
     // 获取反向绿波坐标点 px
     for (let i = chartsData.length - 1; i >= 0; i--) {
       const reverseChartsData = chartsData[i]
-      console.log(reverseChartsData)
+      // console.log(reverseChartsData)
 
       if (reverseChartsData.cycle_time !== '' && reverseChartsData.phaseList.length > 0) {
         const reverseOffset = parseFloat(reverseChartsData.reverse_offset) // 相位差时间，转为px，就是当前路口的绿波起点，leftBottom
@@ -196,7 +196,7 @@ class GreenWaveCharts extends React.Component {
             rightEnd,
           }
           this.reverseOffsetTime += disTime
-          console.log('反向：：：：：：', obj)
+          // console.log('反向：：：：：：', obj)
           this.reversePoints.push(obj)
         }
       }
@@ -240,7 +240,7 @@ class GreenWaveCharts extends React.Component {
         }
       }
     })
-    console.log('公共绿波部分正向：：：：', this.publicSvgs)
+    // console.log('公共绿波部分正向：：：：', this.publicSvgs)
     this.setState({ svgs: this.svgs, publicSvgs: this.publicSvgs })
 
     // 反向绿波
