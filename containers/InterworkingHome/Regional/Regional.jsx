@@ -23,7 +23,7 @@ class Regional extends Component {
       mainLineValue: '',
       mainLine: [], // 干线列表
       planListValue: '',
-      planList: [], // 优化方案列表
+      planLister: [], // 优化方案列表
       roadList: [], // 区域路口列表
       getOccupancy: null, // 区域优化配置-占有率
       getSectionFlow: null, // 区域优化配置-通过断面车辆数
@@ -64,13 +64,13 @@ class Regional extends Component {
       mainLineValue: value,
     })
   }
-  selectplanList = (value, optios) => {
+  selectplanList = (id, optios) => {
     // const { pname } = optios.props
-    const { planList } = this.state
-    const programmeTime = planList.find(item => item.plan_name === value)
-    this.plan_id = programmeTime.plan_id
+    const { planLister } = this.state
+    const programmeTime = planLister.find(item => item.plan_id === id)
+    this.plan_id = id
     this.setState({
-      planListValue: value,
+      planListValue: programmeTime.plan_name + programmeTime.plan_id,
       programmeTime: programmeTime.plan_time_slot,
     })
     this.roadListByPlanInfoer()
@@ -133,24 +133,26 @@ class Regional extends Component {
     function getroadListByPlan() {
       return Axios.get(that.roadListByPlan, { params: { areaId: that.areaId } })
     }
+    console.log('ddddddddddddddddddddd')
     Axios.all([getplanList(), getroadListByPlan()])
       .then(Axios.spread((acct, perms) => {
         const { code, data } = acct.data
         if (code === 200) {
           this.plan_id = data[0].plan_id
+          console.log(data, 'qqqqssss')
           this.setState({
-            planList: data,
+            planLister: data,
             planListValue: data[0].plan_name,
             programmeTime: data[0].plan_time_slot,
           })
         }
         const codes = perms.data.code
-        const datas = perms.data.data
+        const dataLisers = perms.data.data
         if (codes === 200) {
-          this.node_id = datas[0].node_id
+          this.node_id = dataLisers[0].node_id
           this.setState({
-            roadListByPlan: datas,
-            roadListByPlanValue: datas[0].node_name,
+            roadListByPlan: dataLisers,
+            roadListByPlanValue: dataLisers[0].node_name,
           })
         }
         // 区域优化配置-区域路口方案详情
@@ -203,7 +205,7 @@ class Regional extends Component {
     const {
       mainLineValue, programmeTime, planListValue, roadListByPlanValue,
       showAreaConfig, areList, roadLister, getAvgSpeedList,
-      planList, mainLine, getSectionFlow, getOccupancy,
+      planLister, mainLine, getSectionFlow, getOccupancy,
       roadListByPlan, roadListByPlanInfoList,
     } = this.state
     return (
@@ -222,8 +224,10 @@ class Regional extends Component {
                     </Select>
                     <span>优化方案：</span>
                     <Select value={planListValue} onChange={this.selectplanList}>
-                      {planList && planList.map(item =>
-                        <Option key={item.plan_time_slot} pname={item.plan_id} value={item.plan_name}>{item.plan_name}</Option>)}
+                      {planLister && planLister.map((item) => {
+                        // const Keys = Math.random().toString().substr(2, 8)
+                        return <Option key={item.plan_id} value={item.plan_id}>{item.plan_name + item.plan_id}</Option>
+                      })}
                     </Select>
                     <span style={{ color: '#00FFFF' }}>方案适用时段：{programmeTime}</span>
                   </div>
