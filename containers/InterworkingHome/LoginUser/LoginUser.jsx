@@ -22,6 +22,7 @@ class LoginUser extends Component {
       oldPassword: '', 
       newPassword: '', 
       rightPassword: '',
+      keyWords: '', // 搜索用关键词
     }
     this.userListUrl='/signal-decision/user/list' // 获取用户列表
     this.userSaveUrl='/signal-decision/user/save' // 新增用户
@@ -31,8 +32,8 @@ class LoginUser extends Component {
   componentDidMount = () => {
     this.getUserData(this.state.current, '10')
   }
-  getUserData = (pageNo, pageSize) => {
-    getResponseDatas('post', this.userListUrl + '?pageNo=' + pageNo + '&pageSize=' + pageSize).then((res) => {
+  getUserData = (pageNo, pageSize, userName) => {
+    getResponseDatas('post', this.userListUrl + '?pageNo=' + pageNo + '&pageSize=' + pageSize + '&keyWords=' + userName).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
         this.setState({ userListData: data.list, totalCount: data.totalCount},()=>{
@@ -53,6 +54,10 @@ class LoginUser extends Component {
   onChange = (field, value) => {
     this.setState({
       [field]: value,
+    }, () => {
+      if (field === 'keyWords'){
+        this.getUserData(this.state.current, '10', value)
+      }
     })
   }
   addUserFn = (loginName, password) => {
@@ -116,12 +121,14 @@ class LoginUser extends Component {
     })
   }
   render() {
-    const { userListData, totalCount, current, addUsersPop, deleteUserPop, changePwdPop, userName, userPwd, userId, oldPassword, newPassword, rightPassword } = this.state
+    const { userListData, totalCount, current, addUsersPop, deleteUserPop, changePwdPop, userName, userPwd, userId, keyWords, oldPassword, newPassword, rightPassword } = this.state
     return (
       <div className={styles.Abnormalwarning}>
         <div className={styles.userHeade}>
           用户管理
           <span className={styles.AddUser} onClick={() => { this.setState({ addUsersPop: true }) }}><Icon type="plus" /> 新增用户</span>
+          <span className={styles.AddUser}><Input onChange={(value) => { this.onChange('keyWords', value) }} /></span>
+          <span className={styles.AddUser} style={{marginRight: '-25px'}}>用户名称：</span>
         </div>
         <div className={styles.userMain}>
           <div className={styles.listItems}>
@@ -131,11 +138,11 @@ class LoginUser extends Component {
             <div className={styles.listTd} >操作</div>
           </div>
           <div className={styles.listItemsBox}>
-            {/* {userListData.map((item, index) => { */}
             {userListData && userListData.map((item, index) => {
+              const num = current * 10 + index + 1 - 10;
               return (
                 <div className={styles.listItems} key={index}>
-                  <div className={styles.listTd} ><span className={styles.roadName}>{index+1}</span></div>
+                  <div className={styles.listTd} ><span className={styles.roadName}>{num}</span></div>
                   <div className={styles.listTd} ><span className={styles.roadName}>{item.userName}</span></div>
                   <div className={styles.listTd} ><span className={styles.roadName}>{item.dateTime}</span></div>
                   <div className={styles.listTd} >

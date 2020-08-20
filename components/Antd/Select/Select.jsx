@@ -36,7 +36,7 @@ class AntdSelect extends Component {
         >
           {
             this.props.options.map((item) => {
-              return <Option key={item[this.props.value]} value={item[this.props.value]}>{item[this.props.name]}</Option>
+              return <Option key={item[this.props.value]} value={item[this.props.value]}>{this.props.name === 'plan_name' ? (item[this.props.name] + item[this.props.value]) : item[this.props.name]}</Option>
             })
           }
 
