@@ -170,12 +170,12 @@ class Simulation extends Component {
         <div className={styles.searchBox}>
           <div className={styles.search}>
             {
-              roadNode && <Select defaultValue={interId ? interId : roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} /> 
+              roadNode && <Select defaultValue={roadNode[0].node_id} name="node_name" value="node_id" options={roadNode} onChange={(value) => { this.getPlanData(value) }} /> 
             }         
           </div>
           <div className={styles.search}>
             {
-              planData && <Select defaultValue={planId ? planId : []} name="plan_name" value="plan_id" modeStatus={true} options={planData} onChange={(value) => {this.planToRender(value)}} /> 
+              planData && <Select name="plan_name" value="plan_id" modeStatus={true} options={planData} onChange={(value) => {this.planToRender(value)}} /> 
             }
           </div>
         </div>

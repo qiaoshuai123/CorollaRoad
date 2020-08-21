@@ -29,7 +29,7 @@ class AntdSelect extends Component {
           placeholder="请选择"
           optionFilterProp="children"
           onChange={this.onChange}
-          value={this.props.defaultValue}
+          defaultValue={this.props.defaultValue}
           filterOption={(input, option) =>
             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
