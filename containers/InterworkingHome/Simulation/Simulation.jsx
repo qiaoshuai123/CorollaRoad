@@ -68,6 +68,8 @@ class Simulation extends Component {
       const { code, data } = res.data
       if (code === 200) {
         this.setState({ planData: data, interId, planId: data[0] ? data[0].plan_id : null, planName: data[0] ? data[0].plan_name : null}, () => {
+          debugger
+          console.log(data)
           this.state.planData[0] ? this.planToRender(this.state.planData[0].plan_id) : null
         })
       }
@@ -79,7 +81,7 @@ class Simulation extends Component {
       planId.map(id => {
         this.state.planData.map(item => {
           if(id === item.plan_id){
-            planName += item.plan_name + ','
+            planName += item.plan_name + item.plan_id  + ','
           }
         })
       })
@@ -87,7 +89,7 @@ class Simulation extends Component {
       }else{
         this.state.planData.map(item => {
           if(planId === item.plan_id){
-            this.setState({ planName: item.plan_name })
+            this.setState({ planName: item.plan_name + item.plan_id })
           }
         })
       }
@@ -162,7 +164,7 @@ class Simulation extends Component {
     })
   }
   render() {
-    const { roadNode, planData, planId, planName, getFirstChartData, getSecondChartData, getThirdChartData, getFourChartData } = this.state
+    const { roadNode, planData, interId, planId, planName, getFirstChartData, getSecondChartData, getThirdChartData, getFourChartData } = this.state
     return (
       <div className={styles.Simulation}>
         <div className={styles.searchBox}>
@@ -173,7 +175,7 @@ class Simulation extends Component {
           </div>
           <div className={styles.search}>
             {
-              planData && <Select defaultValue={planId ? planId : []} name="plan_name" value="plan_id" modeStatus={true} options={planData} onChange={(value) => {this.planToRender(value)}} /> 
+              planData && <Select name="plan_name" value="plan_id" modeStatus={true} options={planData} onChange={(value) => {this.planToRender(value)}} /> 
             }
           </div>
         </div>

@@ -87,11 +87,11 @@ class ExportCharts extends React.Component {
         type: 'category',
         axisLine: {
           show: false,
-          color: '#E59E14',
+          color: '#4EBBC8',
         },
 
         axisLabel: {
-          color: '#E59E14',
+          color: '#4EBBC8',
           width: 100,
         },
         splitLine: {
@@ -99,25 +99,6 @@ class ExportCharts extends React.Component {
         },
         boundaryGap: false,
         data: series[0][0],
-        // data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
-
-      },
-      {
-        type: 'category',
-        axisLine: {
-          show: false,
-          color: '#4EBBC8',
-        },
-
-        axisLabel: {
-          color: '#4EBBC8',
-          width: 100,
-        },
-        splitLine: {
-          show: false,
-        },
-        boundaryGap: false,
-        data: series[1][0],
         // data: ["2020-06-21", "2020-06-22", "2020-06-23", "2020-06-24", "2020-06-25", "2020-06-26", "2020-06-27"]//this.$moment(data.times).format("HH-mm") ,
 
       }

@@ -4,17 +4,19 @@ import axios from 'axios'
 //   // baseURL: requestUrl(),
 // })
 // 请求拦截
-// if (process.env.NODE_ENV === 'development') {
-//   axios.defaults.baseURL = 'http://192.168.1.213:20203'
-// } else if (process.env.NODE_ENV === 'production') {
-//   axios.defaults.baseURL = 'http://39.100.128.220:20203' // http://192.168.1.213:20203
-// }
+if (process.env.NODE_ENV === 'development') {
+  // axios.defaults.baseURL = 'http://192.168.1.53:21004'
+  // axios.defaults.baseURL = 'http://39.100.128.220:16000' 
+} else if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = 'http://39.100.128.220:16000' 
+}
 axios.interceptors.request.use((config) => {
   const pathName = (config.url.split('/')).pop()
   if (pathName !== 'login') {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-    if (userInfo) {
+    if (!userInfo) {
       // config.headers.Authorization = userInfo.token
+      window.location.href = '/' // 登录失效后的跳转地址
     } else {
       // window.location.href = '#login' // 登录失效后的跳转地址
     }
@@ -30,10 +32,9 @@ axios.interceptors.response.use((response) => {
   if (response.data.code === -10) {
     localStorage.clear()
     if (process.env.NODE_ENV === 'development') {
-      // axios.defaults.baseURL = 'http://192.168.1.213:20203'
-      // window.location.href = 'http://localhost:20204/#/login'
+      window.location.href = 'http://192.168.1.40:21004/#/'
     } else if (process.env.NODE_ENV === 'production') {
-      // window.location.href = 'http://39.100.128.220:12345/build/index.html#/login'
+      window.location.href = 'http://39.100.128.220:20200/#/'
     }
   }
   return response

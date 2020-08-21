@@ -69,9 +69,10 @@ class Regtion extends Component {
           let evaluateData = [], itemArr1 = [], itemArr2 = []
           let time1 = [], datas1 = [];
           let time2 = [], datas2 = [];
+          let oneT = [], twoT = []
           data.init.map(item => {
             time1.push(item.time)
-            datas1.push(item.opt_value)
+            datas1.push(item.opt_value === 0 ? "" : item.opt_value)
             // console.log(itemArr1, '对不？')
           })
           itemArr1.push(time1)
@@ -79,18 +80,101 @@ class Regtion extends Component {
           evaluateData.push(itemArr1)
           data.compare.map(item => {
             time2.push(item.time)
-            datas2.push(item.opt_value)
+            datas2.push(item.opt_value === 0 ? "" : item.opt_value)
           })
           itemArr2.push(time2)
           itemArr2.push(datas2)
           evaluateData.push(itemArr2)
           this.setState({ evaluateData })
+          // time1.map(t => {
+          //   oneT.push("2020/08/20 " + t + ":00")
+          // })
+          // time2.map(tt => {
+          //   twoT.push("2020/08/20 " + tt + ":00")
+          // })
+          // console.log(oneT, twoT, '看看效果')
+          // const timeArr = this.returnTimeArr(oneT, twoT, time1, time2)
+          // let newData1 = [], newData2 = []
+          // timeArr.map((item, ii) => {
+          //   data.init.map((t) => {
+          //     if(t.time === item && data.init[ii]){
+          //       newData1.push(t.opt_value)
+          //     } else if(!data.init[ii]) {
+          //       newData1.push('')
+          //     } 
+          //   })
+          //   data.compare.map((t) => {
+          //     if(t.time === item && data.compare[ii]){
+          //       newData2.push(t.opt_value)
+          //     } else if(!data.compare[ii]) {
+          //       newData2.push('')
+          //     } 
+          //   })
+          //   if(data.init[ii] && data.init[ii].time === item){
+          //     newData1.push(data.init[ii].opt_value)
+          //   } else {
+          //     newData1.push('')
+          //   }
+          //   debugger
+          //   if(data.compare[ii] && data.compare[ii].time === item){
+          //     newData2.push(data.compare[ii].opt_value)
+          //   } else {
+          //     newData2.push('')
+          //   }
+
+          // })
+          // console.log('最后的时间：', timeArr, newData1, newData2 )
         })
         // this.setState({ roadNode: data, interId: data[0].node_id },()=>{
         //   $("#getDataCharts").trigger('click')
         // })
       }
     })
+  }
+  returnTimeArr = (arrTime1, arrTime2, time1, time2) => {
+    let newTime = [], oneT, twoT
+    if ( arrTime1.length > arrTime2.length){
+      oneT = arrTime1
+      twoT = arrTime2
+    }else{
+      oneT = arrTime2
+      twoT = arrTime1
+    }
+    for(let i = 0; i < oneT.length; i++){
+      let oneStr = ((new Date(oneT[i])).getTime()) / 1000;
+      for(let j = 0; j < twoT.length; j++){
+        let twoStr = ((new Date(twoT[j])).getTime()) / 1000;
+        if(oneStr < twoStr){
+          if(newTime.indexOf(time1[i]) < 0){
+            newTime.push(time1[i])
+          }
+        }else{
+          if(newTime.indexOf(time2[j]) < 0){
+            newTime.push(time2[j])
+          }
+        }
+      }
+    }
+    let lastStr = ((new Date("2020/08/20 " + newTime[oneT.length-1] + ":00")).getTime()) / 1000; // 最新的
+    let lastStr1 = ((new Date("2020/08/20 " + time1[time1.length-1] + ":00")).getTime()) / 1000; // 最新的
+    let lastStr2 = ((new Date("2020/08/20 " + time2[time2.length-1] + ":00")).getTime()) / 1000; // 最新的
+    if(lastStr === lastStr1){
+      // console.log(time2, '0000000000')
+      twoT.map((item, i) =>{
+        let s = ((new Date(item)).getTime()) / 1000
+        if (s > lastStr){
+          newTime.push(time2[i])
+        }
+      })
+    } else {
+      oneT.map((item, i) =>{
+        let s = ((new Date(item)).getTime()) / 1000
+        if (s > lastStr){
+          newTime.push(time1[i])
+        }
+      })
+    }
+    return newTime
   }
   getTypeName = (type) => {
     switch(type) {

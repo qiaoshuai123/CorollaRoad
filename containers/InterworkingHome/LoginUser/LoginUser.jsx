@@ -47,7 +47,7 @@ class LoginUser extends Component {
     this.setState({
       current: pageNumber
     }, () => {
-      this.getUserData(this.state.current, '10')
+      this.getUserData(this.state.current, '10', '')
     })
     // this.sysUser.pageNo = pageNumber
   }
@@ -76,7 +76,7 @@ class LoginUser extends Component {
       if (code === 200) {
         message.info(res.data.message)
         this.setState({ addUsersPop: null })
-        this.getUserData('1', '10')
+        this.getUserData('1', '10', '')
       }
     })
   }
@@ -106,7 +106,7 @@ class LoginUser extends Component {
       if (code === 200 && data === 1) {
         message.info(res.data.message)
         this.setState({ changePwdPop: null })
-        this.getUserData('1', '10')
+        this.getUserData('1', '10', '')
       }
     })
   }
@@ -116,7 +116,7 @@ class LoginUser extends Component {
       if (code === 200 && data === 1) {
         message.info(res.data.message)
         this.setState({ deleteUserPop: null })
-        this.getUserData('1', '10')
+        this.getUserData('1', '10', '')
       }
     })
   }
