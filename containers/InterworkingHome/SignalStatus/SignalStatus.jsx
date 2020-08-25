@@ -139,25 +139,28 @@ class SignalStatus extends Component {
       const { code, data } = res.data
       if (code === 200) {
         if (number) {
-          console.log(number, 'sss')
+          // console.log(number, 'sss')
+          $(`#marker${number}`).trigger('click')
           this.nodeId = number
           this.roadData(number)
           const objName = data.find(item => item.node_id == number)
           // $bus.emit('goMapBtn', objName)
-          console.log(objName, objName.node_name, '123456')
+          // console.log(objName, objName.node_name, '123456')
           this.setState({
             SelectRoadValue: objName.node_name,
             mapRoadList: data,
           })
         } else {
-          console.log(number, data[0].node_name, 'sss')
+          const { node_id } = data[0]
+          // console.log(number, data[0].node_name, 'sss')
+          $(`#marker${node_id}`).trigger('click')
           this.setState({
             SelectRoadValue: data[0].node_name,
             mapRoadList: data,
           })
           // $bus.emit('goMapBtn', data[0])
-          this.nodeId = data[0].node_id
-          this.roadData(data[0].node_id)
+          this.nodeId = node_id
+          this.roadData(node_id)
         }
       }
     })

@@ -29,7 +29,7 @@ class Regional extends Component {
       roadListByPlan: [], // 区域优化配置-区域路口列表
       roadListByPlanInfoList: [], // 区域优化配置-区域路口方案详情
       greenWaveData: null,
-      totleDistance: 900,
+      totleDistance: 3000,
       showForwordWave: true,
       showReverseWave: true,
     }
