@@ -39,7 +39,7 @@ class Regional extends Component {
     this.getOccupancy = '/signal-decision/area/getOccupancy' // 区域优化配置-占有率
     this.getSectionFlow = '/signal-decision/area/getSectionFlow' // 区域优化配置-通过断面车辆数
     this.mainLineList = '/signal-decision/area/mainLineList' // 干线列表
-    this.planList = '/signal-decision/area/planList' // 优化方案列表
+    this.planList = '/signal-decision/road/planList' // 优化方案列表
     this.getAvgDelay = '/signal-decision/area/roadList' // 区域路口列表
     this.roadListByPlan = '/signal-decision/area/roadListByPlan' // 区域优化配置-区域路口列表
     this.roadListByPlanInfo = '/signal-decision/area/roadListByPlanInfo' // 区域优化配置-区域路口方案详情
@@ -79,7 +79,7 @@ class Regional extends Component {
     this.setState({
       roadListByPlanValue: value,
     })
-    this.roadListByPlanInfoer()
+    this.planListers()
   }
   // 区域优化配置
   regionalOptimization = () => {
@@ -121,49 +121,35 @@ class Regional extends Component {
       }
     })
   }
-  planListGetAvgDelay = () => {
+  planListers = () => {
     // 优化方案
-    const that = this
-    function getplanList() {
-      return new Promise((resolve) => {
-        getResponseDatas('get', that.planList).then((res) => {
-          resolve(res.data)
+    getResponseDatas('get', this.planList, { interId: this.node_id }).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.plan_id = data[0].plan_id
+        this.setState({
+          planLister: data,
+          planListValue: data[0].plan_name + data[0].plan_id,
+          programmeTime: data[0].plan_time_slot,
         })
-      })
-    }
-    function getroadListByPlan() {
-      return new Promise((resolve) => {
-        getResponseDatas('get', that.roadListByPlan, { areaId: that.areaId }).then((res) => {
-          resolve(res.data)
-        })
-      })
-    }
-    Promise.all([getplanList(), getroadListByPlan()])
-      .then((result) => {
-        const planListData = result[0]
-        const roadListByPlanData = result[1]
-        const { code, data } = planListData
-        if (code === 200) {
-          this.plan_id = data[0].plan_id
-          this.setState({
-            planLister: data,
-            planListValue: data[0].plan_name,
-            programmeTime: data[0].plan_time_slot,
-          })
-        }
-        const codes = roadListByPlanData.code
-        const dataLisers = roadListByPlanData.data
-        if (codes === 200) {
-          this.node_id = dataLisers[0].node_id
-          this.setState({
-            roadListByPlan: dataLisers,
-            roadListByPlanValue: dataLisers[0].node_name,
-          })
-        }
         // 区域优化配置-区域路口方案详情
         this.roadListByPlanInfoer()
-      })
-      .catch(e => console.log(e))
+      }
+    })
+  }
+  planListGetAvgDelay = () => {
+    // 区域路口
+    getResponseDatas('get', this.getAvgDelay, { areaId: this.areaId }).then((res) => {
+      const { code, data } = res.data
+      if (code === 200) {
+        this.node_id = data[0].node_id
+        this.setState({
+          roadListByPlan: data,
+          roadListByPlanValue: data[0].node_name,
+        })
+        this.planListers()
+      }
+    })
   }
   roadListByPlanInfoer = () => {
     getResponseDatas('get', this.roadListByPlanInfo, { interId: this.node_id, planId: this.plan_id }).then((res) => {
@@ -190,7 +176,6 @@ class Regional extends Component {
     getResponseDatas('get', this.roadList, { areaId: this.areaId }).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
-        console.log(data, 'ss')
         this.setState({
           roadLister: data,
         })
