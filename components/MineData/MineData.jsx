@@ -138,7 +138,7 @@ class MineData extends Component {
         <div style="display:flex;font-size:14px;">
           <div style="flex:1;">
             <p style="height:32px;line-height:32px;padding-left:40px">所属城区 ：${information.district_name}</p>
-            <p style="height:32px;line-height:32px;padding-left:40px">信号优化状态 ：${information.node_name}</p>
+            <p style="height:32px;line-height:32px;padding-left:40px">信号优化状态 ：${information.control_status}</p>
           </div>
         </div>
       </div>

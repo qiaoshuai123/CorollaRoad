@@ -18,16 +18,16 @@ class LoginUser extends Component {
       current: '1',
       userName: '',
       userPwd: '',
-      userId: '', 
-      oldPassword: '', 
-      newPassword: '', 
+      userId: '',
+      oldPassword: '',
+      newPassword: '',
       rightPassword: '',
       keyWords: '', // 搜索用关键词
     }
-    this.userListUrl='/signal-decision/user/list' // 获取用户列表
-    this.userSaveUrl='/signal-decision/user/save' // 新增用户
-    this.userUpdatePwdUrl='/signal-decision/user/updatePassword' // 修改密码
-    this.userDelUrl='/signal-decision/user/delete' // 删除用户
+    this.userListUrl = '/signal-decision/user/list' // 获取用户列表
+    this.userSaveUrl = '/signal-decision/user/save' // 新增用户
+    this.userUpdatePwdUrl = '/signal-decision/user/updatePassword' // 修改密码
+    this.userDelUrl = '/signal-decision/user/delete' // 删除用户
   }
   componentDidMount = () => {
     this.getUserData(this.state.current, '10', '')
@@ -36,7 +36,7 @@ class LoginUser extends Component {
     getResponseDatas('get', this.userListUrl + '?pageNo=' + pageNo + '&pageSize=' + pageSize + '&keyWords=' + userName).then((res) => {
       const { code, data } = res.data
       if (code === 200) {
-        this.setState({ userListData: data.list, totalCount: data.totalCount},()=>{
+        this.setState({ userListData: data.list, totalCount: data.totalCount }, () => {
           console.log(this.state.userListData, '列表')
         })
       }
@@ -55,7 +55,7 @@ class LoginUser extends Component {
     this.setState({
       [field]: value,
     }, () => {
-      if (field === 'keyWords'){
+      if (field === 'keyWords') {
         this.getUserData(this.state.current, '10', value)
       }
     })
@@ -80,7 +80,7 @@ class LoginUser extends Component {
       }
     })
   }
-  updateUserFn = (userId, oldPassword, newPassword, rightPassword ) => {
+  updateUserFn = (userId, oldPassword, newPassword, rightPassword) => {
     if (oldPassword === '') {
       message.info('旧密码不能为空！')
       $("#oldPassword").focus()
@@ -128,7 +128,7 @@ class LoginUser extends Component {
           用户管理
           <span className={styles.AddUser} onClick={() => { this.setState({ addUsersPop: true }) }}><Icon type="plus" /> 新增用户</span>
           <span className={styles.AddUser}><Input onChange={(value) => { this.onChange('keyWords', value) }} /></span>
-          <span className={styles.AddUser} style={{marginRight: '-25px'}}>用户名称：</span>
+          <span className={styles.AddUser} style={{ marginRight: '-25px' }}>用户搜索：</span>
         </div>
         <div className={styles.userMain}>
           <div className={styles.listItems}>

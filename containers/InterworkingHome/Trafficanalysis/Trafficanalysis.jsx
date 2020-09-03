@@ -118,7 +118,6 @@ class Trafficanalysis
             {
               getStopNumList && <OptLineCharts name="getStopNumList" dataList={getStopNumList} />
             }
-
           </div>
           <div className={styles.GpsMapEcharts}>
             <div className={styles.listhead}>路口排队长度</div>

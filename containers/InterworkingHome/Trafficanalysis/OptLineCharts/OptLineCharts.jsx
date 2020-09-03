@@ -55,7 +55,7 @@ class ExportCharts extends React.Component {
     } else if (name === 'getDelayTimeList') {
       values = 'delay_time'
     } else if (name === 'getStopNumList') {
-      values = 'plan_type'
+      values = 'stop_num'
     }
     const timeList = []
     const lists = []

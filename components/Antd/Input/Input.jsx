@@ -23,7 +23,7 @@ class AntdInput extends Component {
       <div style={this.props.style} className={styles.AntdInputBox}>
         {this.props.Password ?
           <Input.Password onChange={this.onChange} className={styles.AntdInput} /> :
-          <Input onChange={this.onChange} className={styles.AntdInput} />}
+          <Input placeholder="请输入内容" onChange={this.onChange} className={styles.AntdInput} />}
       </div>
 
     )

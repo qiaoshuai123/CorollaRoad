@@ -23,7 +23,7 @@ class SignalStatus extends Component {
     // this.getAvgSpeed = '/signal-decision/road/getAvgSpeed' // 路口平均速度
     this.getStopNum = '/signal-decision/road/getStopNum' // 路口停车次数
     this.getrankLenght = '/signal-decision/road/getrankLenght' // 方案预评估-路口排队长度
-    this.getFlow = '/signal-decision/road/getFlow' // 方案预评估-路口流量
+    this.getFlow = '/signal-decision/road/getStopNum' // 方案预评估-路口停车次数
     this.getDelayTime = '/signal-decision/road/getDelayTime' // 方案预评估-路口延误时间
     this.planList = '/signal-decision/road/planList' // 优化控制方案列表
     this.planInfo = '/signal-decision/road/planInfo' // 优化控制方案明细
@@ -263,7 +263,7 @@ class SignalStatus extends Component {
                 {getrankLenghtList && <OptLineCharts name="getrankLenghtList" dataList={getrankLenghtList} />}
               </div>
               <div className={styles.optCharts}>
-                <div className={styles.chartsName}>路口流量</div>
+                <div className={styles.chartsName}>路口停车次数</div>
                 {getFlowList && <OptLineCharts name="getFlowList" dataList={getFlowList} />}
               </div>
               <div className={styles.optCharts}>

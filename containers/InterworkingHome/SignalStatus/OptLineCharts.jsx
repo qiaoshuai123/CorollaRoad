@@ -51,7 +51,7 @@ class ExportCharts extends React.Component {
     if (name === 'getrankLenghtList') {
       values = 'line_up_length'
     } else if (name === 'getFlowList') {
-      values = 'flow'
+      values = 'stop_num'
     } else if (name === 'getDelayTimeList') {
       values = 'delay_time'
     }

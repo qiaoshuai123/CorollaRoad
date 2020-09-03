@@ -87,6 +87,7 @@ class AreaCharts extends React.Component {
       },
       xAxis: {
         type: 'category',
+        boundaryGap: true,
         data: xData, // ['离点断线', '关灯控制', '全红控制', '黄闪控制', '本地多时段', '本地感应', '中心多时段', '勤务控制'],
         axisLabel: {
           show: true,
@@ -94,7 +95,7 @@ class AreaCharts extends React.Component {
             color: '#C6D2DC', // 更改坐标轴文字颜色
             fontSize: 12, // 更改坐标轴文字大小
           },
-          interval: 0,
+          interval: 10,
           formatter(value) {
             let ret = ''
             const maxLength = 10 // 每项显示文字个数

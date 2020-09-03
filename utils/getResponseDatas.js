@@ -5,8 +5,9 @@ import axios from 'axios'
 // })
 // 请求拦截
 if (process.env.NODE_ENV === 'development') {
-  // axios.defaults.baseURL = 'http://192.168.1.53:21004'
+  axios.defaults.baseURL = 'http://192.168.1.53:21004'
   // axios.defaults.baseURL = 'http://39.100.128.220:16000' 
+  axios.defaults.withCredentials = false
 } else if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = 'http://39.100.128.220:16000' 
 }
@@ -34,7 +35,7 @@ axios.interceptors.response.use((response) => {
     if (process.env.NODE_ENV === 'development') {
       window.location.href = 'http://192.168.1.40:21004/#/'
     } else if (process.env.NODE_ENV === 'production') {
-      window.location.href = 'http://39.100.128.220:20200/#/'
+      window.location.href = 'http://39.100.128.220:16000/#/'
     }
   }
   return response
