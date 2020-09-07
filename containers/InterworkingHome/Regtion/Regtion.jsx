@@ -46,14 +46,14 @@ class Regtion extends Component {
       if (code === 200) {
         this.setState({
           delayData: data
-        }, () =>{
+        }, () => {
           this.setState({
-            one: (data.avgList[0].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
-            ones: (data.avgList[1].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
-            two: (data.zaoList[0].opt_value / (data.zaoList[0].opt_value + data.zaoList[1].opt_value) * 100).toFixed(2), 
-            twos: (data.zaoList[1].opt_value / (data.zaoList[0].opt_value + data.zaoList[1].opt_value) * 100).toFixed(2), 
-            three: (data.avgList[0].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
-            threes: (data.avgList[1].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2), 
+            one: (data.avgList[0].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2),
+            ones: (data.avgList[1].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2),
+            two: (data.zaoList[0].opt_value / (data.zaoList[0].opt_value + data.zaoList[1].opt_value) * 100).toFixed(2),
+            twos: (data.zaoList[1].opt_value / (data.zaoList[0].opt_value + data.zaoList[1].opt_value) * 100).toFixed(2),
+            three: (data.avgList[0].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2),
+            threes: (data.avgList[1].opt_value / (data.avgList[0].opt_value + data.avgList[1].opt_value) * 100).toFixed(2),
 
           })
         })
@@ -133,43 +133,43 @@ class Regtion extends Component {
   }
   returnTimeArr = (arrTime1, arrTime2, time1, time2) => {
     let newTime = [], oneT, twoT
-    if ( arrTime1.length > arrTime2.length){
+    if (arrTime1.length > arrTime2.length) {
       oneT = arrTime1
       twoT = arrTime2
-    }else{
+    } else {
       oneT = arrTime2
       twoT = arrTime1
     }
-    for(let i = 0; i < oneT.length; i++){
+    for (let i = 0; i < oneT.length; i++) {
       let oneStr = ((new Date(oneT[i])).getTime()) / 1000;
-      for(let j = 0; j < twoT.length; j++){
+      for (let j = 0; j < twoT.length; j++) {
         let twoStr = ((new Date(twoT[j])).getTime()) / 1000;
-        if(oneStr < twoStr){
-          if(newTime.indexOf(time1[i]) < 0){
+        if (oneStr < twoStr) {
+          if (newTime.indexOf(time1[i]) < 0) {
             newTime.push(time1[i])
           }
-        }else{
-          if(newTime.indexOf(time2[j]) < 0){
+        } else {
+          if (newTime.indexOf(time2[j]) < 0) {
             newTime.push(time2[j])
           }
         }
       }
     }
-    let lastStr = ((new Date("2020/08/20 " + newTime[oneT.length-1] + ":00")).getTime()) / 1000; // 最新的
-    let lastStr1 = ((new Date("2020/08/20 " + time1[time1.length-1] + ":00")).getTime()) / 1000; // 最新的
-    let lastStr2 = ((new Date("2020/08/20 " + time2[time2.length-1] + ":00")).getTime()) / 1000; // 最新的
-    if(lastStr === lastStr1){
+    let lastStr = ((new Date("2020/08/20 " + newTime[oneT.length - 1] + ":00")).getTime()) / 1000; // 最新的
+    let lastStr1 = ((new Date("2020/08/20 " + time1[time1.length - 1] + ":00")).getTime()) / 1000; // 最新的
+    let lastStr2 = ((new Date("2020/08/20 " + time2[time2.length - 1] + ":00")).getTime()) / 1000; // 最新的
+    if (lastStr === lastStr1) {
       // console.log(time2, '0000000000')
-      twoT.map((item, i) =>{
+      twoT.map((item, i) => {
         let s = ((new Date(item)).getTime()) / 1000
-        if (s > lastStr){
+        if (s > lastStr) {
           newTime.push(time2[i])
         }
       })
     } else {
-      oneT.map((item, i) =>{
+      oneT.map((item, i) => {
         let s = ((new Date(item)).getTime()) / 1000
-        if (s > lastStr){
+        if (s > lastStr) {
           newTime.push(time1[i])
         }
       })
@@ -177,7 +177,10 @@ class Regtion extends Component {
     return newTime
   }
   getTypeName = (type) => {
-    switch(type) {
+    this.setState({
+      planId: type,
+    })
+    switch (type) {
       case 'flow':
         this.setState({ titName: '区域平均流量' })
         break;
@@ -252,7 +255,7 @@ class Regtion extends Component {
                     '100%': '#0CCAD6',
                   }}
                   format={() => `${'拥堵延时'}`}
-                /> 
+                />
               </div>
               <div className={styles.echartsItemIn}>
                 <Progress
@@ -330,7 +333,7 @@ class Regtion extends Component {
           </div>
         </div>
         <div className={styles.searchBox}>
-        <div className={styles.search}>评价指标&nbsp;:&nbsp; 
+          <div className={styles.search}>评价指标&nbsp;:&nbsp;
             {
               typeData && <Select defaultValue={planId} name="key" value="value" options={typeData} onChange={(value) => { this.getTypeName(value) }} />
             }

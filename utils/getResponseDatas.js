@@ -5,8 +5,8 @@ import axios from 'axios'
 // })
 // 请求拦截
 if (process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL = 'http://192.168.1.53:21004'
-  // axios.defaults.baseURL = 'http://39.100.128.220:16000' 
+  // axios.defaults.baseURL = 'http://192.168.1.53:21004'
+  axios.defaults.baseURL = 'http://39.100.128.220:16000' 
   axios.defaults.withCredentials = false
 } else if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = 'http://39.100.128.220:16000' 

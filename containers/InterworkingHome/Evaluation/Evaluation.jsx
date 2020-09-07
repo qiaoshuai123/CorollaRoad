@@ -126,7 +126,6 @@ class Evaluation extends Component {
           let time1 = [], datas1 = [];
           let time2 = [], datas2 = [];
           data.init.map(item => {
-            debugger
             time1.push(item.time)
             datas1.push(item.opt_value === 0 ? "" : item.opt_value)
             // console.log(itemArr1, '对不？')
@@ -147,6 +146,9 @@ class Evaluation extends Component {
     })
   }
   getTypeName = (type) => {
+    this.setState({
+      planId:type
+    })
     switch (type) {
       case 'flow':
         this.setState({ titName: '路口流量' })

@@ -40,7 +40,7 @@ class evaluateEcharts extends React.Component {
       },
       dataZoom: [{
         type: 'slider',
-        show: name === 'getNearSevenCountList' ? true : false,
+        show: true,
         xAxisIndex: [0],
         left: '9%',
         height: 10,
@@ -83,7 +83,7 @@ class evaluateEcharts extends React.Component {
           interval: 0,
           formatter(value) {
             let ret = ''
-            const maxLength = 10 // 每项显示文字个数
+            const maxLength = name === 'getRoadCountList' ? 8 : 10 // 每项显示文字个数
             const valLength = value.length // X轴类目项的文字个数
             const rowN = Math.ceil(valLength / maxLength) // 类目项需要换行的行数
             if (rowN > 1) { // 如果类目项的文字大于3

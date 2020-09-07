@@ -136,7 +136,7 @@ class GpsMap
                   {/* 123 */}
                   <div className={styles.AnimationTime}>
                     <div className={styles.palnRunBox}>
-                      <div className={styles.runStage} style={{ width: `${50}px` }}><span className={styles.stageInner} /></div>
+                      {/* <div className={styles.runStage} style={{ width: `${50}px` }}><span className={styles.stageInner} /></div> */}
                       {
                         getRoadStatusList.phase && getRoadStatusList.phase.map((item) => {
                           const allSm = item.green_time + item.yellow_time
